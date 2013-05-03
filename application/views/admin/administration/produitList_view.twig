@@ -1,0 +1,24 @@
+{% extends "/layout/admin-layout.twig" %}
+
+{% block title %} {{parent()}} - login administrateur{% endblock title %}
+
+{% block container %}
+        {% block content %}
+        <div class="span12">
+            <div class="well">
+                   <ul class="nav nav-pills" style="border-bottom: 1px solid #cccccc">
+                        <li class="pull-left"><h4>Voir produits commercant</h4></li>
+                   </ul>
+                    
+                    <div class="table table-striped table-hover">
+                       {{ table }} 
+                    </div>
+                    <div class="pagination">
+                      {{pagination}}
+                     </div>
+                        
+                </div>
+            </div>
+         {% endblock content %}
+   
+{% endblock container %}

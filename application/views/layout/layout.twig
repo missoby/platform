@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}E-commerce{% endblock title %}</title>
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />      
+
+        <!--stylesheet-->
+       	<link href="{{base_url()}}assets/css/style.css" rel="stylesheet" type="text/css"  />
+       	<link href="{{base_url()}}assets/css/bootstrap.css" rel="stylesheet" type="text/css"  />
+        <link href="{{base_url()}}assets/css/bootstrap-responsive.css" rel="stylesheet" type="text/css" />
+        {% block head %} {% endblock head %}
+    </head>
+    <body>
+        {#---Navigation Top---#}
+            <nav class="navbar navbar-fixed-top navbar-inverse">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <div class="row-fluid">
+                            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <div class="nav-collapse collapse" id="main-menu">
+                                {#---Navigator left---#}
+                                <ul class="nav" id="main-menu-left">
+                                    <li><a href="/home_page"><i class="icon-home icon-white"></i> Home</a></li>
+                                    <li><a href="">A Propos de nous</a></li>
+                                    {% if getsessionhelper() %}
+                                    <li><a href="/forum/forum">Forum</a></li>
+                                    {% else %}
+                                    <li><a href="/inscription/login">Forum</a></li>
+                                    {%endif%}
+                                    <li><a href="">Contact</a></li>
+                                </ul>
+                                {% block login%}
+                                {#---Navigator right---#}
+                                <ul class="nav pull-right">
+                                    {% if getsessionhelper() %}
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user icon-white"></i> {{ getsessionhelper()['login'] }}<b class="caret"></b></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="/inscription/gestionprofil/viewprofile"><i class="icon-eye-open"></i> Voir Profil</a></li>
+                                            <li><a href="/inscription/gestionprofil/modifier/{{ getsessionhelper() ['idpersonne'] }}"> <i class="icon-edit"></i> Modifier profil</a></li>
+                                            <li><a href="/inscription/gestionprofil/newpwd/{{ getsessionhelper() ['idpersonne'] }}"><i class="icon-lock"></i> Modifier mot de passe</a></li>
+                                            <li class="divider"></li>
+                                            <li><a href="{{base_url}}/inscription/home/logout"><i class="icon-off icon-white"></i> Se Déconnecter</a></li>
+                                        </ul>
+                                    </li>
+                                    {% else %}
+                                    <li><a href="/inscription/inscription">Inscription</a></li>
+                                    <li><a href="/inscription/login">login</a></li>
+                                    {% endif %}
+                                 </ul>
+                                {% endblock login %}
+                                {% block message %}
+                                {#---Navigator right---#}
+                                <ul class="nav pull-right">
+                                    {% if getsessionhelper()['type'] == 'client' %}
+                                    <li><a href="/message/msgclientcomm/listmsgcomm"><i class="icon-white icon-envelope"></i> Messages</a></li>
+                                    {% elseif getsessionhelper()['type'] == 'commercant'%}
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-white icon-envelope"></i> Messages<b class="caret"></b></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="/message/msgclientcomm/listmsgclientcomm">Messages Clients</a></li>
+                                            <li><a href="/message/msgclientcomm/msg_conv_comm_admin">Messages Adiministrateur</a></li>
+                                            <li><a href="/message/msgclientcomm/sendMsgToAdmin">Envoyer Messages Administrateur</a></li>
+                                        </ul>
+                                    </li>
+                                    {% endif %}
+                                </ul>
+                                {% endblock message %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+                        
+            <div class="container-fluid" style="margin-top: 38px;">
+                <div class="row-fluid bg">
+                    {#---Header---#}
+                    <header class="page-header" >
+                        <div class="row-fluid">
+                {#---Logo---#}
+                                                <div class="span3">
+                                                    <div class="row-fluid">
+                                                        <a href="/home_page"><img src="{{base_url()}}assets/img/logo.png" alt="E-COMMERCE"/></a>
+                                                    </div>
+                                                </div>
+                {#---Searsh---#}
+                                                <div class="span6">
+                                                    <div class="row-fluid">
+                                                        <form id="ui_element" class="sb_wrapper" action="/recherche/recherche/search" method="POST">
+                                                            <div class="input-append input-prepend">
+                                                                <span class="add-on">
+                                                                    <i class="icon-chevron-down"></i>
+                                                                </span>
+                                                                <input type="text" name="mot" placeholder="Rechercher" class="input-xlarge">
+                                                                <button type="submit" class="btn">Rechercher</button>
+                                                            </div>
+                                                            <ul class="sb_dropdown" style="display:none;">
+                                                                <li class="sb_filter">Filter Votre Recherche</li>
+                                                                <li><input type="checkbox" value="0" name="searchform[]"/><label for="all"><strong>Tous</strong></label></li>
+                                                                <li><input type="checkbox" value="1" name="searchform[]"/><label >Informatique</label></li>
+                                                                <li><input type="checkbox" value="2" name="searchform[]"/><label >Montres et bijoux</label></li>
+                                                                <li><input type="checkbox" value="3" name="searchform[]"/><label >Téléphones portables</label></li>
+                                                                <li><input type="checkbox" value="4" name="searchform[]"/><label >Electronique</label></li>
+                                                                <li><input type="checkbox" value="5" name="searchform[]"/><label >Vêtements et accessoires</label></li><li><input type="checkbox"/><label for="Automotive">Automotive</label></li>
+                                                                <li><input type="checkbox" value="6" name="searchform[]"/><label >Domicile et bureau</label></li>
+                                                            </ul>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                {#---Shopping Cart---#}
+                                                <div class="span3">
+                                                    <div class="btn-group input-prepend  pull-right">
+                                                        <span class="add-on">{{shopping.nbr}} Articles</span>
+                                                        <a class="btn" href="#" data-toggle="dropdown">
+                                                            <i class="icon-shopping-cart"></i> Pannier
+                                                            <span class="caret"></span>
+                                                        </a>
+
+                                                        <ul class="dropdown-menu" style="padding: 26px">
+                               {% if not shopping.content  %}
+                                                                <li><div class="alert alert-info" style="margin-bottom: 0px;">Votre carte est vide !</div></li>
+                               {% else %} 
+                                                                <form action="/cart/cart/update_cart" method="POST" class="form-horizontal">
+                                {% set i = 1 %}     
+                                {% for items in shopping.content %}
+                                                                        <li class="shop" style="margin-left: 0px">
+                                                                            <input type="hidden" name="rowid[]" placeholder="rowid[]" value="{{items.rowid}}">
+                                                                            <img src="{{items.options.path}}{{items.options.photo}}" width="60" height="50" class="img-polaroid span4"  style="margin-left: 0px;">
+                                                                            <div class="" style="margin-left: 16px;">
+                                                                                <p>{{items.name}}</p>
+                                                                                <span> <input type="text" name="qty[]" placeholder="Quantité"  value="{{items.qty}}" class="input-mini"></span>
+                                                                                <span class="pull-right"> {{items.price}} DT</span>
+                                                                            </div>
+
+                                                                        </li>
+
+                                     {% endfor %}
+                                                                        <li class="" style="margin-left: 0px;">
+                                                                            <span class="pull-left"><span class="colorlabel">Total</span>  {{shopping.total}} DT</span> 
+                                                                            <span class="pull-right">
+                                                                                <button type="submit" class="btn" title="Actualiser la carte"><i class="icon-refresh"></i></button> 
+
+                                                                                <a href="/cart/cart/empty_cart" class="btn" title="vider la carte"><i class="icon-trash"></i></a>
+                                                                            </span>
+                                                                        </li>
+                                                                        <li class="divider" style="margin-left: 0px;"></li>
+                                                                        <li class="" style="margin-left: 0px;"> <a href="/cart/cart" class="btn btn-block pull-right btn-info">Détails carte</a> </li>
+                               {% endif %}
+                                                                    </form>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </header>
+
+        {#---Main Menu---#}  
+                                                <nav id="navigation" class="navbar">
+                                                    <div class="navbar-inner">
+                                                        <ul class="nav">
+                                                            <li class="divider-vertical">
+                                                                <a href="#" class="drop" data-toggle="dropdown"> Informatique <span class="caret"></span></a>
+                                                                <div class="dropdown-menu dropdown_3columns">
+                                                                    <div class="row-fluid">
+                                                                        <div class="span3">
+                                                                            <div class="row-fluid">
+                                                                                <h6>Ordinateurs</h6>
+                                                                                <ul>
+                                                                                    <li><a href="/recherche/recherche/searchFromHome/3">Ordinateurs portables</a></li>
+                                                                                    <li><a href="#">Ordinateurs de bureau</a></li>
+                                                                                    <li><a href="#">Tablettes</a></li>
+                                                                                    <li><a href="#">Ecran/moniteurs</a></li>
+                                                                                    <li><a href="#">Serveurs</a></li>
+                                                                                </ul>
+                                                                                <h6>Réseaux</h6>
+                                                                                <ul>
+                                                                                    <li><a href="#">Point d'acces</a></li>
+                                                                                    <li><a href="#">Switch/routeurs</a></li>
+                                                                                    <li><a href="#">Carte réseau</a></li>
+                                                                                    <li><a href="#">Clé wifi/Bluetooth</a></li>
+                                                                                </ul>
+                                                                                <h6>Bureautique</h6>
+                                                                                <ul>
+                                                                                    <li><a href="#">Calculatrices</a></li>
+                                                                                    <li><a href="#">Destructeurs papiers</a></li>
+                                                                                </ul>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="span3">
+                                                                            <div class="row-fluid">
+                                                                                <h6>Stockages</h6>
+                                                                                <ul>
+                                                                                    <li><a href="#">Disques durs externes</a></li>
+                                                                                    <li><a href="#">Disques ssd</a></li>
+                                                                                    <li><a href="#">Clé usb</a></li>
+                                                                                    <li><a href="#">Cartes mémoires</a></li>
+                                                                                    <li><a href="#">CD et DVD vièrges</a></li>
+                                                                                    <li><a href="#">Serveurs de stockages</a></li>
+                                                                                </ul>
+                                                                                <h6>Câbles et connectiques</h6>
+                                                                                <ul>
+                                                                                    <li><a href="#">Câbles HDMI</a></li>
+                                                                                    <li><a href="#">Câbles USB</a></li>
+                                                                                    <li><a href="#">Câbles réseau </a></li>
+                                                                                    <li><a href="#">Câbles firewire</a></li>
+                                                                                    <li><a href="#">Câbles TV/audio/DVD </a></li>
+                                                                                    <li><a href="#">Câbles alimentations</a></li>
+                                                                                    <li><a href="#">Adaptateurs/convertisseurs</a></li>
+                                                                                </ul>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="span3">
+                                                                            <div class="row-fluid">
+                                                                                <h6>Imprimantes/scanners</h6>
+                                                                                <ul>
+                                                                                    <li><a href="#">Imprimantes</a></li>
+                                                                                    <li><a href="#">Consommables</a></li>
+                                                                                    <li><a href="#">Photocopieurs</a></li>
+                                                                                    <li><a href="#">Fax</a></li>
+                                                                                    <li><a href="#">Scanners</a></li>
+                                                                                </ul>
+                                                                                <h6>Logiciels</h6>
+                                                                                <ul>
+                                                                                    <li><a href="#">Sécurité</a></li>
+                                                                                    <li><a href="#">Microsoft</a></li>
+                                                                                </ul>
+                                                                                <h6>TV/Hifi/Vidéo</h6>
+                                                                                <ul>
+                                                                                    <li><a href="#">Projecteurs</a></li>
+                                                                                    <li><a href="#">Téléviseurs</a></li>
+                                                                                    <li><a href="#">Dream Box</a></li>
+                                                                                    <li><a href="#">Appareils Photo</a></li>
+                                                                                </ul>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="span3">
+                                                                            <div class="row-fluid">
+                                                                                <h6>Composants pc de bureau</h6>
+                                                                                <ul>
+                                                                                    <li><a href="#">Boîte d'alimentation</a></li>
+                                                                                    <li><a href="#">Carte graphique</a></li>
+                                                                                    <li><a href="#">Carte mère</a></li>
+                                                                                    <li><a href="#">Ventilateur</a></li>
+                                                                                    <li><a href="#">Refroidisseur</a></li>
+                                                                                    <li><a href="#">Câbles interne</a></li>
+                                                                                </ul>
+                                                                                <h6>Composants Pc Portables </h6>
+                                                                                <ul>
+                                                                                    <li><a href="#">Chargeur</a></li>
+                                                                                    <li><a href="#">Batterie</a></li>
+                                                                                    <li><a href="#">Afficheur/Ecran</a></li>
+                                                                                    <li><a href="#">Disque dur interne</a></li>
+                                                                                    <li><a href="#">Processeur</a></li>
+                                                                                    <li><a href="#">Nappe</a></li>
+                                                                                </ul>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                            
+                                                            <li class="divider-vertical">
+                                                                <a href="#" class="drop" data-toggle="dropdown">Téléphones Portables <span class="caret"></span></a>
+                                                                <div class="dropdown-menu dropdown_3columns" style="left: 14%;">
+                                                                    <div class="row-fluid">
+                                                                        <div class="span3">
+                                                                            <div class="row-fluid">
+                                                                                <h6>mobiles</h6>
+                                                                                <ul>
+                                                                                    <li><a href="#">Android Phones</a></li>
+                                                                                    <li><a href="#">Smart Phones</a></li>
+                                                                                    <li><a href="#">Iphones</a></li>
+                                                                                    <li><a href="#">Touch Phones</a></li>
+                                                                                    <li><a href="#">Dual Sim Phones</a></li>
+                                                                                    <li><a href="#">Windows Phones</a></li>
+                                                                                </ul>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="span3">
+                                                                            <h6>Marques mobiles</h6>
+                                                                            <ul>
+                                                                                <li><a href="#">Nokia</a></li>
+                                                                                <li><a href="#">Samsung</a></li>
+                                                                                <li><a href="#">Blackberry</a></li>
+                                                                                <li><a href="#">Apple</a></li>
+                                                                                <li><a href="#">Sony Ericsson</a></li>
+                                                                                <li><a href="#">Motorola</a></li>
+                                                                                <li><a href="#">tous les marques</a></li>
+                                                                            </ul>
+
+                                                                        </div>
+                                                                        <div class="span3">
+                                                                            <h6>Accessoires Mobiles</h6>
+                                                                            <ul>
+                                                                                <li><a href="#">Oreillette Bluetooth</a></li>
+                                                                                <li><a href="#">Carte Mémoire</a></li>
+                                                                                <li><a href="#">Chargeur</a></li>
+                                                                                <li><a href="#">Batterie</a></li>
+                                                                                <li><a href="#">mains libres</a></li>
+                                                                                <li><a href="#">Ecouteur</a></li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                            <li class="divider-vertical">
+                                                                <a href="#" class="drop" data-toggle="dropdown"> Electronique <span class="caret"></span></a>
+                                                                <div class="center dropdown-menu dropdown_3columns">
+                                                                     <div class="row-fluid">
+                                                                    <div class="span3">
+                                                                         <div class="row-fluid">
+                                                                        <h6>Appareil Photos</h6>
+                                                                        <ul>
+                                                                            <li><a href="#">Appareils photo</a></li>
+                                                                            <li><a href="#">Caméras vidéo</a></li>
+                                                                        </ul>
+                                                                        <h6>Accessoires Caméras</h6>
+                                                                        <ul>
+                                                                            <li><a href="#">Chargeurs</a></li>
+                                                                            <li><a href="#">Batterie</a></li>
+                                                                            <li><a href="#">Pochettes et sacs</a></li>
+                                                                            <li><a href="#">Télécommandes</a></li>
+                                                                            <li><a href="#">Accessoires Lentilles</a></li>
+                                                                            <li><a href="#">Ecrans de protection</a></li>
+                                                                            <li><a href="#">Accessoires De Filtre</a></li>
+                                                                        </ul>
+                                                                         </div>
+                                                                    </div>
+                                                                    <div class="span3">
+                                                                         <div class="row-fluid">
+                                                                        <h6>Lecteur livre numérique</h6>
+                                                                        <ul>
+                                                                            <li><a href="#">Accessoires Kindle</a></li>
+                                                                            <li><a href="#">livres numériques</a></li>
+                                                                        </ul>
+                                                                        <h6>Outils Professionnels</h6>
+                                                                        <ul>
+                                                                            <li><a href="#">loupes</a></li>
+                                                                            <li><a href="#">échelles numériques</a></li>
+                                                                            <li><a href="#">Fournitures à Souder</a></li>
+                                                                            <li><a href="#">Thermomètres</a></li>
+                                                                            <li><a href="#">Instrument Précision</a></li>
+                                                                        </ul>
+                                                                         </div>
+                                                                    </div>
+                                                                    <div class="span3">
+                                                                         <div class="row-fluid">
+                                                                        <h6>Équipement de Sécurité</h6>
+                                                                        <ul>
+                                                                            <li><a href="#">Brouilleurs</a></li>
+                                                                            <li><a href="#">Capteurs d'alarme</a></li>
+                                                                            <li><a href="#">Caméras de sécurité</a></li>
+                                                                            <li><a href="#">Sonnettes</a></li>
+                                                                            <li><a href="#">Interphones</a></li>
+                                                                            <li><a href="#">Contrôle d'accès</a></li>
+                                                                            <li><a href="#">Tableau lumineux LED</a></li>
+                                                                            <li><a href="#">Objet self defense</a></li>
+                                                                        </ul>
+                                                                         </div>
+                                                                    </div>
+                                                                    <div class="span3">
+                                                                         <div class="row-fluid">
+                                                                        <h6>Electroniques pour auto</h6>
+                                                                        <ul>
+                                                                            <li><a href="#">DVR De Voiture</a></li>
+                                                                            <li><a href="#">Lecteurs DVD</a></li>
+                                                                            <li><a href="#">Porte-clés de voiture</a></li>
+                                                                            <li><a href="#">Car LED</a></li>
+                                                                            <li><a href="#">navigation GPS</a></li>
+                                                                            <li><a href="#">Transmetteurs FM</a></li>
+                                                                            <li><a href="#">Accessoires Voiture</a></li>
+                                                                            <li><a href="#">Alarme Voiture</a></li>
+                                                                        </ul> 
+                                                                         </div>
+                                                                    </div>
+                                                                         </div>
+                                                                </div> 
+                                                            </li>
+                                                            <li class="divider-vertical">
+                                                                <a href="#" class="drop" data-toggle="dropdown">Vêtements et Accessoires <span class="caret"></span></a>
+                                                                <div class="center2 dropdown-menu dropdown_3columns">
+                                                                    <div class="row-fluid">
+                                                                        <div class="span3">
+                                                                            <div class="row-fluid">
+                                                                                <h6>Accessoires</h6>
+                                                                                <ul>
+                                                                                    <li><a href="#">Perruques</a></li>
+                                                                                    <li><a href="#">Ceintures</a></li>
+                                                                                    <li><a href="#">Lunettes</a></li>
+                                                                                    <li><a href="#">Ornements</a></li>
+                                                                                    <li><a href="#">Chapeaux/Casquettes</a></li>
+                                                                                    <li><a href="#">Foulards/Cravates</a></li>
+                                                                                    <li><a href="#">Gants/Manchons</a></li>
+                                                                                    <li><a href="#">Chaussettes/Bas</a></li>
+                                                                                </ul> 
+                                                                                <h6>Lingerie</h6>
+                                                                                <ul>
+                                                                                    <li><a href="#">Nuisette</a></li>
+                                                                                    <li><a href="#">String-shorty</a></li>
+                                                                                    <li><a href="#">String</a></li>
+                                                                                    <li><a href="#">shorty</a></li>
+                                                                                    <li><a href="#">corsets/bustiers</a></li>
+                                                                                    <li><a href="#">caraco</a></li>
+                                                                                </ul> 
+
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="span3">
+                                                                            <div class="row-fluid">
+                                                                                <h6>Chaussures</h6>
+                                                                                <ul>
+                                                                                    <li><a href="#">Chaussures de Sport</a></li>
+                                                                                    <li><a href="#">Plats</a></li>
+                                                                                    <li><a href="#">Hauts</a></li>
+                                                                                    <li><a href="#">Bottes</a></li>
+                                                                                    <li><a href="#">Pantoufles/Sandales</a></li>
+                                                                                    <li><a href="#">Chaussures homme</a></li>
+                                                                                    <li><a href="#">Accessoire Chaussure</a></li>
+                                                                                </ul>
+                                                                                <h6>Vêtement pour enfant</h6>
+                                                                                <ul>
+                                                                                    <li><a href="#">Maillots de bain</a></li>
+                                                                                    <li><a href="#">Vêtements Pour Bébé</a></li>
+                                                                                    <li><a href="#">Vêtements Filles</a></li>
+                                                                                    <li><a href="#">Vêtements Garçons</a></li>
+                                                                                    <li><a href="#">Survêtements</a></li>
+                                                                                </ul>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="span3">
+                                                                            <div class="row-fluid">
+                                                                                <h6>Vêtement pour hommes</h6>
+                                                                                <ul>
+                                                                                    <li><a href="#">Chemises</a></li>
+                                                                                    <li><a href="#">Tee-shirt/Gilets</a></li>
+                                                                                    <li><a href="#">Manteaux/Vestes</a></li>
+                                                                                    <li><a href="#">Jeans Pour Hommes</a></li>
+                                                                                    <li><a href="#">Sous-vêtements</a></li>
+                                                                                    <li><a href="#">Capuches/Sweat-shirt</a></li>
+                                                                                    <li><a href="#">Maillots de bain</a></li>
+                                                                                    <li><a href="#">Survetements</a></li>
+                                                                                </ul>
+                                                                                <h6>Sac et portefeuilles</h6>
+                                                                                <ul>
+                                                                                    <li><a href="#">Sacs à main</a></li>
+                                                                                    <li><a href="#">Sacs à dos</a></li>
+                                                                                    <li><a href="#">Sacs de voyage</a></li>
+                                                                                    <li><a href="#">Portefeuilles</a></li>
+                                                                                </ul>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="span3">
+                                                                            <div class="row-fluid">
+                                                                                <h6>Vêtements pour femme</h6>
+                                                                                <ul>
+                                                                                    <li><a href="#">Jupes</a></li>
+                                                                                    <li><a href="#">Robes</a></li>
+                                                                                    <li><a href="#">T-Shirts</a></li>
+                                                                                    <li><a href="#">Chemisiers/Vestes</a></li>
+                                                                                    <li><a href="#">Pantalons</a></li>
+                                                                                    <li><a href="#">Manteaux/Blousons</a></li>
+                                                                                    <li><a href="#">Collants/Leggings</a></li>
+                                                                                    <li><a href="#">Vêtement Maternité</a></li>
+                                                                                    <li><a href="#">Maillots de bain</a></li>
+                                                                                    <li><a href="#">Sweat-shirt/Capuches</a></li>
+                                                                                    <li><a href="#">Les Combinaisons</a></li>
+                                                                                    <li><a href="#">Survêtements</a></li>
+                                                                                </ul>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div> 
+                                                            </li>
+                                                            <li class="divider-vertical">
+                                                                <a href="#" class="drop" data-toggle="dropdown">Domicile et Bureau <span class="caret"></span></a>
+                                                                <div class="right dropdown-menu dropdown_3columns align_right" style="left: 10px">
+                                                                       <div class="row-fluid">
+                                                                    <div class="span3">
+                                                                           <div class="row-fluid">
+                                                                        <h6>Electroménager: cuisson</h6>
+                                                                        <ul>
+                                                                            <li><a href="#">Cuisinière</a></li>
+                                                                            <li><a href="#">Four électrique</a></li>
+                                                                            <li><a href="#">Micro ondes</a></li>
+                                                                            <li><a href="#">barbecue</a></li>
+                                                                        </ul>
+                                                                        <h6>Electroménager: lavage</h6>
+                                                                        <ul>
+                                                                            <li><a href="#">Machine à laver</a></li>
+                                                                            <li><a href="#">Lave vaisselle</a></li>
+                                                                        </ul>
+                                                                    </div>
+                                                                    </div>
+                                                                    <div class="span3">
+                                                                           <div class="row-fluid">
+                                                                        <h6>Petit électroménager</h6>
+                                                                        <ul>
+                                                                            <li><a href="#">Aspirateur</a></li>
+                                                                            <li><a href="#">Cafetière</a></li>
+                                                                            <li><a href="#">Friteuse</a></li>
+                                                                            <li><a href="#">Fer à Repasser</a></li>
+                                                                        </ul>
+                                                                        <h6>Bricolage</h6>
+                                                                        <ul>
+                                                                            <li><a href="#">Outillage à Main  </a></li>
+                                                                            <li><a href="#">Outils pneumatique </a></li>
+                                                                        </ul>
+                                                                           </div>
+                                                                    </div>
+                                                                    <div class="span3">
+                                                                           <div class="row-fluid">
+                                                                        <h6>Electroménager: froid</h6>
+                                                                        <ul>
+                                                                            <li><a href="#">Réfrigérateur</a></li>
+                                                                            <li><a href="#">Congélateurs</a></li>
+                                                                            <li><a href="#">Climatiseurs</a></li>
+                                                                        </ul>
+                                                                        <h6>Mobilier intérieur</h6>
+                                                                        <ul>
+                                                                            <li><a href="#">Salon/séjour </a></li>
+                                                                            <li><a href="#">Chambre </a></li>
+                                                                            <li><a href="#">Literie</a></li>
+                                                                            <li><a href="#">Fauteuil pour bureau </a></li>
+                                                                            <li><a href="#">canapé </a></li>
+                                                                        </ul>
+                                                                           </div>
+                                                                    </div>
+                                                                    <div class="span3">
+                                                                           <div class="row-fluid">
+                                                                        <h6>Mobilier Extérieur</h6>
+                                                                        <ul>
+                                                                            <li><a href="#">Fauteuils de jardin </a></li>
+                                                                            <li><a href="#">Bancs</a></li>
+                                                                            <li><a href="#">Tables/chaises</a></li>
+                                                                            <li><a href="#">Poufs d'exterieurs</a></li>
+                                                                            <li><a href="#">Décoration</a></li>
+                                                                        </ul>
+                                                                           </div>
+                                                                    </div>
+                                                                           </div>
+                                                                </div>
+                                                            </li>
+                                                            <li class="divider-vertical">
+                                                                <a href="#" class="drop" data-toggle="dropdown"> Montres et Bijoux <span class="caret"></span></a>
+                                                                <div class="right2 dropdown-menu dropdown_3columns align_right" style="left:18%">
+                                                                   <div class="row-fluid">
+                                                                    <div class="span3">
+                                                                      <div class="row-fluid">
+                                                                        <h6>Montres</h6>
+                                                                        <ul>
+                                                                            <li><a href="#">Pour hommes</a></li>
+                                                                            <li><a href="#">Pour femmes</a></li>
+                                                                        </ul>
+                                                                        <h6>Soins de cheveux</h6>
+                                                                        <ul>
+                                                                            <li><a href="#">Pinces</a></li>
+                                                                            <li><a href="#">Crèmes/mousse</a></li>
+                                                                        </ul>
+                                                                      </div>
+                                                                    </div>
+                                                                    <div class="span3">
+                                                                       <div class="row-fluid">
+                                                                        <h6>Maquillage</h6>
+                                                                        <ul>
+                                                                            <li><a href="#">Yeux</a></li>
+                                                                            <li><a href="#">Parfum</a></li>
+                                                                            <li><a href="#">Rouge à lèvres</a></li>
+                                                                            <li><a href="#">Visages</a></li>
+                                                                            <li><a href="#">Rasage et épilation</a></li>
+                                                                        </ul>
+                                                                       </div>
+                                                                    </div>
+                                                                    <div class="span3">
+                                                                        <div class="row-fluid">
+                                                                        <h6>Bijoux</h6>
+                                                                        <ul>
+                                                                            <li><a href="#">Anneaux</a></li>
+                                                                            <li><a href="#">Boucles d'oreilles</a></li>
+                                                                            <li><a href="#">Bracelets</a></li>
+                                                                            <li><a href="#">Broches</a></li>
+                                                                            <li><a href="#">Colliers</a></li>
+                                                                        </ul> 
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="span3">
+                                                                       <div class="row-fluid">
+                                                                        <h6>Soins des ongles</h6>
+                                                                        <ul>
+                                                                            <li><a href="#">Faux ongles</a></li>
+                                                                            <li><a href="#">Vernis à ongles</a></li>
+                                                                            <li><a href="#">Kit de manucure</a></li>
+                                                                        </ul>
+                                                                       </div>
+                                                                    </div>
+                                                                   </div>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </nav>
+
+        {#---Container---#}   
+            {% block container %}
+                    {#---Menu Vertical---#}
+                    {% block menuVertical%}
+                                                <div id="spmenuvert" class="span3">
+                                                    <a href="" id="hierarchybreadcrumb"></a>
+                                                    <div class="hidden">
+                                                        <ul>
+                                                            <li><a href="#">Breaking News</a>
+                                                                <ul>
+                                                                    <li><a href="#">Entertainment</a></li>
+                                                                    <li><a href="#">Politics</a></li>
+                                                                    <li><a href="#">A&amp;E</a></li>
+                                                                    <li><a href="#">Sports</a>
+                                                                        <ul>
+                                                                            <li><a href="#">Baseball</a></li>
+                                                                            <li><a href="#">Basketball</a></li>
+                                                                            <li><a href="#">A really long label would wrap nicely as you can see</a></li>
+                                                                            <li><a href="#">Swimming</a>
+                                                                                <ul>
+                                                                                    <li><a href="#">High School</a></li>
+                                                                                    <li><a href="#">College</a></li>
+                                                                                    <li><a href="#">Professional</a>
+                                                                                        <ul>
+                                                                                            <li><a href="#">Mens Swimming</a>
+                                                                                                <ul>
+                                                                                                    <li><a href="#">News</a></li>
+                                                                                                    <li><a href="#">Events</a></li>
+                                                                                                    <li><a href="#">Awards</a></li>
+                                                                                                    <li><a href="#">Schedule</a></li>
+                                                                                                    <li><a href="#">Team Members</a></li>
+                                                                                                    <li><a href="#">Fan Site</a></li>
+                                                                                                </ul>
+                                                                                            </li>
+                                                                                            <li><a href="#">Womens Swimming</a>
+                                                                                                <ul>
+                                                                                                    <li><a href="#">News</a></li>
+                                                                                                    <li><a href="#">Events</a></li>
+                                                                                                    <li><a href="#">Awards</a></li>
+                                                                                                    <li><a href="#">Schedule</a></li>
+                                                                                                    <li><a href="#">Team Members</a></li>
+                                                                                                    <li><a href="#">Fan Site</a></li>
+                                                                                                </ul>
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </li>
+                                                                                    <li><a href="#">Adult Recreational</a></li>
+                                                                                    <li><a href="#">Youth Recreational</a></li>
+                                                                                    <li><a href="#">Senior Recreational</a></li>
+                                                                                </ul>
+                                                                            </li>
+                                                                            <li><a href="#">Tennis</a></li>
+                                                                            <li><a href="#">Ice Skating</a></li>
+                                                                            <li><a href="#">Javascript Programming</a></li>
+                                                                            <li><a href="#">Running</a></li>
+                                                                            <li><a href="#">Walking</a></li>
+                                                                        </ul>
+                                                                    </li>
+                                                                    <li><a href="#">Local</a></li>
+                                                                    <li><a href="#">Health</a></li>
+                                                                </ul>
+                                                            </li>
+                                                            <li><a href="#">Entertainment</a>
+                                                                <ul>
+                                                                    <li><a href="#">Celebrity news</a></li>
+                                                                    <li><a href="#">Gossip</a></li>
+                                                                    <li><a href="#">Movies</a></li>
+                                                                    <li><a href="#">Music</a>
+                                                                        <ul>
+                                                                            <li><a href="#">Alternative</a></li>
+                                                                            <li><a href="#">Country</a></li>
+                                                                            <li><a href="#">Dance</a></li>
+                                                                            <li><a href="#">Electronica</a></li>
+                                                                            <li><a href="#">Metal</a></li>
+                                                                            <li><a href="#">Pop</a></li>
+                                                                            <li><a href="#">Rock</a>
+                                                                                <ul>
+                                                                                    <li><a href="#">Bands</a>
+                                                                                        <ul>
+                                                                                            <li><a href="#">Dokken</a></li>
+                                                                                        </ul>
+                                                                                    </li>
+                                                                                    <li><a href="#">Fan Clubs</a></li>
+                                                                                    <li><a href="#">Songs</a></li>
+                                                                                </ul>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </li>
+                                                                    <li><a href="#">Slide shows</a></li>
+                                                                    <li><a href="#">Red carpet</a></li>
+                                                                </ul>
+                                                            </li>
+                                                            <li><a href="#">Finance</a>
+                                                                <ul>
+                                                                    <li><a href="#">Personal</a>
+                                                                        <ul>
+                                                                            <li><a href="#">Loans</a></li>
+                                                                            <li><a href="#">Savings</a></li>
+                                                                            <li><a href="#">Mortgage</a></li>
+                                                                            <li><a href="#">Debt</a></li>
+                                                                        </ul>
+                                                                    </li>
+                                                                    <li><a href="#">Business</a></li>
+                                                                </ul>
+                                                            </li>
+                                                            <li><a href="#">Food &#38; Cooking</a>
+                                                                <ul>
+                                                                    <li><a href="#">Breakfast</a></li>
+                                                                    <li><a href="#">Lunch</a></li>
+                                                                    <li><a href="#">Dinner</a></li>
+                                                                    <li><a href="#">Dessert</a>
+                                                                        <ul>
+                                                                            <li><a href="#">Dump Cake</a></li>
+                                                                            <li><a href="#">Doritos</a></li>
+                                                                            <li><a href="#">Both please.</a></li>
+                                                                        </ul>
+                                                                    </li>
+                                                                </ul>
+                                                            </li>
+                                                            <li><a href="#">Lifestyle</a></li>
+                                                            <li><a href="#">News</a></li>
+                                                            <li><a href="#">Politics</a></li>
+                                                            <li><a href="#">Sports</a>
+                                                                <ul>
+                                                                    <li><a href="#">Baseball</a></li>
+                                                                    <li><a href="#">Basketball</a></li>
+                                                                    <li><a href="#">Swimming</a>
+                                                                        <ul>
+                                                                            <li><a href="#">High School</a></li>
+                                                                            <li><a href="#">College</a></li>
+                                                                            <li><a href="#">Professional</a>
+                                                                                <ul>
+                                                                                    <li><a href="#">Mens Swimming</a>
+                                                                                        <ul>
+                                                                                            <li><a href="#">News</a></li>
+                                                                                            <li><a href="#">Events</a></li>
+                                                                                            <li><a href="#">Awards</a></li>
+                                                                                            <li><a href="#">Schedule</a></li>
+                                                                                            <li><a href="#">Team Members</a></li>
+                                                                                            <li><a href="#">Fan Site</a></li>
+                                                                                        </ul>
+                                                                                    </li>
+                                                                                    <li><a href="#">Womens Swimming</a>
+                                                                                        <ul>
+                                                                                            <li><a href="#">News</a></li>
+                                                                                            <li><a href="#">Events</a></li>
+                                                                                            <li><a href="#">Awards</a></li>
+                                                                                            <li><a href="#">Schedule</a></li>
+                                                                                            <li><a href="#">Team Members</a></li>
+                                                                                            <li><a href="#">Fan Site</a></li>
+                                                                                        </ul>
+                                                                                    </li>
+                                                                                </ul>
+                                                                            </li>
+                                                                            <li><a href="#">Adult Recreational</a></li>
+                                                                            <li><a href="#">Youth Recreational</a></li>
+                                                                            <li><a href="#">Senior Recreational</a></li>
+                                                                        </ul>
+                                                                    </li>
+                                                                    <li><a href="#">Tennis</a></li>
+                                                                    <li><a href="#">Ice Skating</a></li>
+                                                                    <li><a href="#">Javascript Programming</a></li>
+                                                                    <li><a href="#">Running</a></li>
+                                                                    <li><a href="#">Walking</a></li>
+                                                                </ul>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                    {% endblock menuVertical%}
+                    {#---Content---#}
+                    {% block content %}
+                                    
+                                           {% block partenaires %}
+                                                <div class="carousel slide" id="myCarousel3">
+                                                    <h4 class="title feature">
+                                                        <span class="pull-left">Nos Partenaires</span>
+                                                    </h4>
+                                                    <div class="carousel-inner">
+                                                        <div class="item active">
+                                                            <ul class="thumbnails">
+                                                                <li class="span2" style="margin-right: 0">
+                                                                    <div class="thumbnail">
+                                                                        <img src="{{base_url()}}assets/img/delice.jpg" alt="" height="67">
+                                                                    </div>
+                                                                </li>
+                                                                <li class="span2" style="margin-right: 0">
+                                                                    <div class="thumbnail">
+                                                                        <img src="{{base_url()}}assets/img/geant.gif" alt=""  height="67">
+                                                                    </div>
+                                                                </li>
+                                                                <li class="span2" style="margin-right: 0">
+                                                                    <div class="thumbnail">
+                                                                        <img src="{{base_url()}}assets/img/hm.jpg" alt="" height="67">
+                                                                    </div>
+                                                                </li>
+                                                                <li class="span2" style="margin-right: 0">
+                                                                    <div class="thumbnail">
+                                                                        <img src="{{base_url()}}assets/img/hp.jpg" alt="" height="67">
+                                                                    </div>
+                                                                </li>
+                                                                <li class="span2" style="margin-right: 0">
+                                                                    <div class="thumbnail">
+                                                                        <img src="{{base_url()}}assets/img/zara.jpg" alt="" height="67">
+                                                                    </div>
+                                                                </li>
+                                                                <li class="span2" style="margin-right: 0">
+                                                                    <div class="thumbnail">
+                                                                        <img src="{{base_url()}}assets/img/evertek.jpg" alt="" height="67">
+                                                                    </div>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                {% endblock partenaires %}
+                    {% endblock content %} 
+
+                {#---Partenaire---#}
+         
+
+            {% endblock container %}
+                                            </div>
+                                        </div>
+        {#---FOOTER---#}
+              {% block footer %}
+                                        <footer>
+                                            <div  class="footer-top">
+                                                <div class="container-fluid">
+                                                   <div class="row-fluid">
+            <div class="span12">
+                <div class="row-fluid">
+                                                    <div class="span3">
+                                                        <div class="title-footer">
+                                                            <h4>Information</h4>
+                                                        </div>
+                                                        <ul class="unstyled">
+                                                            <li><a href="">Home</a></li>
+                                                            <li><a href="">A propos de nous</a></li>
+                                                            <li><a href="">Forum</a></li>
+                                                        </ul>
+                                                    </div>
+
+                                                    <div class="span4">
+                                                        <div class="title-footer">
+                                                            <h4>Contact</h4>
+                                                        </div>
+                                                        <h5><i class="icon-map-marker icon-white"></i> Addresse:</h5>
+                                                        <blockquote>
+                                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+                                                        </blockquote>
+
+                                                        <h5><i class="icon-globe icon-white"></i> Email:</h5>
+                                                        <blockquote>
+                                                            <a href="">email@hotmail.com</a>
+                                                        </blockquote>
+                                                    </div>
+
+                                                    <div class="span4">
+                                                        <div class="title-footer">
+                                                            <h4>NewsLetter</h4>
+                                                        </div>
+                                                        <h5>Abonnez-vous à Notre Newsletter:</h5>
+                                                        <p>
+                                                            Devenir le premier à connaître chaque nouveau produit nous libérer tous les jours. 
+                                                            Inscription à la newsletter pour obtenir des réductions , ...
+                                                        </p>
+                                                        <div class="input-append input-prepend">
+                                                            <form action="/inscription/inscription/NewsLetter" method="post">
+                                                                <span class="add-on">
+                                                                    <i class="icon-envelope"></i>
+                                                                </span>
+                                                                <input name="email" type="email" placeholder="Tapez Votre E-mail" class="">
+                                                                <button type="submit" class="btn">Envoyer</button>
+                                                            </form>
+                                                        </div>
+
+                                                    </div>  
+                                                </div>
+                                            </div>
+                                                       </div>
+                                                    </div>
+                                                </div>
+                                            <div class="footer-bottom" >
+                                                                       <div class="container-fluid">
+                                                   <div class="row-fluid">
+            <div class="span12">
+                <div class="row-fluid">
+                                            
+                                                        <p  class="pull-left">Copyright © 2013 e-commerce </p>
+                                                        <ul class="social inline pull-right">
+                                                            <li><a href="#" class="fb"></a></li>
+                                                            <li><a href="#" class="twitter"></a></li>
+                                                            <li><a href="#" class="google"></a></li>
+                                                        </ul>
+                                                    
+                                                </div>
+                </div></div></div>
+                                            </div>
+                                            <div id="btn_up">
+                                                <img alt="Retour en haut" title="Retour en haut" src="{{base_url()}}assets/img/up.png">
+                                            </div>
+             
+                                        </footer>
+ {% endblock footer %}
+       {#---SCRIPT---#} 
+                                        <script src="{{base_url()}}assets/js/jquery-1.9.1.min.js"></script>
+                                        <script src="{{base_url()}}assets/js/bootstrap.js"></script>
+       {#---Carrousel---#}
+                                        <script type="text/javascript"> $('.carousel').carousel({})</script>
+       {#---Searsh---#}
+                                        <script src="{{base_url()}}assets/js/search.js"></script>
+       {#---Scroll menu---#}
+                                        <script type="text/javascript">
+                                              $(document).ready(function(){
+                                                  $(window).scroll(function(){
+                                                      var scrollTop = 90;
+                                                      if($(window).scrollTop() >= scrollTop){
+                                                          $('#navigation').css({ position : 'fixed', top : '37px', background: 'rgb(243, 243, 243)'});
+                                                      }
+                                                      if($(window).scrollTop() < scrollTop){$('#navigation').removeAttr('style');	}
+                                                  })
+                                              })
+                                            </script>
+        {#---Retour en haut---#}
+                                            <script type="text/javascript" src="{{base_url()}}assets/js/up.js"></script>
+        {#---shopping js---#}
+                                            <link href="{{base_url()}}assets/js/shopping.js"  type="text/javascript"  />
+        {% block js %} {% endblock js %} 
+                                        </body>
+                                    </html>

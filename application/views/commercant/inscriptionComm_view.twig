@@ -1,0 +1,240 @@
+{% extends "/layout/layout.twig" %}
+
+{% block title %} {{parent()}} - Inscription Commerçant{% endblock title %}
+
+{% block container %}
+    <div class="row">
+        {% block menuVertical%}{% endblock menuVertical%}
+        {% block content %}
+        <div class="span12">
+            <div class="well">
+                <form action="/inscription/inscription/inscriptionCommercant" method="POST" class="form-horizontal">
+                    <fieldset>
+                        <legend>S'enregistrer en tant que Commerçant</legend>
+                            {#---Civilité---#}
+                            <div class="control-group offset2">
+                                <label class="control-label" for="civilite">Civilité <span class="required">*</span></label>
+                                <div class="controls">
+                                    <label class="radio inline">
+                                        <input type="radio" name="civilite" value="Mme" checked>Mme
+                                    </label>
+                                    <label class="radio inline">
+                                        <input type="radio" name="civilite" value="Mlle">Mlle
+                                    </label>
+                                    <label class="radio inline">
+                                        <input type="radio" name="civilite" value="Mr">Mr
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            {#---Nom---#}
+                            <div class="control-group offset2">
+                                <label class="control-label" for="nom">Nom <span class="required">*</span></label>
+                                <div class="controls">
+                                    <input type="text" name="nom" for="nom" placeholder="Votre Nom" class="input-xlarge" value="{{ set_value('nom') }}" required="required">
+                                    <div class="error">
+                                        {{ form_error('nom') }}         
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            {#---Prénom---#}
+                            <div class="control-group offset2">
+                                <label class="control-label" for="prenom" >Prénom <span class="required">*</span></label>
+                                <div class="controls">
+                                    <input type="text" name="prenom" placeholder="Votre Prénom" class="input-xlarge" value="{{ set_value('prenom') }}" required="required">
+                                    <div class="error">
+                                        {{ form_error('prenom') }}         
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            {#---Email---#}
+                            <div class="control-group offset2">
+                                <label class="control-label" for="email">E-mail <span class="required">*</span></label>
+                                <div class="controls">
+                                    <input type="email" name="email" placeholder="Votre E-mail" class="input-xlarge" value="{{ set_value('email') }}" required="required">
+                                    <div class="error">
+                                        {{ form_error('email') }}         
+                                    </div>
+                                    <div class="error">
+                                        {{ form_error('errortotal') }}  
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            {#---Société---#}
+                            <div class="control-group offset2">
+                                <label class="control-label" for="societe">Société <span class="required">*</span></label>
+                                <div class="controls">
+                                    <input type="text" name="societe" placeholder="Le Nom de Votre Société" class="input-xlarge" value="{{ set_value('societe') }}" required="required">
+                                    <div class="error">
+                                        {{ form_error('societe') }}         
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            {#---Login---#}
+                            <div class="control-group offset2">
+                                <label class="control-label" for="login">Login <span class="required">*</span></label>
+                                <div class="controls">
+                                    <input type="text" name="login" placeholder="Votre Nom d'utilisateur" class="input-xlarge" value="{{ set_value('login') }}" required="required">
+                                    <div class="error">
+                                        {{ form_error('login') }}         
+                                    </div>
+                                    <div class="error">
+                                        {{ form_error('errortotal') }}  
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            {#---Mot de Passe---#}
+                            <div class="control-group offset2">
+                                <label class="control-label" for="pwd">Mot de Passe <span class="required">*</span></label>
+                                <div class="controls">
+                                    <input type="password" name="pwd" placeholder="Votre Mot de Passe" class="input-xlarge" required="required">
+                                    <div class="error">
+                                        {{ form_error('pwd') }}         
+                                    </div>
+                                </div>
+                            </div>
+                        
+                            {#---Confirmatino Mot de Passe---#}
+                            <div class="control-group offset2">
+                                <label class="control-label" for="confpwd">Mot de Passe (Confirmation) <span class="required">*</span></label>
+                                <div class="controls">
+                                    <input type="password" name="confpwd" placeholder="Confirmer Votre Mot de Passe" class="input-xlarge" required="required">
+                                    <div class="error">
+                                        {{ form_error('confpwd') }}         
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            {#---Adressse---#}
+                            <div class="control-group offset2">
+                                <label class="control-label" for="adresse">Adresse <span class="required">*</span></label>
+                                <div class="controls">
+                                    <input type="text" name="adresse" placeholder="Votre Adresse" class="input-xlarge" value="{{ set_value('adresse') }}" required="required">
+                                    <div class="error">
+                                        {{ form_error('adresse') }}         
+                                    </div>
+                                </div>
+                            </div>
+                        
+                            {#---Pays---#}
+                            <div class="control-group offset2">
+                                <label class="control-label" for="pays">Pays <span class="required">*</span></label>
+                                <div class="controls">
+                                    <input type="text" name="pays" placeholder="Votre Adresse" class="input-xlarge" value="{{ set_value('pays') }}" required="required">
+                                    <div class="error">
+                                        {{ form_error('pays') }}         
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            {#---ville---#}
+                            <div class="control-group offset2">
+                                <label class="control-label" for="ville">Ville <span class="required">*</span></label>
+                                <div class="controls">
+                                    <input type="text" name="ville" placeholder="Votre Adresse" class="input-xlarge" value="{{ set_value('ville') }}" required="required">
+                                    <div class="error">
+                                        {{ form_error('ville') }}         
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            {#---Télephone---#}
+                            <div class="control-group offset2">
+                                <label class="control-label" for="tel">Numéro téléphone <span class="required">*</span></label>
+                                <div class="controls">
+                                    <input type="text" name="tel" placeholder="Votre Numéro De Téléphone" class="input-xlarge" value="{{ set_value('tel') }}" required="required">
+                                    <div class="error">
+                                        {{ form_error('tel') }}         
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            {#---Adresse Société---#}
+                            <div class="control-group offset2">
+                                <label class="control-label" for="adrsoc">Adresse Société <span class="required">*</span></label>
+                                <div class="controls">
+                                    <input type="text" name="adrsoc" placeholder="Adresse de la societe" class="input-xlarge" value="{{ set_value('adrsoc') }}" required="required">
+                                    <div class="error">
+                                        {{ form_error('adrsoc') }}         
+                                    </div>
+                                </div>
+                            </div>
+                        
+                           {#---Description Société---#}
+                            <div class="control-group offset2">
+                                <label class="control-label" for="descsoc">Description Société <span class="required">*</span></label>
+                                <div class="controls">
+                                    <input type="text" name="descsoc" placeholder="Description de la societe" class="input-xlarge" value="{{ set_value('descsoc') }}" required="required">
+                                    <div class="error">
+                                        {{ form_error('descsoc') }}         
+                                    </div>
+                                </div>
+                            </div>
+                        
+                           {#---Site web---#}
+                            <div class="control-group offset2">
+                                <label class="control-label" for="siteweb">Site Web <span class="required">*</span></label>
+                                <div class="controls">
+                                    <input type="text" name="siteweb" placeholder="site web" class="input-xlarge" value="{{ set_value('siteweb') }}" required="required">
+                                    <div class="error">
+                                        {{ form_error('siteweb') }}         
+                                    </div>
+                                </div>
+                            </div>
+                        
+                            {#---Télephone professionnel---#}
+                            <div class="control-group offset2">
+                                <label class="control-label" for="telpro">Numéro téléphone société<span class="required">*</span></label>
+                                <div class="controls">
+                                    <input type="text" name="telpro" placeholder=" Numéro De Téléphone Professionnel" class="input-xlarge" value="{{ set_value('telpro') }}" required="required">
+                                    <div class="error">
+                                        {{ form_error('telpro') }}         
+                                    </div>
+                                </div>
+                            </div>
+                        
+                            {#---Fax---#}
+                            <div class="control-group offset2">
+                                <label class="control-label" for="fax"> Fax société<span class="required">*</span></label>
+                                <div class="controls">
+                                    <input type="text" name="fax" placeholder=" Fax" class="input-xlarge" value="{{ set_value('fax') }}" required="required">
+                                    <div class="error">
+                                        {{ form_error('fax') }}         
+                                    </div>
+                                </div>
+                            </div>
+
+                            {#---S'enregistrer---#}
+                            <div class="control-group offset2">
+                                <div class="controls">
+                                    <button type="submit" name="submit" class="btn btn-info">S'enregistrer</button>
+                                    <button type="reset" name="annuler" class="btn btn-info">Annuler</button>
+                                </div>
+                            </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+        {% endblock content %}
+     </div>
+     {% block partenaires %} {{parent()}} {% endblock partenaires %}
+{% endblock container %}
+
+{% block js %} 
+{#---Menu Vertical---#}
+<script type="text/javascript" src="{{base_url()}}assets/js/fg.menu.js"></script>
+<script type="text/javascript">    
+    $(function(){
+        $('.fg-button').hover(
+        function(){ $(this).removeClass('ui-state-default').addClass('ui-state-focus'); },
+        function(){ $(this).removeClass('ui-state-focus').addClass('ui-state-default'); }
+    );
+        $('#hierarchybreadcrumb').menu({content: $('#hierarchybreadcrumb').next().html(), backLink: false});	
+    });
+    </script>
+ {% endblock js %} 

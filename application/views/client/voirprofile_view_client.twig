@@ -1,0 +1,44 @@
+{% extends "/layout/layout.twig" %}
+
+{% block title %} {{parent()}} - Profil{% endblock title %}
+
+{% block container %}
+    <div class="row">
+        {% block menuVertical%}{% endblock menuVertical%}
+        {% block content %}
+            <div class="span12">
+                <div class="well">
+                    <h3>Votre Profil</h3>
+                    <hr>
+                    <div class="span4">
+                        <p class="colorlabel"><strong>Nom : </strong> <span>{{ personne.nom}}</span> </label></p>
+                        <p class="colorlabel"><strong>Prénom : </strong> <span>{{ personne.prenom}}</span> </label></p>
+                        <p class="colorlabel"><strong>Login : </strong> <span>{{ personne.login}}</span> </label></p>
+                        <p class="colorlabel"><strong>Pays : </strong> <span>{{ personne.pays}}</span> </label></p>
+                    </div>  
+                    <div class="span4">
+                        <p class="colorlabel"><strong>Ville : </strong> <span>{{ personne.ville}}</span> </label></p>
+                        <p class="colorlabel"><strong>Adresse : </strong> <span>{{ personne.adresse}}</span> </label></p>
+                        <p class="colorlabel"><strong>Téléphone : </strong> <span>{{ personne.tel}}</span> </label></p>
+                        <p class="colorlabel"><strong>Email : </strong> <span>{{ personne.email}}</span> </label></p>
+                    </div> 
+                </div>
+            </div>
+        {% endblock content %}
+        </div>
+        {% block partenaires %} {{parent()}} {% endblock partenaires %}
+{% endblock container %}
+
+{% block js %} 
+{#---Menu Vertical---#}
+<script type="text/javascript" src="{{base_url()}}assets/js/fg.menu.js"></script>
+<script type="text/javascript">    
+    $(function(){
+        $('.fg-button').hover(
+        function(){ $(this).removeClass('ui-state-default').addClass('ui-state-focus'); },
+        function(){ $(this).removeClass('ui-state-focus').addClass('ui-state-default'); }
+    );
+        $('#hierarchybreadcrumb').menu({content: $('#hierarchybreadcrumb').next().html(), backLink: false});	
+    });
+    </script>
+ {% endblock js %} 

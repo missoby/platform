@@ -1,0 +1,569 @@
+.notifblack{
+    background: url(../img/icon-notifblack.png) no-repeat;
+    display: inline-block;
+width: 25px;
+height: 22px;
+vertical-align: text-top;
+
+}
+.notifred{
+    background: url(../img/icon-notifred.png) no-repeat;
+    display: inline-block;
+width: 25px;
+height: 22px;
+vertical-align: text-top;
+}
+.bg{
+min-height: 282px;
+padding: 19px;
+margin-bottom: -20px;
+background-color: #f5f5f5;
+border: 1px solid #e3e3e3;
+background: rgb(247, 247, 247) url('../img/bg_noise-2.png');
+box-shadow: 0px 0px 7px rgb(116, 116, 116);
+}
+.thumbnail:hover {
+-webkit-box-shadow: 0px 0px 9px rgba(50, 50, 50, 0.1);
+-moz-box-shadow: 0px 0px 9px rgba(50, 50, 50, 0.1);
+box-shadow: 0px 0px 9px rgba(50, 50, 50, 0.1);
+}
+.tumbprod{
+    background-color: rgb(241, 241, 241);
+width: 106.6%;
+margin-left: -13px;
+padding: 7px;
+}
+.colorlabel {color: rgb(56, 153, 177); }
+.colorlabel span {color: rgb(111, 111, 111);}
+.required { color: #b94a48; }
+.login p, .login span{
+    color: #b94a48;
+    background-color: #f2dede;
+    padding: 8px 35px 8px 14px;
+    margin-bottom: 20px;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    border: 1px solid rgb(228, 199, 199);;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+.error span{
+    color: #b94a48;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+#spmenuvert{
+    height: 322px;
+}
+.intro {
+    border: 1px solid rgb(213, 213, 213);
+    width: 26%;
+    padding-left: 14px;
+    padding-right: 14px;
+    margin-top: 27px;
+    background-color: rgb(253, 253, 253);
+    height: 290px
+}
+#myCarousel4 {margin-top: -30px}
+#myCarousel4 img {width: 100%;height: 100%}
+#myCarousel4 .carousel-indicators {
+    position: absolute;
+    top: 283px;
+    right: 351px;
+    z-index: 5;
+    margin: 0;
+    list-style: none;
+}
+
+#myCarousel4 .carousel-indicators li {
+    display: block;
+    float: left;
+    width: 13px;
+    height: 13px;
+    margin-left: 5px;
+    text-indent: -999px;
+    border-radius: 10px;
+}
+/*----------Login Formulaire----------*/
+#loginForm .dropdown-menu{padding: 15px; padding-bottom: 0px;}
+#loginForm .input-prepend input{margin-bottom: 15px;}
+#loginForm input[type="checkbox"]{float: left; margin-right: 10px;}
+
+/*----------Social Links----------*/
+.social { margin: 6px 0 0 0 ; }
+.social li a{
+    display:block;
+    width:32px;
+    height:32px;
+    background-image:url("../img/social.png");
+    background-repeat:no-repeat;
+    border-radius: 4px;
+    background-color: #005165;
+    /*radius*/
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    /*Transition*/
+    -webkit-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -ms-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+}
+
+/*Social Link For Main Menu*/
+.social li:first-child a    { margin-left:0; }
+.social li a.fb:hover       { background-color:#3c5a98; }
+.social li a.twitter        { background-position:-32px 0; }
+.social li a.twitter:hover  { background-color:#28aae1; }
+.social li a.google              { background-position:-257px 0; }
+.social li a.google:hover        { background-color:#cc2127; }
+/*----------Shopping cart bouton----------*/
+.shopping {padding-left: 22px; width: 80%}
+/*----------Footer----------*/
+.footer-top {
+    margin: 20px 0 0;
+    background:rgb(32, 32, 32) url("../img/bg_noise-2.png");
+    border-top: 6px solid #005165;
+}
+
+.footer-top .unstyled li{
+    padding-top: 5px;
+    height: 33px;
+    border-bottom: 1px solid black;
+    border-top: 1px solid #3c3c3c;
+}
+.footer-top a {color: rgb(160, 160, 160);}
+.footer-top .unstyled li:first-child {border-top: none}
+.footer-top .unstyled li:last-child {border-bottom: none}
+.footer-top h5{color: rgb(219, 219, 219);margin-top: 0px;}
+.footer-top .title-footer {
+    background-image: url(../img/dark-heading-sp.png);
+    margin-bottom: 8px;
+    padding-bottom: 3px;
+    background-repeat: repeat-x;
+    background-position: center bottom;
+}
+.footer-top .title-footer h4 {
+    color: rgb(126, 126, 126);
+}
+.footer-top p {color: rgb(158, 156, 156);font-size: 14px;}
+.footer-top a {color: #A3A3A3!important;}
+
+.footer-top blockquote {
+    padding: 0 0 0 5px;
+    margin: 0 10px 12px;
+    border-left: 3px solid rgb(95, 95, 95);
+}
+
+.footer-bottom {background:rgb(17, 17, 17);}
+.footer-bottom p {padding-top: 12px;color: rgb(151, 151, 151);}
+
+/*----------Titre des listes des produits----------*/
+.title{
+    font-size: 133%;
+    color: rgb(70, 69, 69);
+    border-bottom: 1px solid rgb(196, 196, 196);
+    min-height: 23px;
+    padding: 6px 0 11px;
+    margin-bottom: 22px;
+}
+.title a {
+    float: left;
+    width: 24px;
+    height: 20px;
+    margin-left: 5px;
+    display: inline-block;
+    text-indent: -999999em;
+    font: 0/0 a;
+    background-color: rgb(162, 162, 162);
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -o-border-radius: 2px;
+    border-radius: 2px;
+}
+.title a:hover {background-color:#0088cc}
+.iconright {
+    background-image: url('../img/right_white_icon.png');
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+}
+.iconleft {
+    background-image: url('../img/left_white_icon.png');
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+}
+
+/*----------Recherche----------*/
+ul.sb_dropdown{
+    outline:none;	
+    text-shadow:1px 1px 1px #fff;
+    width: 29.4%;
+    margin:-9px 0px;	
+    float:left;
+    list-style:none;
+    padding:6px 5px;
+    position: absolute;
+    z-index: 1000;
+    background: #fff;
+    -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.5);
+}
+ul.sb_dropdown li{
+    font-size: 11px;
+    line-height:32px;
+    height:32px;
+    float:left;
+    width: 45%;
+}
+ul.sb_dropdown li input[type="checkbox"]{
+    float:left;
+    margin-right:5px;
+    margin-top:8px;
+}
+ul.sb_dropdown li label{
+    margin-top:5px;
+    font-size: 12px;
+}
+ul.sb_dropdown li.sb_filter {
+    width: 97%;
+    height: 16px;
+    font-size: 120%;
+    margin: 0px 0 6px 0;
+    color: #2f96b4;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #2f96b4;
+}
+
+/*----------Menu Principal----------*/
+#navigation {margin-bottom: 2%;z-index: 1000}
+#navigation .navbar-inner {
+
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    border: 0;
+    /*background: transparent url("../img/blue.png") repeat 0 0;*/
+    min-height: 40px;
+    padding-right: 0px;
+    padding-left: 0px;
+    margin: 2px 0 2px 0;
+    border-top: 1px solid #CFCFCF;
+    border-bottom: 1px solid #CFCFCF;
+
+}
+#navigation ul{margin: 0}
+#navigation ul .divider-vertical > a {border-left: 1px solid rgb(9, 109, 134);}
+#navigation ul .divider-vertical:first-child > a {border-left: none;}
+#navigation a {
+    float: none;
+    text-indent: 0;
+    height: auto;
+    padding: 0 0 0 18px;
+    background: url(../img/menu-arrow.png) no-repeat -8px 7px;
+    margin: 0 10px;
+    display: block;
+    text-decoration: none;
+    color: #757575;
+    text-shadow: none;
+    border-bottom: 1px solid #e6e6d8;
+    text-transform: none;
+    line-height: 22px;
+    font-size: 80%;
+}
+
+#navigation ul .divider-vertical {
+    list-style: none;
+    margin: 0;
+    padding: 8px 0;
+    float: left;
+    border: none;
+    height: 30px;
+}
+
+#navigation ul li a:hover,
+#navigation ul li a.active,
+#navigation ul li.over > a,
+#navigation ul li.active > a,
+#navigation ul li.active > a:hover,
+#navigation ul li.active > a:focus {
+    color: #2f96b4;
+
+}
+.dropdown_3columns  {
+    margin:0 auto;
+    float:left;
+    position:absolute;
+    left:-999em; /* Hides the drop down */
+    text-align:left;
+    background: #fff;
+    -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    width: 828px;
+
+}
+/*#menu li:hover .center{margin-left: -280px;}
+#menu li:hover > .center:before{ margin-left: 351px;} 
+#menu li:hover .dropdown_3columns{
+    left:0px;
+    top:47px;
+    visibility:visible;
+    opacity:1;
+}*/
+
+#menu .menu_right {float:right;}
+
+
+
+#navigation h6 {color: #2f96b4;border-bottom: 1px solid #2f96b4;}
+
+#menu li div a {
+    float: none;
+    text-indent: 0;
+    height: auto;
+    padding: 0 0 0 18px;
+    background: url(../img/menu-arrow.png) no-repeat -8px 7px;
+    margin: 0 10px;
+    display: block;
+    text-decoration: none;
+    color: #757575;
+    text-shadow: none;
+    border-bottom: 1px solid #e6e6d8;
+    text-transform: none;
+    line-height: 22px;
+}
+#menu li:hover div a:hover {color: #2f96b4;}
+
+#menu li ul {list-style:none;padding:0;margin:0 0 12px 0;}
+
+#menu li ul li {
+    font-size:80%;
+}
+
+#navigation ul {
+    z-index: 999;
+    width: 100%;
+}
+#navigation li {list-style: none;} 
+
+#navigation a {display: block;  outline: 0;}
+#navigation a:hover{text-decoration:none;}
+#navigation li:hover {}
+
+.navbar .nav > li > .center.dropdown-menu:before{left: 47%}
+.navbar .nav > li > .center.dropdown-menu:after{left: 47.1%}
+
+.navbar .nav > li > .center2.dropdown-menu:before{left: 66%}
+.navbar .nav > li > .center2.dropdown-menu:after{left: 66.1%}
+
+.navbar .nav > li > .right.dropdown-menu:before{left: 96.4%}
+.navbar .nav > li > .right.dropdown-menu:after{left: 96.5%}
+
+.navbar .nav > li > .right2.dropdown-menu:before{left: 95.4%}
+.navbar .nav > li > .right2.dropdown-menu:after{left: 95.5%}
+
+#navigation .drop {color:black;border: none; background: none;font-size: 14px;}
+#navigation .caret {margin-top: 11px;}
+#btn_up {
+    position: fixed;
+    bottom: 15px;
+    right: 25px;
+    cursor: pointer;
+    display: none;
+}
+
+.slider-shadow {
+    background: url(../img/shadow1.png) no-repeat center bottom;
+    background-size: 100%;
+    padding-bottom: 0px;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.more {
+    overflow: hidden;
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+}
+.more .thumb {
+    position: absolute;
+    padding: 8px 8px 8px 10px;
+    width: 92.7%;
+    background: #000;
+    background: rgba(0, 0, 0, 0.87);
+    color: #fff;
+
+    /*Animation*/
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+.more.thumb h2   { font-size: 14px; font-weight: bold;line-height: 23px; }
+.more .thumb p    { font-size: 14px; line-height: 18px;color: white; }
+.more .thumb span { font-size: 19px; line-height: 18px; }
+
+.more .thumb a strong {color: rgb(56, 153, 177);}
+.more .thumb .line{
+    border-bottom: 2px solid #5c5c5c;
+    margin: 7px 0 6px 0;
+    width: 100%;
+}
+.bottom .thumb       { bottom: -81%; }
+.bottom:hover .thumb { bottom: 0%; }
+
+
+.tri p{
+    float: left;
+    padding-right: 10px;
+    padding-top: -6px;
+    margin-top: 0px;
+}
+.tri select {
+    margin-top: -5px;
+}
+
+.frame {
+    overflow: hidden;
+    background-color: white;
+    padding: 7px;
+    height: 200px;
+    width: 93%;
+    margin-bottom: 15px;
+    border: 1px solid #E5E5E5;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, .05);
+    -moz-box-shadow: 0 1px 5px rgba(0,0,0,.05);
+    -webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, .05);
+}
+.frame-block {
+    overflow: hidden;
+    background-color: rgb(247, 247, 247);
+    padding: 7px;
+    width: 100%;
+    margin-bottom: 15px;
+    border: 1px solid #E5E5E5;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, .05);
+    -moz-box-shadow: 0 1px 5px rgba(0,0,0,.05);
+    -webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, .05);
+}
+
+
+#map_canvas {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background-color: #E5E3DF;
+    overflow: hidden;
+}
+
+.btn-inscri {width: 88%}
+
+#etoileselect{margin: 7px 12px }
+
+.shop {
+    border-bottom: 1px solid rgb(201, 201, 201);
+    padding-bottom: 14px;
+    margin-bottom: 16px;}
+
+
+/*images effect*/
+/* CSS3 EFFECTS */
+
+
+/*_____________________________________________ Start - Projects - jCarouselLiteDemo _____________________________________________*/
+
+#jCarouselLiteDemo .carousel  {
+    padding: 10px 0 0 0;
+    margin: 0 0 20px 10px;
+    position: relative;     
+}
+    #jCarouselLiteDemo .digg {
+        position: absolute;
+        left: 610px;
+        top: 110px;
+    }
+    #jCarouselLiteDemo .main {
+        margin-left: 40px;
+    }
+
+    #jCarouselLiteDemo .demo em {
+        color: #FF3300;
+        font-weight: bold;
+        font-size: 60%;        
+        font-style: normal;
+    }
+    #jCarouselLiteDemo .carousel button { /*Don't remove this. we still use this for individual demos. only the front pages use images as of now*/
+        float: left;
+    }              
+    #jCarouselLiteDemo .carousel a.prev, #jCarouselLiteDemo .carousel a.next {
+        display: block;
+        float: left;
+        width: 30px;
+        height: 143px;
+        text-decoration: none;
+        background: url("../img/up.png") left 60px no-repeat;
+    }
+        #jCarouselLiteDemo .carousel a.next {
+            background: url("../img/up.png") right 60px no-repeat;
+        }
+            #jCarouselLiteDemo .carousel a.next:hover {
+                background-image: url("../img/up.png");
+            }
+            #jCarouselLiteDemo .carousel a.prev:hover {
+                background-image: url("../img/up.png");
+            }    
+            #jCarouselLiteDemo .carousel a:hover, #jCarouselLiteDemo .carousel a:active {
+                border: none;
+                outline: none;
+            }                 
+    #jCarouselLiteDemo .carousel .jCarouselLite {
+        border: 1px solid black;
+        float: left;
+        background-color: #dfdfdf;
+        
+        /* Needed for rendering without flicker */
+        position: relative;
+        visibility: hidden;
+        left: -5000px;
+    }
+        #jCarouselLiteDemo .carousel ul {
+            margin: 0;
+        }
+        #jCarouselLiteDemo .carousel li img, 
+        #jCarouselLiteDemo .carousel li p {
+            background-color: #fff;
+            width: 150px;
+            height: 118px;
+            margin: 10px;
+        }
+        
+        #jCarouselLiteDemo .widget img {
+            cursor: pointer;
+        }
+            #jCarouselLiteDemo .mid {
+                margin-left: 80px;
+                width: 400px;
+                height: 300px;
+            }
+            #jCarouselLiteDemo .vertical {
+                margin-left: 170px;
+            }
+                #jCarouselLiteDemo .vertical .jCarouselLite {   /* so that in IE 6, the carousel div doesnt expand to fill the space */
+                    width: 170px;
+                }
+            #jCarouselLiteDemo .imageSlider li img, 
+            #jCarouselLiteDemo .imageSlider li p, 
+            #jCarouselLiteDemo .imageSliderExt li img , 
+            #jCarouselLiteDemo .imageSliderExt li p {
+                width: 400px;
+                height: 300px;
+            }
+            
+/*_____________________________________________ End - Projects - jCarouselLiteDemo _____________________________________________*/
+
+
+

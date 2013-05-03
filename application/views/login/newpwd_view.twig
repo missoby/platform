@@ -1,0 +1,51 @@
+{% extends "/layout/layout.twig" %}
+
+{% block title %} {{parent()}} - Nouveau Mot de Passe{% endblock title %}
+
+{% block container %}
+    <div class="row">
+        {% block menuVertical%}{{parent()}}{% endblock menuVertical%}
+        {% block content %}
+        <div class="span9">
+            <div class="well">
+                <form action="../insertpwd/{{code1}}" method="POST" class="form-horizontal">
+                    <fieldset>
+                        <legend>Entrez votre nouveau mot de passe</legend>
+                            <div class="login offset2">
+                                {{ validation_errors() }}
+                              </div>
+                            {#---Mot de Passe---#}
+                            <div class="control-group offset2">
+                                <label class="control-label" for="npwd">Mot de Passe</label>
+                                <div class="controls">
+                                    <input type="password" name="npwd" placeholder="Votre Mot de Passe" class="input-xlarge" >
+                                    <div class="error">
+                                        {{ form_error('npwd') }}         
+                                    </div>
+                                </div>
+                                  </div>
+                            {#---Confirmatino Mot de Passe---#}
+                            <div class="control-group offset2">
+                                    <label class="control-label" for="conpwd">Mot de Passe (Confirmation)</label>
+                                    <div class="controls">
+                                        <input type="password" name="conpwd" placeholder="Confirmer Votre Mot de Passe" class="input-xlarge" >
+                                        <div class="error">
+                                            {{ form_error('conpwd') }}         
+                                        </div>
+                                    </div>
+                                </div>
+                        
+                             <div class="control-group offset2">
+                                <!-- Button -->
+                                <div class="controls">
+                                    <button class="btn btn-info">Confirmer</button>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        {% endblock content %}
+        </div>
+        {% block partenaires %} {{parent()}} {% endblock partenaires %}
+{% endblock container %}

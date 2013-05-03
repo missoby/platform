@@ -1,0 +1,120 @@
+{% extends "/layout/layout.twig" %}
+
+{% block title %} {{parent()}} - Espace forum{% endblock title %}
+
+{% block container %}
+    <div class="row">
+        {% block menuVertical%}{% endblock menuVertical%}
+        {% block content %}
+        <div class="span12 well">
+            <h3 class="text-center">Espace Forum</h3>
+            <hr>
+           <h4 class="colorlabel">Details du sujet</h4>
+       
+            <div class="row">
+               <div class="span11">  
+                    {% if (row.commercant_idcommercant ==  getsessionhelper()['id']) or (row.client_idclient ==  getsessionhelper()['id'])  %}
+                     <a href="/forum/forum/ModifierSujet/{{row.idsujet}}" class="btn pull-right">Modifier sujet</a>    
+                     {% if row.resolu ==  '1' %}
+             
+                       <div class="span11 well">
+                           <p class="btn pull-right"><img src="{{base_url()}}assets/img/active.png" > Résolu</p>
+                           <h5 class="colorlabel">{{row.titre}}</h5>
+                            <p>{{row.contenu}}</p> 
+                            <p>
+                                <i class="icon-user"></i> De <span class="colorlabel">{{nom}}</span> 
+                                | <i class="icon-calendar"></i> {{row.datepublication}}
+                            </p>
+                       </div>
+                             {% else%}
+                 
+                       <div class="span11 well">
+                           <a href="/forum/forum/resoudre/{{row.idsujet}}" class="btn pull-right"><img src="{{base_url()}}assets/img/active.png" > Marquer comme Résolu</a>
+                            
+                           <h5 class="colorlabel">{{row.titre}}</h5>
+                            <p>{{row.contenu}}</p> 
+                            <p>
+                                <i class="icon-user"></i> De <span class="colorlabel">{{nom}}</span> 
+                                | <i class="icon-calendar"></i> {{row.datepublication}}
+                            </p>
+                       </div>
+                             {%endif %}	
+                      {%elseif row.resolu ==  '1'  %}	
+                        <div class="span11 well">
+                           <p class="btn pull-right"><img src="{{base_url()}}assets/img/active.png" > Résolu</p> 
+                           <h5 class="colorlabel">{{row.titre}}</h5>
+                            <p>{{row.contenu}}</p> 
+                            <p>
+                                <i class="icon-user"></i> De <span class="colorlabel">{{nom}}</span> 
+                                | <i class="icon-calendar"></i> {{row.datepublication}}
+                            </p>
+                       </div>
+                        {%else %}	
+                      <div class="span11 well">
+                           pas encore resolu
+                           <h5 class="colorlabel">{{row.titre}}</h5>
+                            <p>{{row.contenu}}</p> 
+                            <p>
+                                <i class="icon-user"></i> De <span class="colorlabel">{{nom}}</span> 
+                                | <i class="icon-calendar"></i> {{row.datepublication}}
+                            </p>
+                       </div>
+                       {%endif %}	
+              
+                    {% for m in msg %}
+                      {% set type = 'forum'%}
+            <li class="pull-right"><a href="/signaler/signaler/addSign/{{m.idMsgforum}}/{{type}}/{{idsujet}}"> Signaler avis</a></li>  
+                    <div class="span11 well" style="background-color: rgb(252, 252, 252);">
+                       {% if m.commercant_idcommercant ==  getsessionhelper()['id'] %}
+                            <a href="/forum/forum/deletemsg/{{m.idMsgforum}}/{{idsujet}}" class="btn pull-right" title="Supprimer votre commentaire"><i class="icon-trash"></i></a>
+                            
+                         
+                                <h5 class="colorlabel">Répense: {{row.titre}}</h5>
+                                 <p>{{m.contenu}}</p> 
+                                 <p>
+                                     <i class="icon-user"></i> De <span class="colorlabel">{{m.client_idclient}}</span> 
+                                     | <i class="icon-calendar"></i> {{m.datepublication}}
+                                 </p>
+                        
+                           {% else%}
+                         
+                                <h5 class="colorlabel">{{row.titre}}</h5>
+                                 <p>{{m.contenu}}</p> 
+                                 <p>
+                                     <i class="icon-user"></i> De <span class="colorlabel">{{m.client_idclient}}</span> 
+                                     | <i class="icon-calendar"></i> {{m.datepublication}}
+                                 </p>
+                        
+                             {%endif %}	
+                        </div>
+                         {%endfor %}
+                       
+                   
+              
+                
+                <form action="/forum/forum/ajouterMsg/{{row.idsujet}}/{{table}}/{{id}}" method="post" class="span11"> 
+                    
+                 <div class="control-group">
+                     <label class="control-label colorlabel" for="contenu"><strong>Ajouter un commentaire</strong></label>
+                    <div class="controls">
+                        <textarea name="contenu" placeholder="Ajouter un commentaire" class="span11" rows="5"></textarea>
+                        <div class="error">
+                            {{ form_error('contenu') }}         
+                        </div>
+                    </div>
+                  </div>
+                  <div class="control-group">
+                    <div class="controls">
+                        <input type="submit" name="ajouter" value="Ajouter" class="btn btn-info"/>
+                    </div>
+                  </div>
+                  
+                </form> 
+                    </div>
+                    
+            </div>
+        {% endblock content %}
+            </div>
+        </div>
+        {% block partenaires %} {{parent()}} {% endblock partenaires %}
+{% endblock container %}

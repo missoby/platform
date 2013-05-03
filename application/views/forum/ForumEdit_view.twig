@@ -1,0 +1,60 @@
+{% extends "/layout/layout.twig" %}
+
+{% block title %} {{parent()}} - Modifer Annonce{% endblock title %}
+
+{% block container %}
+    <div class="row">
+        {% block menuVertical%}{% endblock menuVertical%}
+        {% block content %}
+        <div class="span12">
+            <div class="well">
+               <div class="span11">
+                    <div class="row">
+                        <ul class="nav nav-pills" style="border-bottom: 1px solid #cccccc">
+                            <li class="pull-left"><h4>Modifer Sujet</h4></li>
+                        </ul>
+                    </div>
+                </div>
+                <form action="/forum/forum/InsertModif/{{id}}" method="POST" class="form-horizontal offset2" enctype="multipart/form-data">
+                    <fieldset>
+                          {#---Hidden Titre---#} 
+            <input type="hidden" name="titrehidden"  value="{{ titre }}" >
+                            
+                            {#---Titre---#}
+                            <div class="control-group">
+                                <label class="control-label" for="titre">Titre <span class="required">*</span></label>
+                                <div class="controls">
+                                    <input type="text" name="titre" for="titre" placeholder="Titre" class="input-xlarge" value="{{ titre }}" >
+                                    <div class="error">
+                                        {{ form_error('titre') }}         
+                                    </div>
+                                </div>
+                            </div>
+                        
+                            {#---Contenu---#}
+                            <div class="control-group">
+                                <label class="control-label" for="contenu" >Contenu <span class="required">*</span></label>
+                                <div class="controls">
+                                    <textarea  name="contenu" placeholder="Contenu" class="input-xlarge" >{{ contenu }}</textarea>
+                                    <div class="error">
+                                        {{ form_error('contenu') }}         
+                                    </div>
+                                </div>
+                            </div> 
+                            
+                        
+                            {#---Valider---#}
+                            <div class="control-group">
+                                <div class="controls">
+                                    <button type="submit" name="submit" class="btn btn-info">Valider</button>
+                                    <button type="reset" name="annuler" class="btn btn-info">Annuler</button>
+                                </div>
+                            </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+        {% endblock content %}
+     </div>
+     {% block partenaires %} {{parent()}} {% endblock partenaires %}
+{% endblock container %}

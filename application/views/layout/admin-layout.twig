@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}E-commerce{% endblock title %}</title>
+        <!--stylesheet-->
+       	<link href="{{base_url()}}assets/css/style.css" rel="stylesheet" type="text/css"  />
+       	<link href="{{base_url()}}assets/css/bootstrap.css" rel="stylesheet" type="text/css"  />
+        <link href="{{base_url()}}assets/css/bootstrap-responsive.css" rel="stylesheet" type="text/css" />
+        {% block head %} {% endblock head %}
+    </head>
+    <body>
+        {#---Navigation Top---#}
+        {% block nav%}
+             <nav class="navbar navbar-fixed-top navbar-inverse">
+            <div class="navbar-inner">
+                <div class="container">
+                    <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <div class="nav-collapse collapse" id="main-menu">
+                        {#---Navigator left---#}
+                            <ul class="nav" id="main-menu-left">
+                            <li><a href="/admin/admin/afficheComm">Gestion Commercant</a></li>
+                            <li><a href="/admin/admin/afficheClient">Gestion Client</a></li>
+                            <li><a href="/admin/admin/slider">Gestion Slider</a></li>
+                            <li><a href="/admin/admin/Getnotif">Notif action</a></li> 
+                           <li><a href="/admin/admin/GetSign">Signaler</a></li>                        
+                            </ul>
+                        {% block login%}
+                        {#---Navigator right---#}
+                            <ul class="nav pull-right">
+                                <li><a href="/admin/admin/logout"><i class="icon-off"></i> logout</a></li>
+                            </ul>
+                        {% endblock login %}
+                        {% block message %}
+                        {#---Navigator right---#}
+                            <ul class="nav pull-right">
+                             <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-envelope"></i> Messages<b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/message/msgcommadmin/listmsgcomm">Messages Commerçant</a></li>
+                                        <li><a href="/message/msgcommadmin/send">Envoyer Messages Commerçant</a></li>
+                                    </ul>
+                                </li>
+                        </ul>
+                        {% endblock message %}
+                    </div>
+                </div>
+            </div>
+        </nav>
+        {% endblock nav%}
+        {#---Header---#}
+        <header class="page-header" ></header>
+        
+        {#---Container---#}    
+        <section class="container">
+            {% block container %}
+                <div class="row">
+                    {#---Content---#}
+                    {% block content %}{% endblock content %}  
+                </div> 
+            {% endblock container %}
+        </section>
+        
+        {#---FOOTER---#}
+        <div id="btn_up">
+            <img alt="Retour en haut" title="Retour en haut" src="{{base_url()}}assets/img/up.png">
+        </div>
+        {#---SCRIPT---#} 
+       <script src="{{base_url()}}assets/js/jquery-1.9.1.min.js"></script>
+       <script src="{{base_url()}}assets/js/bootstrap.js"></script>
+    </body>
+</html>

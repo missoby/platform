@@ -1,0 +1,51 @@
+{% extends "/layout/layout.twig" %}
+
+{% block title %} {{parent()}} - Gestion Produit{% endblock title %}
+
+{% block container %}
+    <div class="row">
+        {% block menuVertical%}{% endblock menuVertical%}
+        {% block content %}
+            <div class="span12">
+                <div class="well">
+                    <div class="span11">
+                        <div class="row">
+                            <ul class="nav nav-pills" style="border-bottom: 1px solid #cccccc">
+                                <li class="pull-left"><h4>Gestion des produits</h4></li>
+                                <li class="pull-right"><a href="/annonce/annonce">Gestion des annonces</a></li>
+                                <li class="pull-right"><a href="/produit/produit">Gestion des produits</a></li> 
+                            </ul>
+                            <div >
+                                {%if nbPhoto == 0 %}
+                                    <p>Vous n'avez aucune photo pour le slider</p>
+                                     <a class="btn" href='/produit/produit/addslider'>Ajouter une photo pour slider</a>
+                                {%elseif nbPhoto > 5 %}
+                                  <p>Vous avez dépasser le nombre permis de photo (5)</p> 
+                                   {%else%}
+                                   <a class="btn" href='/produit/produit/addslider'>Ajouter une photo pour slider</a>
+                                   
+                                 {%endif%}
+                               
+                            </div>
+                        </div>
+                    </div>
+               
+                    <div >
+                    {%for var in slider.result() %}
+                            <p>
+                     <img src="{{ finalpath }}{{var.photo}}" alt="" height="159" class="img-polaroid span3">     
+                     <a href='/produit/produit/deleteSlider/{{var.id}}'>Supprimer photo</a>  
+                     </p>
+            {%endfor%}
+                    </div>
+                    <div class="pagination">
+                        <ul>
+                         
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        {% endblock content %}
+        </div>
+        {% block partenaires %} {{parent()}} {% endblock partenaires %}
+{% endblock container %}

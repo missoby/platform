@@ -1,0 +1,123 @@
+{% extends "/layout/layout.twig" %}
+
+{% block title %} {{parent()}} - Edit produit{% endblock title %}
+
+{% block container %}
+    <div class="row">
+        {% block menuVertical%}{% endblock menuVertical%}
+        {% block content %}
+        <div class="span12">
+            <div class="well">
+                 <div class="span11">
+                    <div class="row">
+                        <ul class="nav nav-pills" style="border-bottom: 1px solid #cccccc">
+                            <li class="pull-left"><h4>Ajouter un produit</h4></li>
+                            <li class="pull-right"><a href="/annonce/annonce">Gestion des annonces</a></li>
+                            <li class="pull-right"><a href="/produit/produit">Gestion des produits</a></li> 
+                        </ul>
+                     </div>
+                </div>
+                
+                    <form action="/produit/produit/addproduct" method="POST" class="form-horizontal offset2" enctype="multipart/form-data">
+                    <fieldset>
+                           {#---Categorie---#}
+                            <div id="categorieplace" class="control-group">
+                                <label class="control-label" for="cat" >Catégorie <span class="required">*</span></label>
+                                <div class="controls">
+                                    <select id="catselect" name="cat">
+                                        <option selected="selected"></option>
+                                        {% for row in categorie.result_array() %}
+                                             <option  data-id ="{{ row.idcategorie }} " value="{{ row.idcategorie }}" >
+                                               {{ row.titre }}</option>
+                                                    {% endfor %}
+                                    </select>  
+                                    <div class="error">
+                                        {{ form_error('cat') }}         
+                                    </div>
+                                </div>
+                                
+                            </div>
+                         
+                            {#---Libelle---#}
+                            <div class="control-group">
+                                <label class="control-label" for="libelle">Libelle <span class="required">*</span></label>
+                                <div class="controls">
+                                    <input type="text" name="libelle" placeholder="Libelle" class="input-xlarge" >
+                                    
+                                </div>
+                                <div class="error">
+                                        {{ form_error('libelle') }}         
+                                    </div>
+                            </div>
+                            
+                            {#---Stock---#}
+                            <div class="control-group">
+                                <label class="control-label" for="stock" >Stock <span class="required">*</span></label>
+                                <div class="controls">
+                                    <input type="text" name="stock" placeholder="Le stock" class="input-xlarge" >
+                                    <div class="error">
+                                        {{ form_error('stock') }}         
+                                    </div>
+                                </div>
+                            </div>
+                            
+                             {#---Description---#}
+                            <div class="control-group">
+                                <label class="control-label" for="description" >Description <span class="required">*</span></label>
+                                <div class="controls">
+                                    <textarea name="description" placeholder="Description" class="input-xlarge" ></textarea>
+                                    <div class="error">
+                                        {{ form_error('description') }}         
+                                    </div>
+                                </div>
+                            </div>
+                            
+                             {#---Prix---#}
+                            <div class="control-group">
+                                <label class="control-label" for="prix" >Prix <span class="required">*</span></label>
+                                <div class="controls">
+                                    <input type="text" name="prix" placeholder="Le prix" class="input-xlarge" >
+                                    <div class="error">
+                                        {{ form_error('prix') }}         
+                                    </div>
+                                </div>
+                            </div>
+                               {#---Remise---#}
+                            <div class="control-group">
+                                <label class="control-label" for="remise" >Remise <span class="required">*</span></label>
+                                <div class="controls">
+                                    <input type="text" name="remise" placeholder="Remise" class="input-xlarge" >
+                                    <div class="error">
+                                        {{ form_error('remise') }}         
+                                    </div>
+                                </div>
+                            </div>
+                            
+                              {#---Photo---#}
+                            <div class="control-group">
+                                <label class="control-label" for="userfile" >Photo <span class="required">*</span></label>
+                                <div class="controls">
+                                    <input type="file" name="userfile" size="20" />
+                                  
+                                </div>
+                            </div>
+                        
+                            {#---Valider---#}
+                            <div class="control-group">
+                                <div class="controls">
+                                    <input type="submit" value="Valider" class="btn btn-info">
+                                    <input type="reset" value="Annuler" class="btn btn-info">
+                                </div>
+                            </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+        {% endblock content %}
+     </div>
+     {% block partenaires %} {{parent()}} {% endblock partenaires %}
+{% endblock container %}
+{% block js %} 
+    {#---js catégorie---#}
+    <script type="text/javascript" src="{{base_url()}}assets/js/categorie.js"></script>
+ {% endblock js %} 

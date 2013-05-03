@@ -1,0 +1,42 @@
+{% extends "/layout/layout.twig" %}
+
+{% block title %} {{parent()}} - Espace forum{% endblock title %}
+
+{% block container %}
+    <div class="row">
+        {% block menuVertical%}{% endblock menuVertical%}
+        {% block content %}
+        <div class="span12">
+            <div class="well">
+                <h3 class="text-center">Espace Forum</h3>
+                <form action="/forum/forum/ajouterSujet/{{idcat}}" method="post" class="form-horizontal offset1">
+                  <div class="control-group">
+                    <label class="control-label" for="titre">Titre</label>
+                    <div class="controls">
+                        <input type="text" name="titre" placeholder="Titre du sujet" class="input-xxlarge" >
+                    </div>
+                  </div>
+                  
+                 <div class="control-group">
+                    <label class="control-label" for="contenu">Contenu</label>
+                    <div class="controls">
+                        <textarea name="contenu" placeholder="Contenu du sujet" class="input-xxlarge" rows="5"></textarea>
+                        <div class="error">
+                            {{ form_error('contenu') }}         
+                        </div>
+                    </div>
+                  </div>
+                  <div class="control-group">
+                    <div class="controls">
+                        <input type="submit" name="ajouter" value="Ajouter" class="btn btn-info"/>
+                    </div>
+                  </div>
+                </form>     
+           
+                
+                </div>
+            </div>
+        {% endblock content %}
+        </div>
+        {% block partenaires %} {{parent()}} {% endblock partenaires %}
+{% endblock container %}

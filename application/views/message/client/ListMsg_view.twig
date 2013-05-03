@@ -1,0 +1,95 @@
+{% extends "/layout/layout.twig" %}
+
+{% block title %} {{parent()}} - Message{% endblock title %}
+
+{% block container %}
+    <div class="row">
+        {% block menuVertical%}{% endblock menuVertical%}
+        {% block content %}
+            <div class="span12 well">
+                <h3 class="text-center">Liste des messages</h3>
+                <hr>
+                <div class="span7 well-small offset2" style="background-color:white">
+                    <form action="/message/msgclientcomm/reponseclient/{{idcom}}/{{nom}}}" method="POST" class="form-horizontal">
+                        <fieldset>
+                          <legend>Rependre à un message</legend>
+                          {#---Sujet---#}
+                           <div class="control-group">
+                               <label class="control-label" for="sujet">sujet <span class="required">*</span></label>
+                               <div class="controls">
+                                   <input type="text" name="sujet" placeholder="Sujet" class="input-xlarge" >
+                                   <div class="error">
+                                     {{ form_error('sujet') }}         
+                                   </div>
+                               </div>
+                           </div>
+
+                           {#---Contenu---#}
+                           <div class="control-group">
+                               <label class="control-label" for="contenu">Contenu <span class="required">*</span></label>
+                               <div class="controls">
+                                   <textarea name="contenu" rows="5" class="span5" placeholder="Ecrire ici le contenu de votre message"></textarea>
+                                   <div class="error">
+                                    {{ form_error('contenu') }}         
+                                    </div>
+                               </div>
+                           </div>
+
+                           {#---Envoyer---#}
+                           <div class="control-group">
+                               <div class="controls">
+                                   <button type="submit" name="submit" class="btn btn-info">Envoyer</button>
+                               </div>
+                           </div>
+                        </fieldset>
+                    </form>
+                </div>
+                <div class="span11">
+                   <div class="accordion" id="accordion2">
+                     {% set i = 0%}
+                     {%for msg in conv%}
+                          {%if msg.table == 'msgclient'%}
+                            <div class="accordion-group">
+                                <div class="accordion-heading">
+                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse{{i}}">
+                                        <p>
+                                            <span class="pull-left"><strong>Moi</strong></span>
+                                            <span class="pull-right">{{msg.dateenvoi}}</span>
+                                        </p>
+                                    </a>
+                                </div>
+                                <div id="collapse{{i}}" class="accordion-body collapse">
+                                    <div class="accordion-inner">
+                                        <p><strong class="colorlabel">Sujet: </strong> {{msg.sujet}}</p>
+                                        <p><strong class="colorlabel">Contenu: </strong>{{msg.contenu}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                          {%else %}
+                          <div class="accordion-group">
+                            <div class="accordion-heading">
+                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse{{i}}">
+                                    <p>
+                                        <span class="pull-left"><strong>{{nom}}</strong></span>
+                                        <span class="pull-right">{{msg.dateenvoi}}</span>
+                                    </p>
+                                </a>
+                            </div>
+                            <div id="collapse{{i}}" class="accordion-body collapse">
+                                <div class="accordion-inner">
+                                    <p><strong class="colorlabel">Sujet: </strong> {{msg.sujet}}</p>
+                                    <p><strong class="colorlabel">Contenu: </strong>{{msg.contenu}}</p>
+                                </div>
+                            </div>
+                          </div>
+                          {%endif%}
+                          {% set i = i+1%}
+                     {%endfor%}  
+                      </div>
+                </div>
+            </div>
+        {% endblock content %}
+   </div>
+   {% block partenaires %} {{parent()}} {% endblock partenaires %}
+{% endblock container %}
+          

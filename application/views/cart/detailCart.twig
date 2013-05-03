@@ -1,0 +1,59 @@
+{% extends "/layout/layout.twig" %}
+
+{% block title %} {{parent()}} - Détails Cart{% endblock title %}
+
+{% block container %}
+    <div class="row">
+        {% block menuVertical%}{% endblock menuVertical%}
+        {% block content %}
+        <div class="span12">
+            <div class="well">
+                <h4 class="title feature">
+                    <span class="pull-left">Details de votre carte</span>
+                </h4>
+                {% if not shopping.content  %}
+                <div class="alert alert-info">Votre carte est vide !</div>
+                {% else %}  
+                    <form action="/cart/cart/update_cart" method="POST">
+                     <div class="control-group pull-right">
+                      <div class="controls">
+                         <button type="submit" name="submit" class="btn"><i class="icon-refresh"></i> Actualiser la Carte</button>
+                         <a href="/cart/cart/empty_cart" class="btn"><i class="icon-trash"></i> Vider la carte</a>  
+                      </div>
+                    </div>
+                    <table class="table">           
+                        <tr>
+                            <th>photos</th>
+                            <th>Nom Article</th>
+                            <th>Prix</th>
+                            <th>Quantité</th>
+                            <th>Total</th>
+                        </tr>          
+                        {% set i = 1 %}     
+                        {% for items in shopping.content %}
+                        {#---hidden id---#}
+                        <input type="hidden" name="rowid[]" value="{{items.rowid}}">
+                        <tr>
+                            <td><img src="{{items.options.path}}{{items.options.photo}}" class="span1 img-polaroid" height="50"></td>
+                            <td>{{items.name}}</td> 
+                            <td>{{items.price}} </td>  
+                            <td><input type="text" name="qty[]" placeholder="Quantité"  value="{{items.qty}}"></td>
+                            <td>{{items.subtotal}} </td>      
+                        </tr>
+                        {% endfor %}
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td><strong>Total</strong></td>
+                            <td>{{shopping.total}}</td>
+                        </tr>
+                    </table>
+                </form>
+                {% endif %}
+            </div>
+         </div>
+        {% endblock content %}
+     </div>
+     {% block partenaires %} {{parent()}} {% endblock partenaires %}
+{% endblock container %}

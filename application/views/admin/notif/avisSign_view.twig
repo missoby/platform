@@ -1,0 +1,35 @@
+{% extends "/layout/admin-layout.twig" %}
+
+{% block title %} {{parent()}} - login administrateur{% endblock title %}
+
+
+{% block container %}
+    <div class="row">
+        {% block content %}
+            <div class="span12">
+            <div class="well">
+                {#---Logo---#}
+                <div class="span3 offset4">
+                    <a href=""><img src="{{base_url()}}assets/img/logo.png" alt="E-COMMERCE"/></a>
+                </div>
+                    <div>
+                        <p>affiche Avis signalé</p>
+                    {%for var in req%}
+                       <p>
+                            <li>{{var.contenu}} </li>
+
+                            <a href="/admin/admin/deleteAvis/{{var.idcommentaire}}">Supprimer</a>
+                    
+                    </p>     
+                            
+                            
+                            {%endfor%}
+                    
+                    
+                    
+                    </div>
+            </div>
+            </div>
+        {% endblock content %}
+    </div>
+{% endblock container %}

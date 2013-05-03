@@ -1,0 +1,63 @@
+{% extends "/layout/admin-layout.twig" %}
+
+{% block title %} {{parent()}} - Envoi message{% endblock title %}
+
+{% block container %}
+
+    {% block content %}
+            <div class="span12 well">
+                  <h3 class="text-center">Evoyer un message à un commeçant</h3>
+                  <hr>
+                   <div class="span7 offset2">
+                  <form action="/message/msgcommadmin/sendmsg" method="POST" class="form-horizontal">
+                        {#---Commercant---#}
+                        <div id="categorieplace" class="control-group">
+                            <label class="control-label" for="com" >Catégorie <span class="required">*</span></label>
+                            <div class="controls">
+                                <select id="catselect" name="com" class="span3">
+                                    <option selected="selected">  </option>
+                                    {% for row in enscomm.result_array() %}
+                                         <option  data-id ="{{ row.idcommercant }} " value="{{ row.idcommercant }}" >
+                                           {{ row.societe }}</option>
+                                     {% endfor %}
+                                 </select>  
+                                 <div class="error">
+                                    {{ form_error('com') }}         
+                                </div>
+                            </div>
+                        </div>
+
+                        {#---Pays---#}
+                        <div class="control-group">
+                            <label class="control-label" for="sujet">sujet <span class="required">*</span></label>
+                            <div class="controls">
+                                <input type="text" name="sujet" placeholder="Sujet" class="input-xlarge" >
+                                <div class="error">
+                                    {{ form_error('sujet') }}         
+                                </div>
+                            </div>
+                        </div>
+
+                        {#---Contenu---#}
+                        <div class="control-group">
+                            <label class="control-label" for="contenu">Contenu <span class="required">*</span></label>
+                            <div class="controls">
+                                <textarea name="contenu" rows="5" class="span5" placeholder="Ecrire ici le contenu de votre message"></textarea>
+                                <div class="error">
+                                    {{ form_error('contenu') }}         
+                                </div>
+                            </div>
+                        </div>
+
+                        {#---S'enregistrer---#}
+                        <div class="control-group">
+                            <div class="controls">
+                                <button type="submit" name="submit" class="btn btn-info">Envoyer</button>
+                            </div>
+                        </div>
+                 </form>
+                  </div>
+             </div>
+       {% endblock content %}
+   
+{% endblock container %}

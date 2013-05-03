@@ -1,0 +1,40 @@
+{% extends "/layout/admin-layout.twig" %}
+
+{% block title %} {{parent()}} - login administrateur{% endblock title %}
+
+
+{% block container %}
+    <div class="row">
+        {% block content %}
+            <div class="span12">
+            <div class="well">
+                {#---Logo---#}
+                <div class="span3 offset4">
+                    <a href=""><img src="{{base_url()}}assets/img/logo.png" alt="E-COMMERCE"/></a>
+                </div>
+                      <form action="/admin/admin/Insertslider" method="POST" class="form-horizontal offset2" enctype="multipart/form-data">
+                    <fieldset>
+           
+                              {#---Photo---#}
+                            <div class="control-group">
+                                <label class="control-label" for="userfile" >Photo <span class="required">*</span></label>
+                                <div class="controls">
+                                    <input type="file" name="userfile" size="20" />
+                                  
+                                </div>
+                            </div>
+                        
+                            {#---Valider---#}
+                            <div class="control-group">
+                                <div class="controls">
+                                    <input type="submit" value="Valider" class="btn btn-info">
+                                    <input type="reset" value="Annuler" class="btn btn-info">
+                                </div>
+                            </div>
+                    </fieldset>
+                </form>
+            </div>
+            </div>
+        {% endblock content %}
+    </div>
+{% endblock container %}

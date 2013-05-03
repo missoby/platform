@@ -1,0 +1,54 @@
+{% extends "/layout/layout.twig" %}
+
+{% block title %} {{parent()}} - Espace forum{% endblock title %}
+
+{% block container %}
+    <div class="row">
+        {% block menuVertical%}{% endblock menuVertical%}
+        {% block content %}
+        <div class="span12 well">
+            <div class="">
+                <div class="span11">
+                     <h3 class="text-center">Espace Forum</h3>
+                     <hr>
+                </div>
+                <div class="span8 offset2">
+                    <div class="span2 well"><a href="/forum/forum/afficherSujet/1">
+                            <img src="{{base_url()}}assets/img/info.png" alt="" style="margin-left: 20px;"/>
+                            <p class="text-center"> Informatique</p></a>
+                        </div>
+                    <div class="span2 well">
+                        <a href="/forum/forum/afficherSujet/2">
+                            <img src="{{base_url()}}assets/img/jewelry.png" alt="" style="margin-left: 20px;"/>
+                            <p class="text-center"> Montres et bijoux</p>
+                        </a></div>
+                    <div class="span2 well">
+                        <a href="/forum/forum/afficherSujet/3">
+                            <img src="{{base_url()}}assets/img/phone.png" alt="" style="margin-left: 20px;"/>
+                            <p class="text-center"> Téléphones Portables</p>
+                    </a></div>
+                </div>
+                <div class="span8 offset2">
+                    <div class="span2 well">
+                        <a href="/forum/forum/afficherSujet/4">
+                            <img src="{{base_url()}}assets/img/electronic.png" alt="" style="margin-left: 20px;"/>
+                            <p class="text-center"> Electronics</p>
+                        </a></div>
+                    <div class="span2 well">
+                        <a href="/forum/forum/afficherSujet/5">
+                            <img src="{{base_url()}}assets/img/clothes.png" alt="" style="margin-left: 20px;"/>
+                            <p class="text-center"> Vétement et Accessoires</p>
+                        </a></div>
+                    <div class="span2 well">
+                         <a href="/forum/forum/afficherSujet/6">
+                        <img src="{{base_url()}}assets/img/mobilier.png" alt="" style="margin-left: 20px;"/>
+                       <p class="text-center"> Domicile et Bureau</p>
+                        </a></div>
+                </div>
+                                          
+            </div>
+            </div>
+        {% endblock content %}
+        </div>
+        {% block partenaires %} {{parent()}} {% endblock partenaires %}
+{% endblock container %}
