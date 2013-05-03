@@ -27,16 +27,17 @@ Class Notif_model extends CI_Model {
         
         function getnotifactionfromuser()
         {
-            if(getsessionhelper()['type'] == 'admin')
-            { $id = 'idadmin';
-            $table = 'admin';}
+            if(getsessionhelper()['type'] == 'commercant')
+            {$id = 'idcommercant'; 
+            $table = 'commercant';
+               }
             elseif(getsessionhelper()['type'] == 'client')
             {  $id = 'idclient';
             $table = 'client';}
             else
             {
-            $id = 'idcommercant'; 
-            $table = 'commercant';
+            $id = 'idadmin';
+            $table = 'admin';
             }
             
             return $this->db->select('*')
@@ -47,16 +48,17 @@ Class Notif_model extends CI_Model {
         
            function getnotifmsgfromuser()
         {
-            if(getsessionhelper()['type'] == 'admin')
-            { $id = 'idadmin';
-            $table = 'admin';}
+            if(getsessionhelper()['type'] == 'commercant')
+            { $id = 'idcommercant'; 
+            $table = 'commercant';
+               }
             elseif(getsessionhelper()['type'] == 'client')
             {  $id = 'idclient';
             $table = 'client';}
             else
             {
-               $id = 'idcommercant'; 
-            $table = 'commercant';
+               $id = 'idadmin';
+            $table = 'admin';
             }
             
             return $this->db->select('*')

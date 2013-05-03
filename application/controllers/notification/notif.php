@@ -11,8 +11,9 @@ class Notif extends CI_Controller {
 
      function notifajax()
     {  
-       $var['action'] = $this->notif_model->getnotifactionfromuser()->notifaction;
+        $var['action'] = $this->notif_model->getnotifactionfromuser()->notifaction;
        $var['msg'] = $this->notif_model->getnotifmsgfromuser()->notifmsg;
+   
         echo json_encode($var);
         
     }

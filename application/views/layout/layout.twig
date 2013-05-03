@@ -9,7 +9,10 @@
        	<link href="{{base_url()}}assets/css/style.css" rel="stylesheet" type="text/css"  />
        	<link href="{{base_url()}}assets/css/bootstrap.css" rel="stylesheet" type="text/css"  />
         <link href="{{base_url()}}assets/css/bootstrap-responsive.css" rel="stylesheet" type="text/css" />
-        {% block head %} {% endblock head %}
+<script src="{{base_url()}}assets/js/jquery-1.9.1.min.js"></script>
+         {#---Notification---#} 
+       <script src="{{base_url()}}assets/js/notif.js"></script>               
+ {% block head %} {% endblock head %}
     </head>
     <body>
         {#---Navigation Top---#}
@@ -58,10 +61,12 @@
                                 {#---Navigator right---#}
                                 <ul class="nav pull-right">
                                     {% if getsessionhelper()['type'] == 'client' %}
-                                    <li><a href="/message/msgclientcomm/listmsgcomm"><i class="icon-white icon-envelope"></i> Messages</a></li>
+                                    <li><a href="/message/msgclientcomm/listmsgcomm"><i id="clicknotifmsg" class="notifblackmsg" ></i> Messages</a></li>
+                         <li ><a href="/notification/notif/GetnotifClient"><i id="clicknotifaction" class="notifred"></i></a></li>                       
                                     {% elseif getsessionhelper()['type'] == 'commercant'%}
                                     <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-white icon-envelope"></i> Messages<b class="caret"></b></a>
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i id="clicknotifmsg" class="notifblackmsg" ></i> Messages<b class="caret"></b></a>
+    <a href="/notification/notif/Getnotif"><i id="clicknotifaction" class="notifred"></i></a>               
                                         <ul class="dropdown-menu">
                                             <li><a href="/message/msgclientcomm/listmsgclientcomm">Messages Clients</a></li>
                                             <li><a href="/message/msgclientcomm/msg_conv_comm_admin">Messages Adiministrateur</a></li>

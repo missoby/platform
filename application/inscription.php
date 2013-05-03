@@ -14,7 +14,7 @@ class Inscription extends CI_Controller {
     }
     
     public function index()
-	{    
+	{  
             $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
             $this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[4]|max_length[32]');
             $this->form_validation->set_rules('password2', 'Password Confirmation', 'trim|required|matches[password]');
