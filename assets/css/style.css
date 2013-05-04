@@ -1,3 +1,9 @@
+.border{border-bottom: 1px solid rgb(146, 2, 2)}
+.best{
+    position: absolute;
+z-index: 10;
+margin: 0;
+}
 .notifblack{
     background: url(../img/icon-notifblack.png) no-repeat;
     display: inline-block;
@@ -34,7 +40,7 @@ padding: 19px;
 margin-bottom: -20px;
 background-color: #f5f5f5;
 border: 1px solid #e3e3e3;
-background: rgb(247, 247, 247) url('../img/bg_noise-2.png');
+background: rgb(252, 252, 252) url('../img/bg_noise-2.png');
 box-shadow: 0px 0px 7px rgb(116, 116, 116);
 }
 .thumbnail:hover {
@@ -175,8 +181,7 @@ padding: 7px;
 /*----------Titre des listes des produits----------*/
 .title{
     font-size: 133%;
-    color: rgb(70, 69, 69);
-    border-bottom: 1px solid rgb(196, 196, 196);
+    border-bottom: 1px solid rgb(146, 2, 2);
     min-height: 23px;
     padding: 6px 0 11px;
     margin-bottom: 22px;
@@ -189,13 +194,13 @@ padding: 7px;
     display: inline-block;
     text-indent: -999999em;
     font: 0/0 a;
-    background-color: rgb(162, 162, 162);
+    background-color:rgb(139, 2, 2);;
     -moz-border-radius: 2px;
     -webkit-border-radius: 2px;
     -o-border-radius: 2px;
     border-radius: 2px;
 }
-.title a:hover {background-color:#0088cc}
+.title a:hover {background-color: rgb(78, 78, 78);}
 .iconright {
     background-image: url('../img/right_white_icon.png');
     background-repeat: no-repeat;
@@ -301,8 +306,8 @@ ul.sb_dropdown li.sb_filter {
 #navigation ul li.active > a,
 #navigation ul li.active > a:hover,
 #navigation ul li.active > a:focus {
-    color: #2f96b4;
-
+    color: rgb(4, 57, 114);
+    text-decoration: underline
 }
 .dropdown_3columns  {
     margin:0 auto;
@@ -331,7 +336,7 @@ ul.sb_dropdown li.sb_filter {
 
 
 
-#navigation h6 {color: #2f96b4;border-bottom: 1px solid #2f96b4;}
+#navigation h6 {color: rgb(0, 61, 128);border-bottom: 1px solid rgb(0, 61, 128);}
 
 #menu li div a {
     float: none;
@@ -391,7 +396,7 @@ ul.sb_dropdown li.sb_filter {
 .slider-shadow {
     background: url(../img/shadow1.png) no-repeat center bottom;
     background-size: 100%;
-    padding-bottom: 0px;
+    padding-bottom: 12px;
     overflow: hidden;
     margin-bottom: 10px;
 }

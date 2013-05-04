@@ -31,7 +31,6 @@ Class Admin_model extends CI_Model {
         $this->db->where('personne_idpersonne', $id);
         return $this->db->get('commercant');
     }
-  
 
     function getclientparent() {
         $this->db->order_by('idpersonne', 'asc');
@@ -73,45 +72,44 @@ Class Admin_model extends CI_Model {
         $this->db->where('idpersonne', $id);
         return $this->db->get('personne');
     }
-    
-      function getidadmin($login) {
+
+    function getidadmin($login) {
         $this->db->select('idadmin');
         $this->db->from('admin');
         $this->db->where('login', $login);
         $this->db->limit(1);
         return $this->db->get();
     }
-     
-    function getidadminformsg()
-    {
+
+    function getidadminformsg() {
         $this->db->select('idadmin');
         $this->db->from('admin');
         $this->db->limit(1);
         return $this->db->get();
     }
-    
-      
-  function Get_Slider($id){
-		$this->db->where('admin_idadmin', $id);
-		return $this->db->get('slideradmin');
-	}
-  
-   function InsertSlider($form_data)
-   {
-      $q = $this->db->insert('slideradmin', $form_data);
-            if ($q)
-            {return true;}
-            else {
-                return false;
-            } 
-   }
-   
-   
-	function deleteSlider($id){
-		$this->db->where('id', $id);
-		$this->db->delete('slideradmin');
-	}
-   
+
+    function Get_Slider($id) {
+        $this->db->where('admin_idadmin', $id);
+        return $this->db->get('slideradmin');
+    }
+    //slider de la page d'acceuil
+    function GetSlider() {
+        return $this->db->get('slideradmin');
+    }
+
+    function InsertSlider($form_data) {
+        $q = $this->db->insert('slideradmin', $form_data);
+        if ($q) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function deleteSlider($id) {
+        $this->db->where('id', $id);
+        $this->db->delete('slideradmin');
+    }
 
 }
 

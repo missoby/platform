@@ -8,6 +8,7 @@ class Inscription extends CI_Controller {
         parent::__construct();
         $this->load->model('inscription/inscription_model');
         $this->twig->addFunction('getsessionhelper');
+        $this->load->model('produit/produit_model', '', TRUE);
 
         $this->shopping['content'] = $this->cart->contents();
         $this->shopping['total'] = $this->cart->total();
@@ -15,6 +16,14 @@ class Inscription extends CI_Controller {
     }
 
     function index() {
+        $enscom = $this->produit_model->getcommercant();
+        $data['comm'] = $enscom;
+        $data['pathphoto'] = site_url() . 'uploads/';
+
+
+        $ensproduitdate = $this->produit_model->get_product_by_date();
+        $data['produitdate'] = $ensproduitdate;
+        $data['comm'] = $enscom;
         $data['shopping'] = $this->shopping;
         $this->twig->render('accueilinscri_view', $data);
     }

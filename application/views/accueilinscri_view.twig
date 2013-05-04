@@ -2,29 +2,41 @@
 
 {% block title %} {{parent()}} - Inscription{% endblock title %}
 
-{% block container %}
-    <div class="row">
-        {% block menuVertical%}{% endblock menuVertical%}
-        {% block content %}
-            <div class="span12">
-                <div class="well">
-                    <h4>Inscrivez vous en tant que : </h4>
-                    <hr>
-                    <div class="span2 offset3" style="margin-top: 40px">
-                        <a href="inscription/inscriptionclient" class="btn btn-info btn-inscri">
-                            <i class="icon-user icon-white"></i><br/>
-                            <span><strong>Client</strong></span>            
-                        </a>
-                    </div>
-                    <div class="span2" style="margin-top: 40px">
-                        <a href="inscription/inscriptioncommercant" class="btn btn-info btn-inscri">
-                            <i class="icon-user icon-white"></i><br/>
-                            <span><strong>Commerçant</strong></span>            
-                        </a>
+{% block content %}
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="row-fluid">
+               
+                <div class="span9 well" style="min-height:302px">
+                <ul class="nav nav-pills border" style="">
+                    <li class="pull-left"><h4>Inscrivez vous en tant que :</h4></li>
+                </ul>
+                <p>En tant que Client vous pouvez Cherecher des produits, les ajouter dans votre Panier, Les payer, Acceder a un forum de discussion</p>
+                <p>En tant que Commerçant, vous avez une partie administrative dans laquelle vous ajouter vos produit, des informations sur votre société, des annonce, accéder à un forum de discussion. Aussi bien vous pouvez créer votre module de paiement sur notre site.</p>
+                <div class="span3 offset2" style="margin-top: 10px">
+                    <div class="row-fluid">
+                    <a href="inscription/inscriptionclient" class="btn btn-inverse btn-inscri">
+                        <i class="icon-user icon-white"></i><br/>
+                        <span><strong>Client</strong></span>            
+                    </a>
                     </div>
                 </div>
+                <div class="span3" style="margin-top: 10px">
+                       <div class="row-fluid">
+                    <a href="inscription/inscriptioncommercant" class="btn btn-inverse btn-inscri">
+                        <i class="icon-user icon-white"></i><br/>
+                        <span><strong>Commerçant</strong></span>            
+                    </a>
+                           </div>
+                </div>
+                </div>
+                 <div class="span3">
+                      {% block slider2 %}{{parent()}}{% endblock slider2 %}
+                 </div>
             </div>
-        {% endblock content %}
         </div>
-        {% block partenaires %} {{parent()}} {% endblock partenaires %}
-{% endblock container %}
+         
+    </div>
+    {% block partenaires %} {{parent()}} {% endblock partenaires %}
+    {% endblock content %}
+        

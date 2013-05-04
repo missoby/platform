@@ -181,43 +181,60 @@ class Afficheproduit extends CI_Controller {
         }
     }
     
-    public function publierfb($id)
+   public function publierfb($id)
+{
+    if(empty($id))
     {
-        //Initialisation
-        $path = '/uploads/';
-        $res   = $this->produit_model->getProductById($id);
-        //$photo = $path . $res->photo;
-        //$msg   = $this->statut_model->getStatut($res->statut)->statut;
-        
-        $uid = $this->fb->getUser();
-        
-        if (empty($uid)) //User non connecté sur facebook
-        {
-            $param = array();
-            $param['redirect_uri'] = base_url().'produit/afficherproduit/publierfb/' . $id;
-            redirect($this->fb->getLoginUrl($param));
-        }
-        else //User connecté sur facebook
-        {
-            try
-            {
-                $this->fb->api('/me/feed', 'POST', array(
-                                          'link' => 'www.youtube.com',
-                                          'message' => 'New product',
-                                          'photo' => $path
-                                          ));
-                redirect('produit/afficheproduit/details/'.$id);
-            }
-            catch(FacebookApiException $e)
-            {
-                echo 'Exception:';
-                echo '<br />';
-                echo $e->getType();
-                echo '<br />';
-                echo $e->getMessage();
-            }   
-        }
+        echo 'Erreur ID <br /> Function: produit/afficherproduit/publierfb/';
+        return;
     }
+
+    //Initialisation
+    $path = '/uploads/';
+    $res   = $this->produit_model->getProductById($id);
+    $photo = $path . $res->photo;
+    $msg   = $res->description;
+    
+    $uid = $this->fb->getUser();
+    
+    if (empty($uid)) //User non connecté sur facebook
+    {
+        $param = array();
+        $param['redirect_uri'] = base_url().'produit/afficherproduit/publierfb/' . $id;
+        redirect($this->fb->getLoginUrl($param));
+    }
+    else //User connecté sur facebook
+    {
+        try
+        {
+            //Partage d'un lien sur facebook avec la photo du produit et un statut
+            //Ne marche pas en local, marche si le site est hebergé
+            /*
+            $params = array('message' => 'ton statut',
+                            'name' => 'www.e-commerce.com',
+                            'caption' => 'Plate forme E-commerce',
+                            'link' => 'www.e-commerce.com/produit/afficheproduit/publierfb/' . $id,
+                            'description' => $msg,
+                            'picture' => 'www.e-commerce.com/uploads/photo1.jpg',
+                            );
+            $this->fb->api('/me/feed', 'POST', $params);
+            */
+
+            $this->fb->api('/me/photos', 'POST', array('source' => '@'.$photo,
+                                                       'message' => $msg));
+
+            redirect('produit/afficheproduit/details/'.$id);
+        }
+        catch(FacebookApiException $e)
+        {
+            echo 'Exception:';
+            echo '<br />';
+            echo $e->getType();
+            echo '<br />';
+            echo $e->getMessage();
+        }   
+    }
+}
 
 }
 

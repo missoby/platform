@@ -231,13 +231,13 @@ body {
 }
 
 a {
-  color: #0088cc;
+  color: rgb(0, 37, 56);;
   text-decoration: none;
 }
 
 a:hover,
 a:focus {
-  color: #005580;
+  color: rgb(0, 37, 56);;
   text-decoration: underline;
 }
 
@@ -744,7 +744,7 @@ h6 {
   font-family: inherit;
   font-weight: bold;
   line-height: 20px;
-  color: inherit;
+  color:rgb(146, 2, 2);
   text-rendering: optimizelegibility;
 }
 
@@ -2919,7 +2919,7 @@ table th[class*="span"],
   padding: 5px 0;
   margin: 2px 0 0;
   list-style: none;
-  background: #fff;
+  background: rgb(252, 252, 252) url('../img/bg_noise-2.png');
   -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.5);
   -moz-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.5);
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.5);
@@ -3092,7 +3092,7 @@ table th[class*="span"],
   min-height: 282px;
   padding: 19px;
   margin-bottom: 20px;
-  background-color: #f5f5f5;
+  background-color: #fff;
   border: 1px solid #e3e3e3;
   -webkit-border-radius: 4px;
      -moz-border-radius: 4px;
