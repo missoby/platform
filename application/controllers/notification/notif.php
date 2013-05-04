@@ -13,7 +13,7 @@ class Notif extends CI_Controller {
     {  
         $var['action'] = $this->notif_model->getnotifactionfromuser()->notifaction;
        $var['msg'] = $this->notif_model->getnotifmsgfromuser()->notifmsg;
-   
+ 
         echo json_encode($var);
         
     }
