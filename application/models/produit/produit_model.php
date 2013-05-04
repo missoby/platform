@@ -334,4 +334,11 @@ class produit_model extends CI_Model {
 		$this->db->where('id', $id);
 		$this->db->delete('slidercomm');
 	}
+        
+           	function getSouscatadmin($idsouscat)
+        {
+                  $this->db->select('titre');
+                   $this->db->where('idsouscategorie',$idsouscat);
+            return $this->db->get('souscategorie');
+        }
 }

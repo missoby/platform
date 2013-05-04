@@ -9,6 +9,8 @@ class forum extends CI_Controller {
         $this->twig->addFunction('getsessionhelper');
         $this->load->model('produit/produit_model');
         $this->load->model('forum/forum_model');
+                $this->load->model('notification/notif_model');
+
 
         $this->shopping['content'] = $this->cart->contents();
         $this->shopping['total'] = $this->cart->total();
