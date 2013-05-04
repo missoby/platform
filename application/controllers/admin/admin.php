@@ -36,7 +36,7 @@ class Admin extends CI_Controller {
                     $reqid = $this->admin_model->getidadmin($login)->row()->idadmin;
              if (!empty($reqid))
              {
-                $login_in = array('id' => $reqid);
+                $login_in = array('id' => $reqid, 'type'=> 'admin');
                 $this->session->set_userdata('login_in', $login_in);
                 $this->twig->render('admin/administration/administration_view');
             } 
@@ -353,12 +353,17 @@ class Admin extends CI_Controller {
                 
             }
         $data['req']= $req;
+        //get signal 
+        $sign = $this->signaler_model->GetSign();
+
+       
+        $data['sign']= $sign;
          $this->twig->render('admin/notif/notifadmin_view',$data);
 
            
        
     }
-    
+    // va etre enlevé et fusionneé avec getnotif
       function GetSign()
     {
         $req = $this->signaler_model->GetSign();
