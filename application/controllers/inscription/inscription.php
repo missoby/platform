@@ -12,7 +12,7 @@ class Inscription extends CI_Controller {
 
         $this->shopping['content'] = $this->cart->contents();
         $this->shopping['total'] = $this->cart->total();
-        $this->shopping['nbr'] =$this->cart->total_items();
+        $this->shopping['nbr'] = $this->cart->total_items();
     }
 
     function index() {
@@ -45,6 +45,14 @@ class Inscription extends CI_Controller {
 
         $this->form_validation->set_error_delimiters('<span class="error" name="errortotal">', '</span>');
         $data['shopping'] = $this->shopping;
+        $enscom = $this->produit_model->getcommercant();
+        $data['comm'] = $enscom;
+        $data['pathphoto'] = site_url() . 'uploads/';
+
+
+        $ensproduitdate = $this->produit_model->get_product_by_date();
+        $data['produitdate'] = $ensproduitdate;
+        $data['comm'] = $enscom;
         if ($this->form_validation->run() == FALSE) { // validation hasn't been passed
             $this->twig->render('client/inscription_view', $data);
         } else {
@@ -67,7 +75,7 @@ class Inscription extends CI_Controller {
 
             $this->email->subject(' Activer Votre compte ');
             $this->email->message('Pour Activer Votre compte, cliquez sur ce ' . anchor($link, 'lien'));
-            
+
             if (!$this->email->send())
                 show_error($this->email->print_debugger());
             else
@@ -79,7 +87,8 @@ class Inscription extends CI_Controller {
         if (!$this->inscription_model->SaveForm()) {
             $this->form_validation->set_message('verifemail', 'Le nom utilisateur ou email choisi existe deja');
             return FALSE;
-        } else return TRUE;   
+        } else
+            return TRUE;
     }
 
     function inscriptionCommercant() {
@@ -104,9 +113,17 @@ class Inscription extends CI_Controller {
         $this->form_validation->set_rules('fax', 'Fax', 'required|trim|xss_clean|max_length[45]|integer');
 
         $this->form_validation->set_error_delimiters('<br /><span class="error">', '</span>');
+        $enscom = $this->produit_model->getcommercant();
+        $data['comm'] = $enscom;
+        $data['pathphoto'] = site_url() . 'uploads/';
+
+
+        $ensproduitdate = $this->produit_model->get_product_by_date();
+        $data['produitdate'] = $ensproduitdate;
+        $data['comm'] = $enscom;
         $data['shopping'] = $this->shopping;
-        if ($this->form_validation->run() == FALSE) { 
-        // validation hasn't been passed
+        if ($this->form_validation->run() == FALSE) {
+            // validation hasn't been passed
             $this->twig->render('commercant/inscriptioncomm_view', $data);
         } else {
 
@@ -157,13 +174,11 @@ class Inscription extends CI_Controller {
             }
         }
     }
-    
-    function NewsLetter()
-    {
-        
-     $this->inscription_model->NewsLetter();
-     redirect('home_page');
-  
+
+    function NewsLetter() {
+
+        $this->inscription_model->NewsLetter();
+        redirect('home_page');
     }
 
 }

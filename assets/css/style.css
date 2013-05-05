@@ -58,6 +58,7 @@ padding: 7px;
 .colorlabel span {color: rgb(111, 111, 111);}
 .required { color: #b94a48; }
 .login p, .login span{
+
     color: #b94a48;
     background-color: #f2dede;
     padding: 8px 35px 8px 14px;
