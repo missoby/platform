@@ -1,15 +1,15 @@
 {% extends "/layout/layout.twig" %}
 
-{% block title %} {{parent()}} - Espace forum{% endblock title %}
+{% block title %} {{parent()}} - Espace Forum{% endblock title %}
 
-{% block container %}
-    <div class="row">
-        {% block menuVertical%}{% endblock menuVertical%}
-        {% block content %}
-        <div class="span12">
-            <div class="well">
-                <h3 class="text-center">Espace Forum</h3>
-                <form action="/forum/forum/ajouterSujet/{{idcat}}" method="post" class="form-horizontal offset1">
+{% block content %}
+    <div class="row-fluid">
+        <div class="span12 well">
+            <div class="row-fluid">
+                <ul class="nav nav-pills border">
+                    <li class="pull-left"><h4>Espace Forum</h4></li>
+                </ul>
+                <form action="/forum/forum/ajouterSujet/{{idcat}}" method="post" class="form-horizontal">
                   <div class="control-group">
                     <label class="control-label" for="titre">Titre</label>
                     <div class="controls">
@@ -28,15 +28,12 @@
                   </div>
                   <div class="control-group">
                     <div class="controls">
-                        <input type="submit" name="ajouter" value="Ajouter" class="btn btn-info"/>
+                        <input type="submit" name="ajouter" value="Ajouter" class="btn btn-inverse"/>
                     </div>
                   </div>
                 </form>     
-           
-                
-                </div>
-            </div>
-        {% endblock content %}
+            </div>       
         </div>
-        {% block partenaires %} {{parent()}} {% endblock partenaires %}
-{% endblock container %}
+   </div>
+    {% block partenaires %} {{parent()}} {% endblock partenaires %}
+    {% endblock content %}

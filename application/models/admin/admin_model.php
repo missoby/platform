@@ -74,7 +74,7 @@ Class Admin_model extends CI_Model {
     }
 
     function getidadmin($login) {
-        $this->db->select('idadmin');
+        $this->db->select('*');
         $this->db->from('admin');
         $this->db->where('login', $login);
         $this->db->limit(1);

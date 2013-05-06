@@ -33,10 +33,10 @@ class Admin extends CI_Controller {
         $res = $this->admin_model->login($login, $pwd);
         if ($res) {
 
-                    $reqid = $this->admin_model->getidadmin($login)->row()->idadmin;
+                    $reqid = $this->admin_model->getidadmin($login)->row();
              if (!empty($reqid))
              {
-                $login_in = array('id' => $reqid, 'type'=> 'admin');
+                $login_in = array('id' => $reqid->idadmin, 'type'=> 'admin', 'notifaction' => $reqid->notifaction, 'notifmsg' => $reqid->notifmsg);
                 $this->session->set_userdata('login_in', $login_in);
                 $this->twig->render('admin/administration/administration_view');
             } 

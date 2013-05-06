@@ -47,7 +47,7 @@
                                         <li><a href="/inscription/gestionprofil/modifier/{{ getsessionhelper() ['idpersonne'] }}"> <i class="icon-edit"></i> Modifier profil</a></li>
                                         <li><a href="/inscription/gestionprofil/newpwd/{{ getsessionhelper() ['idpersonne'] }}"><i class="icon-lock"></i> Modifier mot de passe</a></li>
                                         <li class="divider"></li>
-                                        <li><a href="{{base_url}}/inscription/home/logout"><i class="icon-off icon-white"></i> Se Déconnecter</a></li>
+                                        <li><a href="{{base_url}}/inscription/home/logout"><i class="icon-off"></i> Se Déconnecter</a></li>
                                     </ul>
                                 </li>
                                 {% else %}
@@ -61,17 +61,19 @@
                             <ul class="nav pull-right">
                                 {% if getsessionhelper()['type'] == 'client' %}
                                 <li><a href="/message/msgclientcomm/listmsgcomm"><i id="clicknotifmsg" class="notifblackmsg" ></i> Messages</a></li>
-                                <li ><a href="/notification/notif/GetnotifClient"><i id="clicknotifaction" class="notifred"></i></a></li>                       
+                                <li><a href="/notification/notif/GetnotifClient"><i id="clicknotifaction" class="notifblack"></i> Notifications</a></li>                       
                                 {% elseif getsessionhelper()['type'] == 'commercant'%}
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i id="clicknotifmsg" class="notifblackmsg" ></i> Messages<b class="caret"></b></a>
-                                    <a href="/notification/notif/Getnotif"><i id="clicknotifaction" class="notifred"></i></a>               
+                                                 
                                     <ul class="dropdown-menu">
                                         <li><a href="/message/msgclientcomm/listmsgclientcomm">Messages Clients</a></li>
                                         <li><a href="/message/msgclientcomm/msg_conv_comm_admin">Messages Adiministrateur</a></li>
                                         <li><a href="/message/msgclientcomm/sendMsgToAdmin">Envoyer Messages Administrateur</a></li>
                                     </ul>
+                                    
                                 </li>
+                                <li> <a href="/notification/notif/Getnotif"><i id="clicknotifaction" class="notifred"></i> Notifications</a> </li>
                                 {% endif %}
                             </ul>
                             {% endblock message %}
@@ -795,7 +797,6 @@
               });
         </script>
         {#---Notification---#} 
-        <script src="{{base_url()}}assets/js/notif.js"></script>
         <script src="{{base_url()}}assets/js/bootstrap.js"></script>
         {#---Carrousel---#}
         <script type="text/javascript"> $('.carousel').carousel({})</script>
@@ -821,6 +822,68 @@
         
    
         {% block js %} {% endblock js %}
-        
+<script>        
+$(document).ready(function(){
+    
+ if({{getsessionhelper()['notifaction']}} > 0)
+     {
+         $('#clicknotifaction').removeClass('notifblack');
+        if($('#clicknotifaction:not(.notifred)'))
+            $('#clicknotifaction').addClass('notifred');
+     }
+     
+  if({{getsessionhelper()['notifmsg']}} > 0)
+     {
+         $('#clicknotifmsg').removeClass('notifblackmsg');
+        if($('#clicknotifmsg:not(.notifredmsg)'))
+            $('#clicknotifmsg').addClass('notifredmsg');
+     }   
+     
+setInterval(function(){ 
+    $.ajax({
+    url: 'http://localhost:8081/notification/notif/notifajax',
+    type: "POST",
+    dataType: 'json',
+
+    success: function (msg) { 
+  notifmsg = msg['msg'];
+  notif = msg['action'];
+ 
+if( notif == 0  )
+{
+
+    $('#clicknotifaction').removeClass('notifred');
+    if($('#clicknotifaction:not(.notifblack)'))
+        $('#clicknotifaction').addClass('notifblack');
+}
+else
+{
+  $('#clicknotifaction').removeClass('notifblack');
+    if($('#clicknotifaction:not(.notifred)'))
+        $('#clicknotifaction').addClass('notifred');
+}    
+ 
+if( notifmsg == 0  )
+{
+      $('#clicknotifmsg').removeClass('notifredmsg');
+    if($('#clicknotifmsg:not(.notifblackmsg)'))
+        $('#clicknotifmsg').addClass('notifblackmsg');
+}
+else
+{
+  $('#clicknotifmsg').removeClass('notifblackmsg');
+    if($('#clicknotifmsg:not(.notifredmsg)'))
+        $('#clicknotifmsg').addClass('notifredmsg');
+}   
+	
+    }
+	
+});
+
+}, 6000);   
+
+
+});
+</script>
     </body>
 </html>

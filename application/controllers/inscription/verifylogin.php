@@ -52,6 +52,7 @@ class VerifyLogin extends CI_Controller {
                 $reqid = 0;
                 if($row->type == 'client'){
                     $reqid = $this->user_model->getidclient($row->idpersonne)->row()->idclient;
+                    $notif = $this->user_model->getnotif_client($row->idpersonne)->row();
                 }
                 elseif ($row->type == 'commercant') {
                     $enable = $this->user_model->getetatcomm($row->idpersonne)->row()->enable;
@@ -60,8 +61,10 @@ class VerifyLogin extends CI_Controller {
                     return false;
                 }
                     $reqid = $this->user_model->getidcommercant($row->idpersonne)->row()->idcommercant;
+                    $notif = $this->user_model->getnotif_commercant($row->idpersonne)->row();
             }
-                $login_in = array('id' => $reqid, 'idpersonne' => $row->idpersonne, 'email' => $row->email, 'login' => $row->login, 'type' => $row->type, 'panier' =>'');
+                ;
+                $login_in = array('id' => $reqid, 'idpersonne' => $row->idpersonne, 'email' => $row->email, 'login' => $row->login, 'type' => $row->type, 'panier' =>'', 'notifaction' => $notif->notifaction, 'notifmsg' => $notif->notifmsg);
                 $this->session->set_userdata('login_in', $login_in);
             }
             return TRUE;

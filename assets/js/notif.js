@@ -1,4 +1,19 @@
 $(document).ready(function(){
+    
+ if(getsessionhelper()['notifaction'] > 0)
+     {
+         $('#clicknotifaction').removeClass('notifblack');
+        if($('#clicknotifaction:not(.notifred)'))
+            $('#clicknotifaction').addClass('notifred');
+     }
+     
+  if(getsessionhelper()['notifmsg'] > 0)
+     {
+         $('#clicknotifmsg').removeClass('notifblackmsg');
+        if($('#clicknotifmsg:not(.notifredmsg)'))
+            $('#clicknotifmsg').addClass('notifredmsg');
+     }   
+     
 setInterval(function(){ 
     $.ajax({
     url: 'http://localhost:8081/notification/notif/notifajax',

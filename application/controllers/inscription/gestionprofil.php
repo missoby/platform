@@ -8,6 +8,7 @@ class Gestionprofil extends CI_Controller {
         parent::__construct();
         $this->load->model('inscription/inscription_model');
         $this->twig->addFunction('getsessionhelper');
+        $this->load->model('produit/produit_model', '', TRUE);
 
         $this->shopping['content'] = $this->cart->contents();
         $this->shopping['total'] = $this->cart->total();
@@ -20,24 +21,33 @@ class Gestionprofil extends CI_Controller {
     }
 
     function viewprofile() {
-
+        
         $id = getsessionhelper()['idpersonne'];
         $type = getsessionhelper()['type'];
         $personne = $this->inscription_model->getparent($id)->row();
+        $enscom = $this->produit_model->getcommercant();
+        $ensproduitdate = $this->produit_model->get_product_by_date();
         if ($personne) {
             if ($type == 'client') {
+                
+     
 
                 $client = $this->inscription_model->getchild($personne->idpersonne)->row();
                 $data = array(
                     'personne' => $personne, 'client' => $client,
-                    'shopping' => $this->shopping
+                    'shopping' => $this->shopping,
+                    'produitdate' => $ensproduitdate,
+                    'comm' => $enscom,
+                    'pathphoto' => site_url() . 'uploads/'
+                    
                 );
                 $this->twig->render('client/voirprofile_view_client', $data);
             } else if ($type == 'commercant') {
                 $commercant = $this->inscription_model->getchildcomm($personne->idpersonne)->row();
                 $data = array(
                     'personne' => $personne, 'commercant' => $commercant,
-                    'shopping' => $this->shopping
+                    'shopping' => $this->shopping,
+                    
                 );
                 $this->twig->render('commercant/voirprofile_view_comm', $data);
             }

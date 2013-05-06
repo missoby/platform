@@ -61,6 +61,21 @@ Class User_model extends CI_Model {
         else
             return false;
     }
+    
+    function getnotif_client($idpersonne) {
+        $this->db->select('*');
+        $this->db->from('client');
+        $this->db->where('personne_idpersonne', $idpersonne);
+        $this->db->limit(1);
+        return $this->db->get();
+    }
+    
+    function getnotif_commercant($idpersonne) {
+        $this->db->select('*');
+        $this->db->from('commercant');
+        $this->db->where('personne_idpersonne', $idpersonne);
+        $this->db->limit(1);
+        return $this->db->get();
+    }
 }
 
-?>

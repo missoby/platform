@@ -40,7 +40,7 @@ class forum_model extends CI_Model {
         
         public function getMsgForum($ids) {
             return $this->db->where('sujet_idsujet', $ids)
-                            ->order_by('datepublication', 'desc')
+                            ->order_by('datepublication', 'asc')
                             ->get('msgforum')
                             ->result();
         }

@@ -2956,7 +2956,7 @@ table th[class*="span"],
 .dropdown-submenu:focus > a {
   color: #ffffff;
   text-decoration: none;
-  background-color: #047692;
+  background-color: rgb(0, 55, 116);
 }
 
 .dropdown-menu > .active > a,
@@ -4762,7 +4762,7 @@ padding: 10px 15px 10px;
 }
 
 .navbar-inverse .navbar-inner {
-  background: transparent url(../img/black.png);
+  background: black;
 }
 
 .navbar-inverse .brand,

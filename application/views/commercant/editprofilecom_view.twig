@@ -1,21 +1,16 @@
 {% extends "/layout/layout.twig" %}
 
-{% block title %} {{parent()}} - Modifier Profil{% endblock title %}
+{% block title %} {{parent()}} - Profil{% endblock title %}
 
-{% block head %}
-<link type="text/css" href="{{base_url()}}assets/css/fg.menu.css" media="screen" rel="stylesheet" />
-{% endblock head %}
-
-
-{% block container %}
-<div class="row">
-        {% block menuVertical%}{% endblock menuVertical%}
-        {% block content %}
-        <div class="span12">
-            <div class="well">
+{% block content %}
+    <div class="row-fluid">
+        <div class="span12 well">
+            <div class="row-fluid">
                 <form action="/inscription/gestionprofil/updateprofilcomm" method="POST" class="form-horizontal">
-                    <fieldset>
-                        <legend>Modifier profil</legend>
+                    <div class="span10 well offset1" style="background-color: rgb(250, 250, 250)">
+                            <fieldset>
+                                <legend>Informations Personnels</legend>
+                                <div class="span6">
                          <div class="control-group">
                             <div class="login offset4">
                                 {{ form_error('callback') }}  
@@ -119,6 +114,9 @@
                                     </div>
                                 </div>
                             </div>
+                                        </div>
+                                <div class="span5">
+                                        
                             {#---Adresse Société---#}
                             <div class="control-group offset2">
                                 <label class="control-label" for="adrsoc">Adresse Société <span class="required">*</span></label>
@@ -129,6 +127,7 @@
                                     </div>
                                  </div>
                             </div>
+                                        
                             {#---Description Société---#}
                             <div class="control-group offset2">
                                 <label class="control-label" for="descsoc">Description Société <span class="required">*</span></label>
@@ -169,7 +168,7 @@
                                     </div>
                                 </div>
                             </div>
-
+                                </div>
                             {#---Valider---#}
                             <div class="control-group offset2">
                                 <div class="controls">
@@ -180,8 +179,8 @@
                         </fieldset>
                     </form>
                 </div>
-            </div>
-        {% endblock content %}
         </div>
-        {% block partenaires %} {{parent()}} {% endblock partenaires %}
-{% endblock container %}
+         
+    </div>
+    {% block partenaires %} {{parent()}} {% endblock partenaires %}
+    {% endblock content %}

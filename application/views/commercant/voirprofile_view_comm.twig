@@ -1,23 +1,18 @@
 {% extends "/layout/layout.twig" %}
 
-{% block title %} {{parent()}} - Voir Profil{% endblock title %}
+{% block title %} {{parent()}} - Profil{% endblock title %}
 
-{% block container %}
-    <div class="row">
-        {% block menuVertical%}{% endblock menuVertical%}
-        {% block content %}
-            <div class="span12 well">
-                <div class="span11">
-                    <div class="row">
-                        <ul class="nav nav-pills" style="border-bottom: 1px solid #cccccc">
-                            <li class="pull-left"><h4>Votre Profil</h4></li>
-                            <li class="pull-right"><a href="/annonce/annonce">Gestion des annonces</a></li>
-                            <li class="pull-right"><a href="/produit/produit">Gestion des produits</a></li> 
-                             <li class="pull-right"><a href="/produit/produit/slider">Gestion Slider</a></li> 
-                           
-                        </ul>
-                    </div>
-                </div>
+{% block content %}
+    <div class="row-fluid">
+        <div class="span12 well">
+            <div class="row-fluid">
+               
+                <ul class="nav nav-pills border">
+                    <li class="pull-left"><h4>Votre Profil</h4></li>
+                    <li class="pull-right"><a href="/annonce/annonce">Gestion des annonces</a></li>
+                    <li class="pull-right"><a href="/produit/produit">Gestion des produits</a></li> 
+                    <li class="pull-right"><a href="/produit/produit/slider">Gestion Slider</a></li> 
+                </ul>
                 <div class="span4">
                     <p class="colorlabel"><strong>Nom : </strong> <span>{{ personne.nom}}</span> </label></p>
                     <p class="colorlabel"><strong>Prénom : </strong> <span>{{ personne.prenom}}</span> </label></p>
@@ -31,11 +26,9 @@
                     <p class="colorlabel"><strong>Email : </strong> <span>{{ personne.email}}</span> </label></p>
                 </div> 
                 <div class="span11">
-                    <div class="row">
-                        <ul class="nav nav-pills" style="border-bottom: 1px solid #cccccc">
+                        <ul class="nav nav-pills border">
                             <li class="pull-left"><h4>Information sur votre société</h4></li>
                        </ul>
-                    </div>
                 </div>
                 <div class="span4">
                     <p class="colorlabel"><strong>Societe : </strong> <span>{{ commercant.societe}}</span> </label></p>
@@ -50,7 +43,8 @@
                     <p class="colorlabel"><strong>Description Société : </strong> <span>{{ commercant.descsoc}}</span> </label></p>
                 </div>
             </div>
-        {% endblock content %}
         </div>
-        {% block partenaires %} {{parent()}} {% endblock partenaires %}
-{% endblock container %}
+         
+    </div>
+    {% block partenaires %} {{parent()}} {% endblock partenaires %}
+    {% endblock content %}

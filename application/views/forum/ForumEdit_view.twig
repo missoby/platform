@@ -1,20 +1,14 @@
 {% extends "/layout/layout.twig" %}
 
-{% block title %} {{parent()}} - Modifer Annonce{% endblock title %}
+{% block title %} {{parent()}} - Espace Forum{% endblock title %}
 
-{% block container %}
-    <div class="row">
-        {% block menuVertical%}{% endblock menuVertical%}
-        {% block content %}
-        <div class="span12">
-            <div class="well">
-               <div class="span11">
-                    <div class="row">
-                        <ul class="nav nav-pills" style="border-bottom: 1px solid #cccccc">
-                            <li class="pull-left"><h4>Modifer Sujet</h4></li>
-                        </ul>
-                    </div>
-                </div>
+{% block content %}
+    <div class="row-fluid">
+        <div class="span12 well">
+            <div class="row-fluid">
+                <ul class="nav nav-pills border">
+                    <li class="pull-left"><h4>Espace Forum</h4></li>
+                </ul>
                 <form action="/forum/forum/InsertModif/{{id}}" method="POST" class="form-horizontal offset2" enctype="multipart/form-data">
                     <fieldset>
                           {#---Hidden Titre---#} 
@@ -52,9 +46,8 @@
                             </div>
                     </fieldset>
                 </form>
-            </div>
+             </div>       
         </div>
-        {% endblock content %}
-     </div>
-     {% block partenaires %} {{parent()}} {% endblock partenaires %}
-{% endblock container %}
+   </div>
+    {% block partenaires %} {{parent()}} {% endblock partenaires %}
+    {% endblock content %}

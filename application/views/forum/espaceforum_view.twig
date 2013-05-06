@@ -1,54 +1,58 @@
 {% extends "/layout/layout.twig" %}
 
-{% block title %} {{parent()}} - Espace forum{% endblock title %}
+{% block title %} {{parent()}} - Espace Forum{% endblock title %}
 
-{% block container %}
-    <div class="row">
-        {% block menuVertical%}{% endblock menuVertical%}
-        {% block content %}
+{% block content %}
+    <div class="row-fluid">
         <div class="span12 well">
-            <div class="">
-                <div class="span11">
-                     <h3 class="text-center">Espace Forum</h3>
-                     <hr>
-                </div>
-                <div class="span8 offset2">
-                    <div class="span2 well"><a href="/forum/forum/afficherSujet/1">
-                            <img src="{{base_url()}}assets/img/info.png" alt="" style="margin-left: 20px;"/>
-                            <p class="text-center"> Informatique</p></a>
-                        </div>
-                    <div class="span2 well">
-                        <a href="/forum/forum/afficherSujet/2">
-                            <img src="{{base_url()}}assets/img/jewelry.png" alt="" style="margin-left: 20px;"/>
-                            <p class="text-center"> Montres et bijoux</p>
-                        </a></div>
-                    <div class="span2 well">
-                        <a href="/forum/forum/afficherSujet/3">
-                            <img src="{{base_url()}}assets/img/phone.png" alt="" style="margin-left: 20px;"/>
-                            <p class="text-center"> Téléphones Portables</p>
-                    </a></div>
-                </div>
-                <div class="span8 offset2">
-                    <div class="span2 well">
-                        <a href="/forum/forum/afficherSujet/4">
-                            <img src="{{base_url()}}assets/img/electronic.png" alt="" style="margin-left: 20px;"/>
-                            <p class="text-center"> Electronics</p>
-                        </a></div>
-                    <div class="span2 well">
-                        <a href="/forum/forum/afficherSujet/5">
-                            <img src="{{base_url()}}assets/img/clothes.png" alt="" style="margin-left: 20px;"/>
-                            <p class="text-center"> Vétement et Accessoires</p>
-                        </a></div>
-                    <div class="span2 well">
-                         <a href="/forum/forum/afficherSujet/6">
-                        <img src="{{base_url()}}assets/img/mobilier.png" alt="" style="margin-left: 20px;"/>
-                       <p class="text-center"> Domicile et Bureau</p>
-                        </a></div>
-                </div>
-                                          
+            <div class="row-fluid">
+               <h3 class="text-center border">Espace Forum</h3>
+               <div class="span12 offset1">
+                   <div class="span3">
+                       <a href="/forum/forum/afficherSujet/1">
+                           <img src="{{base_url()}}assets/img/pc.jpg" alt="" class="slider-shadow" height="146"/>
+                           <p class="text-center"> Informatique</p>
+                       </a>
+
+                   </div>
+                   <div class="span3">
+                       <a href="/forum/forum/afficherSujet/2">
+                           <img src="{{base_url()}}assets/img/bijoux.jpg" alt="" class="slider-shadow" height="146"/>
+                           <p class="text-center"> Montres et bijoux</p>
+                       </a>
+
+                   </div>
+                   <div class="span3">
+                       <a href="/forum/forum/afficherSujet/3">
+                           <img src="{{base_url()}}assets/img/phone.jpg" alt="" class="slider-shadow" height="146"/>
+                           <p class="text-center"> Téléphones Portables</p>
+                       </a>
+
+                   </div>
+               </div>
+               <div class="span12 offset1">
+                   <div class="span3">
+                       <a href="/forum/forum/afficherSujet/4" >
+                           <img src="{{base_url()}}assets/img/electronic.jpg" alt="" class="slider-shadow" height="146"/>
+                           <p class="text-center"> Electronics</p>
+                       </a>
+                   </div>
+
+                   <div class="span3">
+                       <a href="/forum/forum/afficherSujet/5">
+                           <img src="{{base_url()}}assets/img/clothes.jpg" alt="" class="slider-shadow" height="146"/>
+                           <p class="text-center"> Vétement et Accessoires</p>
+                       </a>
+                   </div>
+                   <div class="span3">
+                       <a href="/forum/forum/afficherSujet/6">
+                           <img src="{{base_url()}}assets/img/home.jpg" alt="" class="slider-shadow" height="146"/>
+                           <p class="text-center"> Domicile et Bureau</p>
+                       </a>
+                   </div>
+               </div>
             </div>
-            </div>
-        {% endblock content %}
-        </div>
-        {% block partenaires %} {{parent()}} {% endblock partenaires %}
-{% endblock container %}
+        </div> 
+    </div>
+    {% block partenaires %} {{parent()}} {% endblock partenaires %}
+    {% endblock content %}
