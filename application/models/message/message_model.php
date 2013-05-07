@@ -193,6 +193,10 @@ Class Message_model extends CI_Model {
             'commercant_idcommercant' => $idcom
         );
         $this->db->insert('msgcommadmin', $data);
+        // update notifaction client
+        $this->db->where('idadmin', 1);
+        $this->db->set('notifmsg', "notifmsg+1", FALSE);
+        $this->db->update('admin');
         
     }
     
@@ -283,6 +287,10 @@ Class Message_model extends CI_Model {
             'commercant_idcommercant' => $idcom
         );
         $this->db->insert('msgclient', $data);
+        // update notifaction comm
+        $this->db->where('idcommercant', $idcom);
+        $this->db->set('notifmsg', "notifmsg+1", FALSE);
+        $this->db->update('commercant');
     }
     
     // get list of comm to send msg from admin
@@ -374,6 +382,10 @@ Class Message_model extends CI_Model {
             'commercant_idcommercant' => $idcom
         );
         $this->db->insert('msgadmin', $data);
+         // update notifaction comm
+        $this->db->where('idcommercant', $idcom);
+        $this->db->set('notifmsg', "notifmsg+1", FALSE);
+        $this->db->update('commercant');
         
     }
     

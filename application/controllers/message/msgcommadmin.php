@@ -119,6 +119,7 @@ class Msgcommadmin extends CI_Controller {
          $data['idcom'] = $idcom;
      $this->twig->render('message/admin/ListMsgAdmin_view', $data);
         } else {
+            //update notifmsg of the comm
             $this->message_model->ReponseAdmin($idcom);
             redirect('message/msgcommadmin/msg_conv_comm_admin/'.$idcom.'/'.$nom);
         }
