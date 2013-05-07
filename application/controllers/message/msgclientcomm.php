@@ -49,7 +49,7 @@ class Msgclientcomm extends CI_Controller {
     
     //get list client who sent msg to comm
     function listmsgclientcomm() {
- 
+        $data['msgs'] = $this->message_model->get_list_client();
         $data['shopping'] = $this->shopping;
         $this->twig->render('message/commercant/listSenderMsg_view', $data);
     }
@@ -113,6 +113,7 @@ class Msgclientcomm extends CI_Controller {
     {//mettre a zero le champ notifmsg de la table commercant
         $rmz = $this->notif_model->Rmz_Notif_Msg_comm(getsessionhelper()['id']);
         $conv = $this->message_model->get_conv_comm_admin();
+     
         
          //sort the table of conversation by date
         usort($conv, function($a, $b) {
@@ -129,28 +130,29 @@ class Msgclientcomm extends CI_Controller {
         $this->twig->render('message/commercant/ListMsgAdmin_view', $data);
     }
     
-    function ReponseCommAdmin($idmsg, $table)
+    function ReponseCommAdmin()
     {
         $idcom = getsessionhelper()['id'];
         $this->form_validation->set_rules('sujet', 'Sujet', 'required|trim');
         $this->form_validation->set_rules('contenu', 'Contenu', 'required|trim');
-        if ($this->form_validation->run() == FALSE) {
-           if($table == 'msgadmin')
-        {
-        $msg = $this->message_model->getmsgbyid_msgclient($idmsg)->row();
-        }
-        else
-        {
-        $msg = $this->message_model->getmsgbyid_msgclientcomm($idmsg)->row();
-        }
-        $data['msg'] = $msg;
-        $data['idcom'] = $idcom;
-        $data['idmsg'] = $idmsg;
-        $data['table'] = $table;
-         $data['shopping'] = $this->shopping;
-            $this->twig->render('message/commercant/messageAdmin_view', $data);
+        if ($this->form_validation->run() == FALSE) {  
+            $conv = $this->message_model->get_conv_comm_admin();
+   
+         //sort the table of conversation by date
+        usort($conv, function($a, $b) {
+                    $ad = new DateTime($a['dateenvoi']);
+                    $bd = new DateTime($b['dateenvoi']);
+
+                    if ($ad == $bd) {
+                        return 0;
+                    }
+                    return $ad < $bd ? 1 : -1;
+                });
+        $data['conv'] = $conv;
+        $data['shopping'] = $this->shopping;
+        $this->twig->render('message/commercant/ListMsgAdmin_view', $data);
         } else {
-            $this->message_model->ReponseCommAdmin($idcom);
+            $this->message_model->ReponseCommAdmin(getsessionhelper()['id']);
             redirect('message/msgclientcomm/msg_conv_comm_admin');
         }
         
