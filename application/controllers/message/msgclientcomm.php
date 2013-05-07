@@ -5,7 +5,8 @@ class Msgclientcomm extends CI_Controller {
     function __construct() {
         parent::__construct();
         $this->load->model('message/message_model');
-                        $this->load->model('notification/notif_model');
+        $this->load->model('notification/notif_model');
+        $this->load->model('produit/produit_model', '', TRUE);
 
         $this->twig->addFunction('getsessionhelper');
         
@@ -48,7 +49,7 @@ class Msgclientcomm extends CI_Controller {
     
     //get list client who sent msg to comm
     function listmsgclientcomm() {
-        $data['msgs'] = $this->message_model->get_list_client();
+ 
         $data['shopping'] = $this->shopping;
         $this->twig->render('message/commercant/listSenderMsg_view', $data);
     }
@@ -69,7 +70,7 @@ class Msgclientcomm extends CI_Controller {
 
                     return $ad < $bd ? 1 : -1;
                 });
-
+        
         $data['conv'] = $conv;
         $data['idcl'] = $idclient;
         $data['nom'] = str_replace("%20", " ", $nom);
@@ -158,6 +159,15 @@ class Msgclientcomm extends CI_Controller {
        
     //get list of comm who sent msg to client
     function listmsgcomm() {
+               $enscom = $this->produit_model->getcommercant();
+        $data['comm'] = $enscom;
+        $data['pathphoto'] = site_url() . 'uploads/';
+
+
+        $ensproduitdate = $this->produit_model->get_product_by_date();
+        $data['produitdate'] = $ensproduitdate;
+        $data['comm'] = $enscom;
+        $data['msgs'] = $this->message_model->get_list_client();
         $data['msgs'] = $this->message_model->get_list_comm();
          $data['shopping'] = $this->shopping;
         $this->twig->render('message/client/listSenderMsg_view', $data);

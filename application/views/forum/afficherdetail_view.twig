@@ -9,23 +9,34 @@
                 <ul class="nav nav-pills border">
                     <li class="pull-left"><h4>Espace Forum</h4></li>
                 </ul>
-                <h4 class="colorlabel">Détails du sujet</h4>
-                {% if (row.commercant_idcommercant ==  getsessionhelper()['id']) or (row.client_idclient ==  getsessionhelper()['id'])  %}
-                     <a href="/forum/forum/ModifierSujet/{{row.idsujet}}" class="btn pull-right">Modifier Sujet</a>    
+                <ul class="nav nav-pills">
+                    <li class="pull-left"><h4 class="colorlabel">Détails du sujet</h4></li>
+                    {% if (row.commercant_idcommercant ==  getsessionhelper()['id']) or (row.client_idclient ==  getsessionhelper()['id'])  %}
+
+                    <li class="pull-right">  
+                        <a href="/forum/forum/ModifierSujet/{{row.idsujet}}" class="btn btn-inverse pull-right">Modifier Votre Sujet</a> 
+                    </li>
+                </ul>    
+                
+             
                 {% if row.resolu ==  '1' %}
-                     <div class="well" style="min-height: 100px">
-                       <div class="resolved"> <img src="{{base_url()}}assets/img/active.png" title="résolu"></div>                           
-                       <h5 class="colorlabel">{{row.titre}}</h5>
-                        <p>{{row.contenu}}</p> 
-                        <p>
-                            <i class="icon-user"></i> De <span class="colorlabel">{{nom}}</span> 
-                            | <i class="icon-calendar"></i> {{row.datepublication}}
-                        </p>
+                <div class="well" style="min-height: 100px">
+                    <div class="resolved"> <img src="{{base_url()}}assets/img/active.png" title="résolu"></div>                           
+                    <h5 class="colorlabel">{{row.titre}}</h5>
+                    <p>{{row.contenu}}</p> 
+                    <p>
+                        <i class="icon-user"></i> De <span class="colorlabel">{{nom}}</span> 
+                        | <i class="icon-calendar"></i> {{row.datepublication}}
+                    </p>
                </div>
                {% else%}
                <div class="well" style="min-height: 100px">
-                   <a href="/forum/forum/resoudre/{{row.idsujet}}" class="btn pull-right"><img src="{{base_url()}}assets/img/active.png" > Marquer comme Résolu</a>
-                   <h5 class="colorlabel">{{row.titre}}</h5>
+                   <ul class="nav nav-pills border">
+                        <li class="pull-left"><h5 class="colorlabel">{{row.titre}}</h5></li>
+                        <li class="pull-right">  
+                          <a href="/forum/forum/resoudre/{{row.idsujet}}" class="btn">Marquer comme Résolu</a>
+                        </li>
+                    </ul>    
                     <p>{{row.contenu}}</p> 
                     <p>
                         <i class="icon-user"></i> De <span class="colorlabel">{{nom}}</span> 

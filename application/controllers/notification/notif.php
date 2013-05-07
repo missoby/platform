@@ -6,12 +6,13 @@ class Notif extends CI_Controller {
         parent::__construct();
         $this->twig->addFunction('getsessionhelper');
         $this->load->model('notification/notif_model');
+        $this->load->model('produit/produit_model', '', TRUE);
     }
 
 
      function notifajax()
     {  
-        $var['action'] = $this->notif_model->getnotifactionfromuser()->notifaction;
+       $var['action'] = $this->notif_model->getnotifactionfromuser()->notifaction;
        $var['msg'] = $this->notif_model->getnotifmsgfromuser()->notifmsg;
  
         echo json_encode($var);
@@ -40,12 +41,16 @@ class Notif extends CI_Controller {
         function GetnotifClient()
     {
         $req = $this->notif_model->GetNotifClient();
+        $enscom = $this->produit_model->getcommercant();
+        $data['comm'] = $enscom;
+        $data['pathphoto'] = site_url() . 'uploads/';
 
+        $ensproduitdate = $this->produit_model->get_product_by_date();
+        $data['produitdate'] = $ensproduitdate;
+        $data['comm'] = $enscom;
         $data['req']= $req;
-         $this->twig->render('client/notif/notifclient_view',$data);
-
-           
-       
+        $this->twig->render('client/notif/notifclient_view',$data);
+   
     }
     
 //     // set the field of the notif as being seen
@@ -55,6 +60,22 @@ class Notif extends CI_Controller {
 //        $this->notif_model->setVueClient($idclt, $idnotif);
 //        redirect('notification/notif/GetnotifClient');
 //    } // deplacé ver le formulaire forum
+    
+   function deleteclient($id) {
+        // delete product
+        $this->notif_model->deleteclient($id);
+
+        // redirect to product list page
+        redirect('notification/notif/GetnotifClient', 'refresh');
+    } 
+    
+    function deletecomm($id) {
+        // delete product
+        $this->notif_model->deletecomm($id);
+
+        // redirect to product list page
+        redirect('notification/notif/Getnotif', 'refresh');
+    } 
     
    
     

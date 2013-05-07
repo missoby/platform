@@ -1,15 +1,14 @@
 {% extends "/layout/layout.twig" %}
 
-{% block title %} {{parent()}} - Envoi message{% endblock title %}
+{% block title %} {{parent()}} - Messages{% endblock title %}
 
-{% block container %}
-    <div class="row">
-        {% block menuVertical%}{% endblock menuVertical%}
-        {% block content %}
+{% block content %}
+    <div class="row-fluid">
         <div class="span12 well">
-           <ul class="nav nav-pills" style="border-bottom: 1px solid #cccccc">
-               <li class="pull-left"><h4>Envoyer un message à un Commerçant</h4></li>
-           </ul>
+            <div class="row-fluid">
+                <ul class="nav nav-pills border">
+                    <li class="pull-left"><h4>Envoyer un message à un Commerçant</h4></li>
+                </ul>
            <form action="/message/msgclientcomm/send/{{idcom}}/{{idprod}}" method="POST" class="form-horizontal offset2">
                 {#---Sujet---#}
                 <div class="control-group">
@@ -36,14 +35,15 @@
                 {#---Envoyer---#}
                 <div class="control-group">
                     <div class="controls">
-                        <button type="submit" name="submit" class="btn btn-info">Envoyer</button>
+                        <button type="submit" name="submit" class="btn btn-inverse">Envoyer</button>
                     </div>
                 </div>
            </form>
         </div>
-        {% endblock content %}
-     </div>
-     {% block partenaires %} {{parent()}} {% endblock partenaires %}
-{% endblock container %}
+        </div>
+         
+    </div>
+    {% block partenaires %} {{parent()}} {% endblock partenaires %}
+    {% endblock content %}
 
  

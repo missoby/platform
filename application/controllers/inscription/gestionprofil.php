@@ -29,9 +29,6 @@ class Gestionprofil extends CI_Controller {
         $ensproduitdate = $this->produit_model->get_product_by_date();
         if ($personne) {
             if ($type == 'client') {
-                
-     
-
                 $client = $this->inscription_model->getchild($personne->idpersonne)->row();
                 $data = array(
                     'personne' => $personne, 'client' => $client,
@@ -58,6 +55,9 @@ class Gestionprofil extends CI_Controller {
         $type = getsessionhelper()['type'];
         $parent = $this->inscription_model->getprofilparent($id)->result();
         $child = $this->inscription_model->getprofilchild($id, $type)->result();
+        $personne = $this->inscription_model->getparent($id)->row();
+        $enscom = $this->produit_model->getcommercant();
+        $ensproduitdate = $this->produit_model->get_product_by_date();
         if ($type == 'client') { //data for client
             foreach ($child as $row) {
                 $idclient = $row->idclient;
@@ -74,7 +74,10 @@ class Gestionprofil extends CI_Controller {
                     'tel' => $row->tel,
                     'email' => $row->email,
                     'id' => $row->idpersonne,
-                    'shopping' => $this->shopping
+                    'shopping' => $this->shopping,
+                    'produitdate' => $ensproduitdate,
+                    'comm' => $enscom,
+                    'pathphoto' => site_url() . 'uploads/'
                 );
             }
             $this->twig->render('client/editprofileclient_view', $data);

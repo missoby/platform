@@ -115,7 +115,7 @@ class forum extends CI_Controller {
             $this->forum_model->setMsgForum($ids, $idclt, $idcom);
             // set the notification
             if (($id != NULL) AND ($table != NULL)  ){
-                $msg = 'un nouveau commentaire a été ajouté pour votre sujet forum';
+                $msg = 'Un nouveau commentaire a été ajouté pour votre sujet forum';
                 
             $this->notif_model->notifActionForum($id,$table, $msg, $ids);
         }
