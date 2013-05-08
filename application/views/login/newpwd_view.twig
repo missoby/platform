@@ -1,16 +1,16 @@
 {% extends "/layout/layout.twig" %}
 
-{% block title %} {{parent()}} - Nouveau Mot de Passe{% endblock title %}
+{% block title %} {{parent()}} - Mot de passe oublier{% endblock title %}
 
-{% block container %}
-    <div class="row">
-        {% block menuVertical%}{{parent()}}{% endblock menuVertical%}
-        {% block content %}
-        <div class="span9">
-            <div class="well">
+{% block content %}
+    <div class="row-fluid">
+        <div class="span12 well">
+            <div class="row-fluid">
+                   <ul class="nav nav-pills border">
+                        <li class="pull-left"><h4>Entrez votre nouveau mot de passe</h4></li>
+                    </ul>
                 <form action="../insertpwd/{{code1}}" method="POST" class="form-horizontal">
                     <fieldset>
-                        <legend>Entrez votre nouveau mot de passe</legend>
                             <div class="login offset2">
                                 {{ validation_errors() }}
                               </div>
@@ -43,9 +43,9 @@
                             </div>
                         </fieldset>
                     </form>
-                </div>
-            </div>
-        {% endblock content %}
+               </div>
         </div>
-        {% block partenaires %} {{parent()}} {% endblock partenaires %}
-{% endblock container %}
+         
+    </div>
+    {% block partenaires %} {{parent()}} {% endblock partenaires %}
+    {% endblock content %}

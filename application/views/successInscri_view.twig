@@ -1,19 +1,15 @@
 {% extends "/layout/layout.twig" %}
 
-{% block title %} {{parent()}} - Succes{% endblock title %}
+{% block title %} {{parent()}} - echec{% endblock title %}
 
-
-{% block container %}
-    <div class="row">
-        {% block menuVertical%}{% endblock menuVertical%}
-        {% block content %}
-        <div class="span12">
-            <div class="well">
+{% block content %}
+    <div class="row-fluid">
+        <div class="span12 well">
+            <div class="row-fluid">
                  <div class="alert alert-success text-center">Inscription Réuissite<a class="close" data-dismiss="alert" href="#">&times;</a></div>
-                  <div class="alert alert-info text-center">Veuillez consulter votre E-mail pour activer votre compte</div>   
-                </div>
+                 <div class="alert alert-info text-center">Veuillez consulter votre E-mail pour activer votre compte</div>   
             </div>
-        {% endblock content %}
-        </div>
-        {% block partenaires %} {{parent()}} {% endblock partenaires %}
-{% endblock container %}
+        </div>  
+    </div>
+    {% block partenaires %} {{parent()}} {% endblock partenaires %}
+    {% endblock content %}

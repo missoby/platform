@@ -1,16 +1,14 @@
 {% extends "/layout/layout.twig" %}
 
-{% block title %} {{parent()}} - Détails Cart{% endblock title %}
+{% block title %} {{parent()}} - Pannier{% endblock title %}
 
-{% block container %}
-    <div class="row">
-        {% block menuVertical%}{% endblock menuVertical%}
-        {% block content %}
-        <div class="span12">
-            <div class="well">
-                <h4 class="title feature">
-                    <span class="pull-left">Details de votre carte</span>
-                </h4>
+{% block content %}
+    <div class="row-fluid">
+        <div class="span12 well">
+            <div class="row-fluid">
+                <ul class="nav nav-pills border">
+                    <li class="pull-left"><h4>Détails de votre carte </h4></li>
+                </ul>
                 {% if not shopping.content  %}
                 <div class="alert alert-info">Votre carte est vide !</div>
                 {% else %}  
@@ -51,9 +49,9 @@
                     </table>
                 </form>
                 {% endif %}
-            </div>
-         </div>
-        {% endblock content %}
-     </div>
-     {% block partenaires %} {{parent()}} {% endblock partenaires %}
-{% endblock container %}
+           </div>
+        </div>
+         
+    </div>
+    {% block partenaires %} {{parent()}} {% endblock partenaires %}
+    {% endblock content %}
