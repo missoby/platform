@@ -51,15 +51,19 @@ class Afficheproduit extends CI_Controller {
         $avis = $this->avis_model->getavis($id);
          foreach ($avis as $value) {
           
-            $value->client_idclient = $this->forum_model->getProprietaire($value->client_idclient);
+           $value->idclient = $value->client_idclient;
+             $value->client_idclient = $this->forum_model->getProprietaireDelAvis($value->client_idclient);
+            // $value->client_idclient = $this->forum_model->getProprietaireDelAvis($value->client_idclient);
            
                  }
+    
         $data['avis'] = $avis;
+       
 
         $data['idp'] = $id;
         $data['idclt'] = getsessionhelper()['id'];
-        
-        
+
+     
 
         $this->twig->render('produit/afficheproduit/produit_view', $data);
     }
@@ -241,6 +245,16 @@ public function publierfb($id)
                 echo $e->getMessage();
             }   
         }
+    }
+    
+       
+    function supprimerAvis($idavis, $idp)
+    {
+        // delete comment
+        $this->avis_model->deleteAvis($idavis);
+
+        // redirect to product list page
+                redirect('/produit/afficheproduit/details/'.$idp);
     }
 
 }
