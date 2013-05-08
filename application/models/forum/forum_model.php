@@ -27,11 +27,21 @@ class forum_model extends CI_Model {
                             ->row();
         }
         
-        public function getProprietaire($idc) {
+       public function getProprietaire($idc) {
             $res = $this->db->where('idclient', $idc)
                      ->get('client')
                      ->row();
             
+            return $this->db->where('idpersonne', $res->personne_idpersonne)
+                            ->get('personne')
+                            ->row()->login;
+            
+        }
+          public function getProprietaireDelAvis($idc) {
+            $res = $this->db->where('idclient', $idc)
+                     ->get('client')
+                     ->row();
+             //print_r($res);return;
             return $this->db->where('idpersonne', $res->personne_idpersonne)
                             ->get('personne')
                             ->row()->login;

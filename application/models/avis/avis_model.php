@@ -28,6 +28,11 @@ class Avis_model extends CI_Model {
             
            $this->db->insert('commentaire', $tab);
         }
+        
+             function deleteAvis($id){
+		$this->db->where('idcommentaire', $id);
+		$this->db->delete('commentaire');
+	}
 
         
                
