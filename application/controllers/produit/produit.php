@@ -363,6 +363,7 @@ class Produit extends CI_Controller {
          $data['slider'] = $slider;
          $this->twig->render('produit/Slider_view', $data);
     }
+    
     public function addSlider()
     {
         
