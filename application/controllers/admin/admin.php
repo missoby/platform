@@ -16,6 +16,8 @@ class Admin extends CI_Controller {
         $this->twig->addFunction('getsessionhelper');
          $this->load->model('notification/notif_model');
          $this->load->model('signaler/signaler_model');
+         $this->load->model('statistique/statistique_model');
+
     }
 
     function index() {
@@ -421,6 +423,21 @@ class Admin extends CI_Controller {
 
         
         redirect('admin/admin/GetSign/', 'refresh');
+    }
+    function statistique()
+    {
+        if (!$this->session->userdata('login_in'))
+            redirect('/');
+        else 
+        {
+            $data['nbclientinscri'] = $this->statistique_model->GetNbClientInscri();
+            $data['nbcomminscri'] = $this->statistique_model->GetNbCommInscri();
+            $data['nbclientconfirm'] = $this->statistique_model->GetNbClientConf();
+            $data['nbcommconfirm'] = $this->statistique_model->GetNbCommConf();
+            $data['nbcommenable'] = $this->statistique_model->GetNbCommEnabl();
+        
+            $this->twig->render('statistique/statistique_view', $data);
+        }    
     }
 
 }
