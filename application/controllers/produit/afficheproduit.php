@@ -256,6 +256,19 @@ public function publierfb($id)
         // redirect to product list page
                 redirect('/produit/afficheproduit/details/'.$idp);
     }
+    
+    
+    function getProdRemise() {
+        $enscom = $this->produit_model->getcommercant();
+        $ensproduit = $this->produit_model->get_remise_product();
+        $data['produit'] = $ensproduit;
+        $data['comm'] = $enscom;
+        $data['pathphoto'] = site_url() . 'uploads/';
+ 
+        
+        $data['shopping'] = $this->shopping;
+        $this->twig->render('produit/afficheproduit/produitRemise_view', $data);
+    }
 
 }
 

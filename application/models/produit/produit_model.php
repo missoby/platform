@@ -341,4 +341,28 @@ class produit_model extends CI_Model {
                    $this->db->where('idsouscategorie',$idsouscat);
             return $this->db->get('souscategorie');
         }
+        
+        //get produit soldé
+           //get list client who sent msg to comm
+    function get_remise_product() {
+     $val = 0;
+        $sql = "select *
+                  from produit p
+                  where p.remise > '$val'
+                AND p.stock > '$val' ";
+        $query = $this->db->query($sql);
+        $tab = $query->result_array();
+
+        //*************
+        // get the old and new price
+        $tableau = array();
+        $i = 0;
+        foreach ($tab as $res) {
+            
+           $newprix = $res['prix'] - ($res['prix'] * $res['remise']/100);
+        $tableau[$i] = array('idp' => $res['idproduit'], 'oldprice' => $res['prix'], 'newprice' => $newprix, 'libelle' => $res['libelle'], 'remise' => $res['remise'], 'idcomm' => $res['commercant_idcommercant'], 'photo'=> $res['photo']);
+            $i++;
+        }
+        return $tableau;
+    }
 }

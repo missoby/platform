@@ -1,0 +1,61 @@
+{% extends "/layout/layout.twig" %}
+
+{% block title %} {{parent()}} - Liste des Produits{% endblock title %}
+
+{% block container %}
+    <div class="row">
+        {% block menuVertical%}{% endblock menuVertical%}
+        {% block content %}
+            <div class="span12">
+                <div class="well">
+                    {# liste des produit #}
+                    <h4 class="title feature">
+                        <span class="pull-left">Liste des Produits</span>
+                    </h4>
+                    <ul class="thumbnails">
+                        {% for row in produit %}
+                        <li class="span3 more bottom"> 
+                            <form action="/cart/cart/add_cart_item" method="POST" style="margin: 0 0 0px;">
+                                {% set id = row.commercant_idcommercant %}
+                                <div class="thumbnail">
+                                        <img src="{{pathphoto}}{{row.photo}}" width="250" height="200" style="padding: 9px;">
+                                        <div class="thumb">
+                                            <p><small> {{row.libelle}}</small></p>
+                                            
+                                            {% for row2 in comm.result_array() %}
+                                                {% if row2.idcommercant == id  %}
+                                                    <p> Fournisseur : <a href="/produit/afficheproduit/view_prod_comm/{{row2.idcommercant}}"> {{row2.societe}}</a></p>  
+                                                {% endif %}
+                                            {% endfor %}
+                                            <div>
+                                                <p class="pull-left">
+                                                 {% for i in 1..row.note %}
+                                                        <img src="{{base_url()}}/assets/img/star-on.png">
+                                                {% endfor %}
+                                                </p>
+                                                <p class="pull-right">Ancien : <big>{{row.oldprice}} DT</big></p>
+                                                <p class="pull-right">Nouveua: <big>{{row.newprice}} DT</big></p>
+                                            </div>
+                                            {#---Quantité hidden---#}
+                                             <input type="hidden" name="quantity" value="1">
+
+                                            {#---hidden id---#}
+                                            <input type="hidden" name="product_id" value="{{row.idp}}">
+                                            <div class="pull-right">
+                                                <button type="submit" name="submit" class="btn btn-default btn-mini"><i class="icon-shopping-cart"></i>Ajouter au panier</button>
+                                                <a href="/produit/afficheproduit/details/{{row.idp}}" class="btn btn-default btn-mini"><i class="icon-plus"></i>Plus Détails</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </form>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                   
+                  
+                </div>
+           </div>
+        {% endblock content %}
+     </div>
+     {% block partenaires %} {{parent()}} {% endblock partenaires %}
+{% endblock container %}
