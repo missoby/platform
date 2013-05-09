@@ -712,9 +712,13 @@
                                             <h4>Information</h4>
                                         </div>
                                         <ul class="unstyled">
-                                            <li><a href="">Home</a></li>
-                                            <li><a href="">A propos de nous</a></li>
-                                            <li><a href="">Forum</a></li>
+                                            <li><a href="/home_page">Home</a></li>
+                                            <li><a href="#">A propos de nous</a></li>
+                                            {% if getsessionhelper() %}
+                                             <li><a href="/forum/forum">Forum</a></li>
+                                             {% else %}
+                                             <li><a href="/inscription/login">Forum</a></li>
+                                             {%endif%}
                                         </ul>
                                     </div>
 
