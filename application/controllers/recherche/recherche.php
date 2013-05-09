@@ -50,10 +50,11 @@ class Recherche extends CI_Controller {
     function searchFromHome($id)
     {
         $enscom = $this->produit_model->getcommercant();
-        $ensproduit = $this->produit_model->get_product_from_home($id);
+        $ensproduit = $this->produit_model->get_product_from_home($id)->result();
         $data['produit'] = $ensproduit;
         $data['comm'] = $enscom;
         $data['pathphoto'] = site_url() . 'uploads/';
+
         $this->twig->render('recherche/recherche', $data);
     }
 

@@ -16,7 +16,7 @@
                     </div>
                     {% else %}
                  <ul class="thumbnails">
-                       {% for row in produit.result() %}
+                       {% for row in produit %}
                     <li class="span3">
                         <div class="thumbnail">
                             <img alt="{{row.libelle}}" style="height: 194px;" src="{{pathphoto}}{{row.photo}}"/>
