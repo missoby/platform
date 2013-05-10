@@ -1,0 +1,45 @@
+{% extends "/layout/admin-layout.twig" %}
+
+{% block title %} {{parent()}} - login administrateur{% endblock title %}
+
+
+{% block container %}
+    <div class="row">
+        {% block content %}
+            <div class="span12">
+            <div class="well">
+                {#---Logo---#}
+                <div class="span3 offset4">
+                    <a href=""><img src="{{base_url()}}assets/img/logo.png" alt="E-COMMERCE"/></a>
+                </div>
+                         <div>
+                        <p>Demande activation</p>
+
+                    {%for var in pay%}
+                       
+                       <p>
+                            <li>{{var.message}} </li>
+                            
+                            {%if var.vue == 1%}
+                                <li>Vue</li>
+                     <a href="/paiement/paiement/delete/{{var.idnotifAdmin}}}"><li>Supprimer</li></a>                                                    
+                                {%else%}
+                <a href="/admin/admin/viewdetails/{{var.idpers}}/{{var.idnotifAdmin}}"><li>Voir commercant</li></a>                                                          
+            
+            
+                    {%endif%}
+                    </p> 
+                            
+                            
+                        {%endfor%}
+                    
+                    <p>
+                    
+                    </div> 
+                    
+                   
+            </div>
+            </div>
+        {% endblock content %}
+    </div>
+{% endblock container %}

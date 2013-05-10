@@ -1,0 +1,54 @@
+{% extends "/layout/layout.twig" %}
+
+{% block title %} {{parent()}} - Notification{% endblock title %}
+
+{% block content %}
+    <div class="row-fluid">
+        <div class="span12 well">
+            <div class="row-fluid">
+                <ul class="nav nav-pills border">
+                    <li class="pull-left"><h4>Liste des Notifications</h4></li>
+                </ul>
+                        {%if pay == NULL %}
+                        <div class="alert alert-info">
+                            
+                            <p class="text-center"><strong>Pas de notification de paiement pour le moment</strong></p>
+                        </div>
+                        
+           {%else%}
+                   
+               {%for var in pay%}
+                       <p>
+                     {%if var.vue == 1%}
+                            <div class="alert alert-success">
+                                   <a href="/notification/notif/deletecomm/{{var.idnotifCommercant}}" class="close" data-dismiss="alert">&times;</a>
+                                   <p>{{var.message}}  <strong>Vue</strong></p>
+                               </div>
+                       
+                     {%elseif var.objNotif == 0 %} 
+                       <div class="alert">
+                           <p>{{var.message}} <a href="/inscription/gestionprofil/viewprofile/{{var.idnotifCommercant}}">Voir profil</a>
+                           </p>
+                        </div>
+                       {%else %}
+                      <div class="alert">
+                           <p>{{var.message}} <a href="/paiement/paiement/saveAffil/{{var.idnotifCommercant}}">Enregistrez vos données</a>
+                          </p>
+                        </div>
+                      {%endif%}  
+                  
+                    </p>          
+                     
+                      
+          {%endfor%}
+                    
+            {% endif%}
+                    
+ 
+            
+            </div>
+        </div>
+         
+    </div>
+    {% block partenaires %} {{parent()}} {% endblock partenaires %}
+    {% endblock content %}

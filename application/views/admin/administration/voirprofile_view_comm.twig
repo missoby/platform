@@ -15,6 +15,12 @@
                         {%else%}
                          <li class="pull-right"><a href="/admin/admin/desactiver/{{personne.idpersonne}}">désactiver</a></li>
                         {%endif%}
+                             
+                        {%if commercant.paiement == 0 %}
+                            <li class="pull-right"><a href="/paiement/paiement/activer/{{personne.idpersonne}}">Activer Paiement</a></li>
+                    
+                        {%endif%}     
+                       
                     </ul>
                 </div>
             </div>

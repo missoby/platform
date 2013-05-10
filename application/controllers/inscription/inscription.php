@@ -169,11 +169,14 @@ class Inscription extends CI_Controller {
         foreach ($resultats as $res) {
             if (sha1($res->email . 'XkI85BtF') == $link) {
                 $this->inscription_model->update_activer($res->idpersonne);
+                $msg = "Un Nouveau Commercant vient d'etre inscri";
+                $this->notif_model->notifadmin(1,$comm->idcommercant, $msg);
+            }
                 $this->twig->render('successInscri_view', $data);
                 break;
             }
         }
-    }
+    
 
     function NewsLetter() {
 
