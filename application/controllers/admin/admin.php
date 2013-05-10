@@ -357,8 +357,7 @@ class Admin extends CI_Controller {
         $data['req']= $req;
         //get signal 
         $sign = $this->signaler_model->GetSign();
-
-       
+          
         $data['sign']= $sign;
          $this->twig->render('admin/notif/notifadmin_view',$data);
 

@@ -7,6 +7,7 @@ class Gestionprofil extends CI_Controller {
     function __construct() {
         parent::__construct();
         $this->load->model('inscription/inscription_model');
+      $this->load->model('paiement/paiement_model');
         $this->twig->addFunction('getsessionhelper');
         $this->load->model('produit/produit_model', '', TRUE);
 
@@ -20,7 +21,13 @@ class Gestionprofil extends CI_Controller {
         $this->twig->render('accueilinscri_view', $data);
     }
 
-    function viewprofile() {
+    function viewprofile($idnotifcomm = NULL) {
+          
+        if($idnotifcomm != NULL)
+        {
+            $update = $this->paiement_model->updateVueComm($idnotifcomm);
+           
+        }
         
         $id = getsessionhelper()['idpersonne'];
         $type = getsessionhelper()['type'];
