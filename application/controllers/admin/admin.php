@@ -46,7 +46,7 @@ class Admin extends CI_Controller {
             $this->twig->render('admin/administration/login_view');
         }
     }
-
+// liste des commercant
     function afficheComm() {
         //generer une table pour passer les donnees au vue 
         $res = $this->admin_model->getcommparent()->result();
