@@ -54,6 +54,8 @@ class Recherche extends CI_Controller {
         $data['produit'] = $ensproduit;
         $data['comm'] = $enscom;
         $data['pathphoto'] = site_url() . 'uploads/';
+        $data['shopping'] = $this->shopping;
+
 
         $this->twig->render('recherche/recherche', $data);
     }

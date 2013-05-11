@@ -132,8 +132,10 @@ Class Paiement_model extends CI_Model {
         
         //
           $vue =  $this->db->select('*')
+                             ->where('idcommercant', $idcom)
                             ->get('commercant')
                             ->row()->notifaction;
+           
           if($vue > 0)
           {
                // update notifaction comm

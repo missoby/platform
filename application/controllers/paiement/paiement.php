@@ -109,10 +109,11 @@ class Paiement extends CI_Controller {
             $update = $this->paiement_model->updateVueComm($idnotifcomm);
            
         }
+     
         // les methode appelant les vue
-        $data['liencontrole'] = base_url().'/paiement/paiement/controle';
-        $data['lienechec'] = base_url().'/paiement/paiement/echec';
-        $data['liensucces'] = base_url().'/paiement/paiement/success';
+        $data['liencontrole'] = base_url().'paiement/paiement/controle';
+        $data['lienechec'] = base_url().'paiement/paiement/echec';
+        $data['liensucces'] = base_url().'paiement/paiement/success';
         
       $this->twig->render('commercant/paiement/savepay_view',$data);
 
