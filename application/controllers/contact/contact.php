@@ -7,6 +7,7 @@ class Contact extends CI_Controller {
     function __construct() {
         parent::__construct();
         $this->load->model('inscription/inscription_model');
+       $this->load->model('produit/produit_model');
         $this->twig->addFunction('getsessionhelper');
 
         $this->shopping['content'] = $this->cart->contents();
@@ -53,10 +54,27 @@ class Contact extends CI_Controller {
             if (!$this->email->send())
                 show_error($this->email->print_debugger());
             else
+           $data['shopping'] = $this->shopping;
             $this->twig->render('contact/contact_view', $data);        
             }
         
         
+        }
+        
+    
+        function aboutUs()
+        {
+            $enscom = $this->produit_model->getcommercant();
+        $data['comm'] = $enscom;
+        $data['pathphoto'] = site_url() . 'uploads/';
+
+
+        $ensproduitdate = $this->produit_model->get_product_by_date();
+        $data['produitdate'] = $ensproduitdate;
+        $data['comm'] = $enscom;
+        
+             $data['shopping'] = $this->shopping;
+            $this->twig->render('contact/aboutUs_view', $data);
         }
 
 
