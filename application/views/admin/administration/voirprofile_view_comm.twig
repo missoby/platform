@@ -1,19 +1,17 @@
 {% extends "/layout/admin-layout.twig" %}
 
-{% block title %} {{parent()}} - login administrateur{% endblock title %}
+{% block title %} {{parent()}} - Espace Administrateur{% endblock title %}
 
-{% block container %}
-
-        {% block content %}
-        <div class="well span8 offset2">
-            <div class="span7">
-                <div class="row">
+{% block content %}
+    <div class="row-fluid">
+        <div class="span12 well">
+            <div class="row-fluid">
                     <ul class="nav nav-pills" style="border-bottom: 1px solid #cccccc">
                         <li class="pull-left"><h4>{{personne.nom}} {{ personne.prenom}}</h4></li>
                         {%if commercant.enable == 0 %}
-                            <li class="pull-right"><a href="/admin/admin/activer/{{personne.idpersonne}}">Activer</a></li>
+                            <li class="pull-right"><a href="/admin/admin/activer/{{personne.idpersonne}}">Activer Commercant</a></li>
                         {%else%}
-                         <li class="pull-right"><a href="/admin/admin/desactiver/{{personne.idpersonne}}">désactiver</a></li>
+                         <li class="pull-right"><a href="/admin/admin/desactiver/{{personne.idpersonne}}">désactiver Commercant</a></li>
                         {%endif%}
                              
                         {%if commercant.paiement == 0 %}
@@ -22,9 +20,8 @@
                         {%endif%}     
                        
                     </ul>
-                </div>
-            </div>
-            <h5 class="span7">Information Général</h5>
+           
+            <h5 class="span11">Information Général</h5>
             <div class="span3">
                 <p class="colorlabel"><strong>Nom : </strong> <span>{{ personne.nom}}</span> </label></p>
                 <p class="colorlabel"><strong>Prénom : </strong> <span>{{ personne.prenom}}</span> </label></p>
@@ -37,7 +34,7 @@
                 <p class="colorlabel"><strong>Téléphone : </strong> <span>{{ personne.tel}}</span> </label></p>
                 <p class="colorlabel"><strong>Email : </strong> <span>{{ personne.email}}</span> </label></p>
             </div> 
-            <h5 class="span7">Information Sur la société</h5>
+            <h5 class="span11">Information Sur la société</h5>
             <div class="span3">
                 <p class="colorlabel"><strong>Societe : </strong> <span>{{ commercant.societe}}</span> </label></p>
                 <p class="colorlabel"><strong>Adresse Société : </strong> <span>{{ commercant.adrsoc}}</span> </label></p>
@@ -47,10 +44,12 @@
                 <p class="colorlabel"><strong>Fax : </strong> <span>{{ commercant.fax}}</span> </label></p>                    
                 <p class="colorlabel"><strong>Site web : </strong> <span>{{ commercant.siteweb}}</span> </label></p>                    
             </div>
-            <div class="span7">
+            <div class="span11">
                 <p class="colorlabel"><strong>Description Société : </strong> <span>{{ commercant.descsoc}}</span> </label></p>
             </div>
+       
+            </div>       
         </div>
-        {% endblock content %}
-   
-{% endblock container %}
+   </div>
+    {% block partenaires %} {{parent()}} {% endblock partenaires %}
+    {% endblock content %}

@@ -277,7 +277,12 @@ Class Notif_model extends CI_Model {
         function deletecomm($id){
 		$this->db->where('idnotifCommercant', $id);
 		$this->db->delete('notifcommercant');
-	}  
+	}
+        
+          function delete($id){
+		$this->db->where('idnotifAdmin', $id);
+		$this->db->delete('notifadmin');
+	} 
        
         
 }
