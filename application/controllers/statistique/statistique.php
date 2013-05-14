@@ -11,6 +11,10 @@ class Statistique extends CI_Controller {
         
         $this->twig->addFunction('getsessionhelper');
          $this->load->model('statistique/statistique_model');
+         $this->load->model('inscription/inscription_model');
+         $this->shopping['content'] = $this->cart->contents();
+        $this->shopping['total'] = $this->cart->total();
+        $this->shopping['nbr'] = $this->cart->total_items();
 
     }
 
@@ -30,7 +34,10 @@ class Statistique extends CI_Controller {
             $data['nbnote3'] = $this->statistique_model->GetNbNot3($idcom);
             $data['nbnote4'] = $this->statistique_model->GetNbNot4($idcom);
             $data['nbnote5'] = $this->statistique_model->GetNbNot5($idcom);
-  
+            $data['shopping'] = $this->shopping;
+            $commercant = $this->inscription_model->getchildcomm(getsessionhelper()['idpersonne'])->row();
+         $data['commercant'] = $commercant;
+
             $this->twig->render('commercant/statistique/statistique_view', $data);
             
         }    

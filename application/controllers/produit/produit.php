@@ -14,6 +14,8 @@ class Produit extends CI_Controller {
 
         $this->load->library('form_validation');
         $this->load->model('produit/produit_model', '', TRUE);
+        $this->load->model('inscription/inscription_model', '', TRUE);
+
         $this->twig->addFunction('getsessionhelper');
 
         $this->shopping['content'] = $this->cart->contents();
@@ -53,6 +55,8 @@ class Produit extends CI_Controller {
         }
         $data['table'] = $this->table->generate();
         $data['shopping'] = $this->shopping;
+         $commercant = $this->inscription_model->getchildcomm(getsessionhelper()['idpersonne'])->row();
+         $data['commercant'] = $commercant;
         // load view
         $this->twig->render('produit/produitList_view', $data);
     }
@@ -361,6 +365,8 @@ class Produit extends CI_Controller {
         $data['finalpath'] = site_url() . 'uploads/';
         }
          $data['slider'] = $slider;
+         $commercant = $this->inscription_model->getchildcomm(getsessionhelper()['idpersonne'])->row();
+         $data['commercant'] = $commercant;
          $this->twig->render('produit/Slider_view', $data);
     }
     
