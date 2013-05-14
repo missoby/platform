@@ -3,34 +3,36 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}E-commerce{% endblock title %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!--stylesheet-->
        	<link href="{{base_url()}}assets/css/style.css" rel="stylesheet" type="text/css"  />
        	<link href="{{base_url()}}assets/css/bootstrap.css" rel="stylesheet" type="text/css"  />
         <link href="{{base_url()}}assets/css/bootstrap-responsive.css" rel="stylesheet" type="text/css" />
-        
-{% block head %} {% endblock head %}
+        <script type="text/javascript" src="{{base_url()}}assets/js/modernizr.custom.js"></script>
+        {% block head %} {% endblock head %}
     </head>
+    <body class="body">
     <body>
-        {#---Navigation Top---#}
+    {#---Navigation Top---#}
         {% block nav%}
-             <nav class="navbar navbar-fixed-top navbar-inverse">
+        <nav class="navbar navbar-fixed-top navbar-inverse">
             <div class="navbar-inner">
-                <div class="container">
-                    <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <div class="nav-collapse collapse" id="main-menu">
-                        {#---Navigator left---#}
+                <div class="container-fluid" style="padding-right: 70px;padding-left: 70px;">
+                    <div class="row-fluid">
+                        <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <div class="nav-collapse collapse" id="main-menu">
+                            {#---Navigator left---#}
                             <ul class="nav" id="main-menu-left">
-                            <li><a href="/admin/admin/afficheComm">Gestion Commercant</a></li>
-                            <li><a href="/admin/admin/afficheClient">Gestion Client</a></li>
-                            <li><a href="/admin/admin/slider">Gestion Slider</a></li>
-                          <li><a href="/admin/admin/statistique">Statistique</a></li>                       
-                         <li><a href="/paiement/paiement/getactivpay">Liste paiement active</a></li>                              
-                          <li><a href="/paiement/paiement/getnotifpay">Liste paiement en attente</a></li>                       
-                    
+                                <li><a href="/admin/admin/afficheComm">Gestion Commercant</a></li>
+                                <li><a href="/admin/admin/afficheClient">Gestion Client</a></li>
+                                <li><a href="/admin/admin/slider">Gestion Slider</a></li>
+                                <li><a href="/admin/admin/statistique">Statistique</a></li>                       
+                                <li><a href="/paiement/paiement/getactivpay">Liste paiement active</a></li>                              
+                                <li><a href="/paiement/paiement/getnotifpay">Liste paiement en attente</a></li>                       
                             </ul>
                         {% block login%}
                         {#---Navigator right---#}
@@ -40,10 +42,11 @@
                         {% endblock login %}
                         {% block message %}
                         {#---Navigator right---#}
-                            <ul class="nav pull-right">
+                        <ul class="nav pull-right">
+                            <li><a href="/admin/admin/Getnotif"><i id="clicknotifaction" class="notifblack"></i> Notifications</a></li>
                              <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i id="clicknotifmsg" class="notifblackmsg" ></i> Messages<b class="caret"></b></a>
-             <a href="/admin/admin/Getnotif"><i id="clicknotifaction" class="notifblack"></i></a>                             
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i id="clicknotifmsg" class="notifblackmsg" ></i> Messages<b class="caret"></b></a>
+                                                             
                                     <ul class="dropdown-menu">
                                         <li><a href="/message/msgcommadmin/listmsgcomm">Messages Commerçant</a></li>
                                         <li><a href="/message/msgcommadmin/send">Envoyer Messages Commerçant</a></li>
@@ -56,20 +59,13 @@
             </div>
         </nav>
         {% endblock nav%}
-        {#---Header---#}
-        <header class="page-header" ></header>
-        
-        {#---Container---#}    
-        <section class="container">
-            {% block container %}
-                <div class="row">
-                    {#---Content---#}
-                        
-                    {% block content %}{% endblock content %}  
-                </div> 
-            {% endblock container %}
-        </section>
-        
+        {#---Container---#}  
+        {% block container %}
+        <section class="container-fluid" style="margin-top: 38px;padding-right: 70px;padding-left: 70px;">
+            {#---Content---#}
+            {% block content %}{% endblock content %}  
+         </section>
+        {% endblock container %}
         {#---FOOTER---#}
         <div id="btn_up">
             <img alt="Retour en haut" title="Retour en haut" src="{{base_url()}}assets/img/up.png">
@@ -80,9 +76,9 @@
         {#---Notification---#} 
        <script src="{{base_url()}}assets/js/notifadmin.js"></script> 
        <script src="{{base_url()}}assets/js/bootstrap.js"></script>
-            <script type="text/javascript" src="{{base_url()}}assets/js/raphael.js"></script>
-    <script type="text/javascript" src="{{base_url()}}assets/js/jquery.enumerable.js"></script>
-    <script type="text/javascript" src="{{base_url()}}assets/js/jquery.tufte-graph.js"></script>
+       <script type="text/javascript" src="{{base_url()}}assets/js/raphael.js"></script>
+       <script type="text/javascript" src="{{base_url()}}assets/js/jquery.enumerable.js"></script>
+       <script type="text/javascript" src="{{base_url()}}assets/js/jquery.tufte-graph.js"></script>
     <link rel="stylesheet" href="{{base_url()}}assets/css/tufte-graph.css" type="text/css" media="screen" charset="utf-8" />
     
      <script>
