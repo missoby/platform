@@ -89,6 +89,11 @@ Class Signaler_model extends CI_Model {
 		$this->db->where('idMsgforum', $id);
 		$this->db->delete('msgforum');
 	}
+        
+          function deleteSign($id){
+		$this->db->where('idsignaler', $id);
+		$this->db->delete('signaler');
+	} 
 
         
 }

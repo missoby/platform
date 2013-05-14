@@ -1,28 +1,25 @@
 {% extends "/layout/admin-layout.twig" %}
 
-{% block title %} {{parent()}} - login administrateur{% endblock title %}
+{% block title %} {{parent()}} - Espace Administrateur{% endblock title %}
 
-
-{% block container %}
-    <div class="row">
-        {% block content %}
-            <div class="span12">
-            <div class="well">
-                {#---Logo---#}
-                <div class="span3 offset4">
-                    <a href=""><img src="{{base_url()}}assets/img/logo.png" alt="E-COMMERCE"/></a>
-                </div>
+{% block content %}
+    <div class="row-fluid">
+        <div class="span12 well">
+            <div class="row-fluid">
+                <ul class="nav nav-pills border">
+                    <li class="pull-left"><h3>Espace Administrateur</h3></li>
+                </ul>
+                    <ul class="nav nav-pills" style="border-bottom: 1px solid #cccccc">
+                        <li class="pull-left"><h4>Paiement Activé</h4></li>
+                   </ul>
                          <div>
-                        <p>Liste paiement activé</p>
-
                     {%for var in res%}
-                       
-                       <p>
-                            <li>{{var.nom}} </li>
+                       <ul >
+                         <li>{{var.nom}} </li>
                           <li>{{var.prenom}} </li>
                          <li>{{var.societe}} </li>
             <li><a href="/paiement/paiement/desactiver/{{var.idcommercant}}">Désactiver</a></li>                                              
-                    </p> 
+                    </ul> 
                             
                             
                         {%endfor%}
@@ -32,8 +29,8 @@
                     </div> 
                     
                    
-            </div>
-            </div>
-        {% endblock content %}
-    </div>
-{% endblock container %}
+            </div>       
+        </div>
+   </div>
+    {% block partenaires %} {{parent()}} {% endblock partenaires %}
+    {% endblock content %}

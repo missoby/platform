@@ -43,6 +43,14 @@ class Signaler extends CI_Controller {
        
         }
   }
+  
+      function deleteSign($id) {
+        // delete notif
+        $this->signaler_model->deleteSign($id);
+
+        // redirect to notif list 
+            redirect('admin/admin/getnotif/', 'refresh');
+    }
 }
 
 ?>

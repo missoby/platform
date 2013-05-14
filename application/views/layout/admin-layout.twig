@@ -26,14 +26,29 @@
                         </button>
                         <div class="nav-collapse collapse" id="main-menu">
                             {#---Navigator left---#}
-                            <ul class="nav" id="main-menu-left">
-                                <li><a href="/admin/admin/afficheComm">Gestion Commercant</a></li>
-                                <li><a href="/admin/admin/afficheClient">Gestion Client</a></li>
-                                <li><a href="/admin/admin/slider">Gestion Slider</a></li>
-                                <li><a href="/admin/admin/statistique">Statistique</a></li>                       
-                                <li><a href="/paiement/paiement/getactivpay">Liste paiement active</a></li>                              
-                                <li><a href="/paiement/paiement/getnotifpay">Liste paiement en attente</a></li>                       
-                            </ul>
+                                <ul class="nav" id="main-menu-left">
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Gestion utilisateurs<b class="caret"></b></a>                        
+                                        <ul class="dropdown-menu">
+                                            <li><a href="/admin/admin/afficheComm">Gestion Commercant</a></li>
+                                            <li><a href="/admin/admin/afficheClient">Gestion Client</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Gestion Plateforme<b class="caret"></b></a>                        
+                                        <ul class="dropdown-menu">
+                                            <li><a href="/admin/admin/slider">Gestion Slider</a></li>
+                                            <li><a href="/admin/admin/statistique">Statistique</a></li>  
+                                        </ul>
+                                    </li>
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Gestion Paiement<b class="caret"></b></a>                        
+                                        <ul class="dropdown-menu">
+                                            <li><a href="/paiement/paiement/getactivpay">Liste paiement active</a></li>                              
+                                            <li><a href="/paiement/paiement/getnotifpay">Liste paiement en attente</a></li>            
+                                        </ul>
+                                    </li>            
+                                </ul>
                         {% block login%}
                         {#---Navigator right---#}
                             <ul class="nav pull-right">

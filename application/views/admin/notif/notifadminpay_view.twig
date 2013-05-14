@@ -1,45 +1,39 @@
 {% extends "/layout/admin-layout.twig" %}
 
-{% block title %} {{parent()}} - login administrateur{% endblock title %}
+{% block title %} {{parent()}} - Espace Administrateur{% endblock title %}
 
-
-{% block container %}
-    <div class="row">
-        {% block content %}
-            <div class="span12">
-            <div class="well">
-                {#---Logo---#}
-                <div class="span3 offset4">
-                    <a href=""><img src="{{base_url()}}assets/img/logo.png" alt="E-COMMERCE"/></a>
-                </div>
+{% block content %}
+    <div class="row-fluid">
+        <div class="span12 well">
+            <div class="row-fluid">
+                <ul class="nav nav-pills border">
+                    <li class="pull-left"><h3>Espace Administrateur</h3></li>
+                </ul>
+                    <ul class="nav nav-pills" style="border-bottom: 1px solid #cccccc">
+                        <li class="pull-left"><h4>Paiement En Attente D'activation</h4></li>
+                   </ul>
                          <div>
-                        <p>Demande activation</p>
 
                     {%for var in pay%}
-                       
-                       <p>
-                            <li>{{var.message}} </li>
-                            
+                   
                             {%if var.vue == 1%}
-                                <li>Vue</li>
-                     <a href="/paiement/paiement/delete/{{var.idnotifAdmin}}}"><li>Supprimer</li></a>                                                    
-                                {%else%}
-                <a href="/admin/admin/viewdetails/{{var.idpers}}/{{var.idnotifAdmin}}"><li>Voir commercant</li></a>                                                          
-            
-            
+                             <div class="alert alert-success">
+                                 <a href="/paiement/paiement/delete/{{var.idnotifAdmin}}}" class="close" data-dismiss="alert">&times;</a>                                                    
+                                 <p>{{var.message}}  <strong>Vue</strong></p>
+                             </div>                                
+                        {%else%}
+                             <div class="alert">          
+                                 <p>{{var.message}} <a href="/admin/admin/viewdetails/{{var.idpers}}/{{var.idnotifAdmin}}">Voir commercant</a>                                                          
+                                 </p>
+                             </div>
                     {%endif%}
-                    </p> 
-                            
-                            
+          
                         {%endfor%}
-                    
-                    <p>
-                    
+        
                     </div> 
                     
-                   
-            </div>
-            </div>
-        {% endblock content %}
-    </div>
-{% endblock container %}
+             </div>       
+        </div>
+   </div>
+    {% block partenaires %} {{parent()}} {% endblock partenaires %}
+    {% endblock content %}

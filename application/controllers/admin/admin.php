@@ -68,13 +68,13 @@ class Admin extends CI_Controller {
             // generate table data
             $this->load->library('table');
             $this->table->set_empty("&nbsp;");
-            $this->table->set_heading('nom', 'prenom', 'login', 'email','active', 'societe', 'enable', 'action');
+            $this->table->set_heading('login', 'email','active', 'societe', 'enable', 'action');
             $i = 0;
             foreach ($res as $row) {
                 $id = $row->idpersonne;
                 $res2 = $this->admin_model->getcommchild($id)->result();
                 foreach ($res2 as $row2) {
-                    $this->table->add_row($row->nom, $row->prenom, $row->login, $row->email, $row->active, $row2->societe, $row2->enable,
+                    $this->table->add_row($row->login, $row->email, $row->active, $row2->societe, $row2->enable,
                             anchor('admin/admin/viewdetails/' . $row->idpersonne, '<i class="icon-eye-open"></i>', 'title="Voir Profil" class= "btn"').
                             anchor('admin/admin/delete/' . $row->idpersonne, '<i class="icon-trash"></i>', 'title="Supprimer Commerçant" class= "btn"', array('onclick' => "return confirm('Vous voulez vraiment supprimer ce produit?')")) . ' ' .
                             anchor('admin/admin/activer/' . $row->idpersonne, '<i class="icon-ok"></i>', 'title="Activer Commerçant" class= "btn"') . ' ' .
@@ -435,8 +435,16 @@ class Admin extends CI_Controller {
             $data['nbcommconfirm'] = $this->statistique_model->GetNbCommConf();
             $data['nbcommenable'] = $this->statistique_model->GetNbCommEnabl();
         
-            $this->twig->render('statistique/statistique_view', $data);
+            $this->twig->render('admin/statistique/statistique_view', $data);
         }    
+    }
+    
+        function deleteNotif($id) {
+        // delete notif
+        $this->notif_model->delete($id);
+
+        // redirect to notif list 
+            redirect('admin/admin/getnotif/', 'refresh');
     }
 
 }
