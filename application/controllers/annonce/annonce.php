@@ -12,6 +12,7 @@ class Annonce extends CI_Controller {
         parent::__construct();
 
         $this->load->model('annonce/annonce_model', '', TRUE);
+      $this->load->model('inscription/inscription_model', '', TRUE);
         $this->twig->addFunction('getsessionhelper');
         
         $this->shopping['content'] = $this->cart->contents();
@@ -55,6 +56,8 @@ class Annonce extends CI_Controller {
         }
         $data['table'] = $this->table->generate();
         $data['shopping'] = $this->shopping;
+         $commercant = $this->inscription_model->getchildcomm(getsessionhelper()['idpersonne'])->row();
+         $data['commercant'] = $commercant;
         // load view
         $this->twig->render('annonce/annonceList_view', $data);
     }

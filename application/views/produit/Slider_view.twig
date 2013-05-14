@@ -11,6 +11,14 @@
                     <li class="pull-right"><a href="/annonce/annonce">Gestion des annonces</a></li>
                     <li class="pull-right"><a href="/produit/produit">Gestion des produits</a></li> 
                     <li class="pull-right"><a href="/produit/produit/slider">Gestion Slider</a></li> 
+                    <li class="pull-right"><a href="/statistique/Statistique/statcomm">Statistique</a></li> 
+               {%if (commercant.paiement == 0) and (commercant.dempaiement == 0) %}
+                    <li class="pull-right"><a href="/paiement/paiement/DemActivePay/{{getsessionhelper()['id']}}">Demande activation de paiement</a></li> 
+                  {%elseif commercant.paiement == 0 %}
+                     <li class="pull-right"><a href="#">Demande activation en cour de traitement</a></li> 
+               {%else %}    
+                      <li class="pull-right"><a href="#">Gestion Paiement</a></li> 
+                    {%endif%}
                 </ul>
                 <div class="span11">
                                 {%if nbPhoto == 0 %}

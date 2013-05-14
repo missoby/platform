@@ -1,26 +1,39 @@
 {% extends "/layout/layout.twig" %}
 
-{% block title %} {{parent()}} - Statistique{% endblock title %}
+{% block title %} {{parent()}} - Profil{% endblock title %}
 
 {% block content %}
     <div class="row-fluid">
-        <div class="span12">
+        <div class="span12 well">
             <div class="row-fluid">
+                 <ul class="nav nav-pills border">
+                        <li class="pull-left"><h4>Statistique</h4></li>
+                        <li class="pull-right"><a href="/annonce/annonce">Gestion des annonces</a></li>
+                        <li class="pull-right"><a href="/produit/produit">Gestion des produits</a></li> 
+                        <li class="pull-right"><a href="/produit/produit/slider">Gestion Slider</a></li> 
+                        <li class="pull-right"><a href="/statistique/Statistique/statcomm">Statistique</a></li> 
+               {%if (commercant.paiement == 0) and (commercant.dempaiement == 0) %}
+                       <li class="pull-right"><a href="/paiement/paiement/DemActivePay/{{getsessionhelper()['id']}}">Demande activation de paiement</a></li> 
+                  {%elseif commercant.paiement == 0 %}
+                      <li class="pull-right"><a href="#">Demande activation en cour de traitement</a></li> 
+               {%else %}    
+                      <li class="pull-right"><a href="#">Gestion Paiement</a></li> 
+                    {%endif%} 
+                   </ul>
                  <div class="span11">
-                <h3 class="text-center">Statistique</h3>
-                <hr>
+               
                 <div class="span6 offset2 well" style="background-color: rgb(250, 250, 250);box-shadow: 0px 0px 7px rgb(189, 186, 186);">
                 <div id='awesome-graph' class='graph' style='width: 370px; height: 200px;'></div>
                 </div>
             </div>
-                <div class="span3">
-                    {% block slider2 %}{{parent()}}{% endblock slider2 %}
-                </div>
+               
            </div>
-        </div> 
+        </div>
+         
     </div>
     {% block partenaires %} {{parent()}} {% endblock partenaires %}
     {% endblock content %}
+
 {% block js %}
  <script type="text/javascript" src="{{base_url()}}assets/js/raphael.js"></script>
     <script type="text/javascript" src="{{base_url()}}assets/js/jquery.enumerable.js"></script>
