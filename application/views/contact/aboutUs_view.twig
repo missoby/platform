@@ -1,0 +1,28 @@
+{% extends "/layout/layout.twig" %}
+
+{% block title %} {{parent()}} - Login{% endblock title %}
+
+{% block content %}
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="row-fluid">
+                <div class="span9 well" style="min-height:302px">
+                <ul class="nav nav-pills border">
+                    <li class="pull-left"><h4>A propos de nous</h4></li>
+                    <li class="pull-right"></li>
+
+                </ul>
+                 <p>Vous étes Client, Commercant, Vous cherchez un endroit rassemblant des différents produits, rassemblant
+                 un grand public, Facilitant la tache de vente en ligne, vous cherchez un moyen d'interaction avec
+                 d'autres client ainsi que les commercants. Vous tombez sur la bonne emplacement notre plateforme
+                 vous offre toutes ces services afin de rendre votre vie plus facile.</p>
+    
+                </div>
+                <div class="span3">
+                      {% block slider2 %}{{parent()}}{% endblock slider2 %}
+                 </div>
+            </div>
+        </div>   
+    </div>
+    {% block partenaires %} {{parent()}} {% endblock partenaires %}
+    {% endblock content %}

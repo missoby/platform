@@ -16,6 +16,7 @@ class Inscription extends CI_Controller {
     }
 
     function index() {
+        //pour afficher le slider des new product
         $enscom = $this->produit_model->getcommercant();
         $data['comm'] = $enscom;
         $data['pathphoto'] = site_url() . 'uploads/';
