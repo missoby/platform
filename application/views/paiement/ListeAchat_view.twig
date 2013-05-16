@@ -10,15 +10,10 @@
                     <li class="pull-left"><h4>Détails de votre carte </h4></li>
                 </ul>
                 {% if not shopping.content  %}
-                <div class="alert alert-info">Votre carte est vide !</div>
+                <div class="alert alert-info">Vous n'avez rien commandez !</div>
                 {% else %}  
-                    <form action="/cart/cart/update_cart" method="POST">
-                     <div class="control-group pull-right">
-                      <div class="controls">
-                         <button type="submit" name="submit" class="btn"><i class="icon-refresh"></i> Actualiser la Carte</button>
-                         <a href="/cart/cart/empty_cart" class="btn"><i class="icon-trash"></i> Vider la carte</a>  
-                      </div>
-                    </div>
+                    <form action="/paiement/paiement/saveCmd" method="POST">
+                    
                     <table class="table">           
                         <tr>
                             <th>photos</th>
@@ -47,8 +42,18 @@
                             <td>{{shopping.total}}</td>
                         </tr>
                     </table>
+                        {%if connect == 'yes'%}
+                        <div class="control-group pull-right">
+                            <div class="controls">
+                                <button type="submit" name="submit" class="btn"><i class="icon-refresh"></i> Payer</button>
+                            </div>
+                        </div>
+                        {%else%}
+                        <p> Veuillez vous inscrire  ou vous connectez </p>
+               <a href="/inscription/inscription" class="btn btn-mini" >S'inscrire</a></span>
+               <a href="/inscription/login" class="btn btn-mini" >Se connecter</a></span>
+                        {%endif%}
                 </form>
-     <a href="/paiement/paiement/listeAchat" class="btn btn-mini" >Commander</a></span>
                 {% endif %}
            </div>
         </div>

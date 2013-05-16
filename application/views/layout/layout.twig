@@ -128,7 +128,7 @@
                                 <span class="add-on">{{shopping.nbr}} Articles</span>
                                 <a class="btn" href="#" data-toggle="dropdown">
                                     <i class="icon-shopping-cart"></i> Pannier
-                                    <span class="caret"></span>
+                                    s<span class="caret"></span>
                                 </a>
 
                                 <ul class="dropdown-menu" style="padding: 26px">
@@ -636,7 +636,7 @@
                                                     <input type="hidden" name="quantity" value="1">
 
                                                     {#---hidden id---#}
-                                                    <input type="hidden" name="product_id" value="{{row.idproduit}}">
+                                                    <input type="hidden" name="product_id" value="{{rows.idproduit}}">
 
                                                     <button type="submit"  class="btn btn-mini" name="submit" title="Ajouter au panier"><i class="icon-shopping-cart"></i></button>
                                                     <a href="/produit/afficheproduit/details/{{rows.idproduit}}" class="btn btn-mini" title="Plus Détails"><i class="icon-plus"></i></a></span>

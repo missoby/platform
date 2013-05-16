@@ -21,11 +21,17 @@ class Gestionprofil extends CI_Controller {
         $this->twig->render('accueilinscri_view', $data);
     }
 
-    function viewprofile($idnotifcomm = NULL) {
-          
-        if($idnotifcomm != NULL)
+    function viewprofile($idnotif = NULL, $typeclient = NULL) {
+         
+        if($idnotif != NULL)
         {
-            $update = $this->paiement_model->updateVueComm($idnotifcomm);
+            if(($typeclient!= NULL))
+            {
+            $update = $this->paiement_model->updateVueClient($idnotif);
+   
+            }
+            else
+            $update = $this->paiement_model->updateVueComm($idnotif);
            
         }
         

@@ -48,7 +48,8 @@ class Cart_model extends CI_Model {
                     'qty' => $cty,
                     'price' => $row->prix,
                     'name' => $row->libelle,
-                    'options' => array('photo' => $row->photo, 'path' => site_url() . 'uploads/')
+                    'options' => array('photo' => $row->photo, 'path' => site_url() . 'uploads/',
+                        'idp'=> $row->idproduit)
                 );
 
                 $this->cart->insert($data);

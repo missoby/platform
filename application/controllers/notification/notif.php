@@ -62,7 +62,7 @@ class Notif extends CI_Controller {
 //    } // deplacé ver le formulaire forum
     
    function deleteclient($id) {
-        // delete product
+        // delete client
         $this->notif_model->deleteclient($id);
 
         // redirect to product list page
@@ -76,6 +76,8 @@ class Notif extends CI_Controller {
         // redirect to product list page
         redirect('notification/notif/Getnotif', 'refresh');
     } 
+    
+    
     
    
     
