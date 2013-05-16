@@ -1,0 +1,71 @@
+{% extends "/layout/admin-layout.twig" %}
+
+{% block title %} {{parent()}} - Espace Administrateur{% endblock title %}
+
+{% block content %}
+    <div class="row-fluid">
+        <div class="span12 well">
+            <div class="row-fluid">
+                <ul class="nav nav-pills border">
+                    <li class="pull-left"><h3>Espace Administrateur</h3></li>
+                </ul>
+                    <ul class="nav nav-pills" style="border-bottom: 1px solid #cccccc">
+                        <li class="pull-left"><h4>{{titre}}</h4></li>
+                         {%if login != NULL%}
+                        <li class="pull-right"><h4>Voici le login recherché : {{login}}</h4></li>
+                        {%endif%}
+                   </ul>
+                
+                        <form action="/paiement/paiement/InsertAff" method="POST" class="span8 well offset2" style="background-color: rgb(250, 250, 250)">
+                            <div class="login">
+                                {{ validation_errors() }}
+                            </div>
+                            <div class="offset1">
+                                <label for="Lien controle"><strong>lien controle</strong></label> 
+                                <div class="input-prepend">
+                                    <span class="add-on"><i class="icon-user"></i></span>
+                                    <input type="text" class="input-xlarge" name="control" class="input-xlarge" placeholder="Votre Nom d'utilisateur" value="{{liencontrole}}"/>                       
+                                </div>
+                            </div>
+
+                            <div class="offset1">
+                                <!-- lien echec-->
+                                <label for="echec"><strong>Lien Echec</strong></label>
+                         
+                                    <div class="input-prepend">
+                                        <span class="add-on"><i class="icon-lock"></i></span>
+                                        <input type="text"  name="echec" class="input-xlarge" placeholder="Votre Lien echec" value ="{{lienechec}}"/>
+                                    </div>
+                          
+                            </div>
+                              <div class="offset1">
+                                <!-- lien Succes-->
+                                <label for="succes"><strong>Lien Succes</strong></label>
+                         
+                                    <div class="input-prepend">
+                                        <span class="add-on"><i class="icon-lock"></i></span>
+                                        <input type="text"  name="succes" class="input-xlarge" placeholder="Votre lien succes" value ="{{liensucces}}"/>
+                                    </div>
+                          
+                            </div>
+                              <div class="offset1">
+                                <!-- Num Affilié -->
+                                <label for="affil"><strong>Votre Numéro Affilié</strong></label>
+                         
+                                    <div class="input-prepend">
+                                        <span class="add-on"><i class="icon-lock"></i></span>
+                                        <input type="text"  name="affil" class="input-xlarge" placeholder="Votre Numéro Affilié"/>
+                                    </div>
+                          
+                            </div>
+                            <div class="span2 offset1">
+                                <!-- Button -->
+                                    <button class="btn btn-inverse btn-block">Enregistrer</button> 
+                                   
+                            </div>
+                    </form>
+                </div>       
+        </div>
+   </div>
+    {% block partenaires %} {{parent()}} {% endblock partenaires %}
+    {% endblock content %}

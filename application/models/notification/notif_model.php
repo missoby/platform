@@ -283,6 +283,8 @@ Class Notif_model extends CI_Model {
 		$this->db->where('idnotifAdmin', $id);
 		$this->db->delete('notifadmin');
 	} 
+        
+       
        
         
 }

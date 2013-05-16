@@ -7,6 +7,9 @@ class Paiement extends CI_Controller {
         $this->twig->addFunction('getsessionhelper');
         $this->load->model('notification/notif_model');
         $this->load->model('paiement/paiement_model', '', TRUE);
+         $this->shopping['content'] = $this->cart->contents();
+        $this->shopping['total'] = $this->cart->total();
+        $this->shopping['nbr'] = $this->cart->total_items();
     }
 
         function DemActivePay($idcomm)
@@ -101,21 +104,17 @@ class Paiement extends CI_Controller {
 
    
     }
-    
-           function saveAffil($idnotifcomm = NULL)
+    // ca sera pour l'admin et non pas pour le commercant
+           function saveAffil()
     {
-                if($idnotifcomm != NULL)
-        {
-            $update = $this->paiement_model->updateVueComm($idnotifcomm);
-           
-        }
+              
      
         // les methode appelant les vue
         $data['liencontrole'] = base_url().'paiement/paiement/controle';
         $data['lienechec'] = base_url().'paiement/paiement/echec';
         $data['liensucces'] = base_url().'paiement/paiement/success';
         
-      $this->twig->render('commercant/paiement/savepay_view',$data);
+      $this->twig->render('admin/paiement/savepay_view',$data);
 
 
    
@@ -130,21 +129,167 @@ class Paiement extends CI_Controller {
         $data['lienechec'] = base_url().'/paiement/paiement/echec';
         $data['liensucces'] = base_url().'/paiement/paiement/success';
         
-      $this->twig->render('commercant/paiement/savepay_view',$data);
+      $this->twig->render('admin/paiement/savepay_view',$data);
         } else
-         {//save the affilié and idcomm
-                 //set champ notifmsg du comm (incerement)
-         $idcomm = getsessionhelper()['id'];
-            $this->paiement_model->saveaffil($idcomm);
-            redirect('inscription/gestionprofil/viewprofile');
+         {//save the affilié and idadmin
+               
+         $idadmin = getsessionhelper()['id'];
+            $this->paiement_model->saveaffil($idadmin);
+            redirect('admin/admin');
         }
 
 
    
     }
     function controle()
+    { 
+            if ( empty($_GET['Reference']) || empty($_GET['Action']) )
+               // redirect to home if reference and action are empty
+               $this->twig->render('home_page');
+
+	$ref = $_GET['Reference'];
+        $act = $_GET['Action'];
+	 
+	 //get the field ref from table commande where ref = $ref if the result is empty redirect to home
+       
+        $cmdRef = $this->paiement_model->getRef($ref);
+        if (empty($cmdRef))
+             $this->twig->render('home_page');
+
+
+    switch ($act) 
     {
-$this->twig->render('paiement/controle_view');
+        case "DETAIL":    
+
+         // access the database, and retrieve the amount
+ //on récupère le montant total de la commande
+         $montant = $this->paiement_model->getMontant($ref);
+         if ($montant->num_rows() == 0) {
+                    $this->twig->render('home_page'); // redirect to home page if empty
+                }
+                
+//            if ( empty($montant) )
+//              $this->twig->render('home_page'); // redirect to home page if empty
+
+        echo "Reference=$ref&Action=$act&Reponse=$montant";
+        break;
+
+
+        case "ERREUR":
+        
+		echo "Reference=$ref&Action=$act&Reponse=OK";
+        break;
+
+
+        case "ACCORD":
+        // access the database, register the authorization number (in param)
+        $par = $_GET['Param'];
+            //get data of the cmd : refcmd, datecmd and prixtotal
+            $infCmd = $this->paiement_model->getInfoCmd($ref);
+            // on récupère prix,date et ref to send it to client and admin
+            foreach ($infCmd as $var)
+            {
+                $idcmd = $var->idcommande;
+                $prix = $var->prixtotal;
+                $date = $var->datecmd;
+            }
+ 
+          // send mail of succes of paiement to admin/client and to comm send mail of the command
+       //send email to client and admin 
+            $config = Array(
+                'protocol' => 'smtp',
+                'smtp_host' => 'ssl://smtp.googlemail.com',
+                'smtp_port' => 465,
+                'smtp_user' => 'cmarwabriki@gmail.com',
+                'smtp_pass' => 'marwa26041989',
+                'mailtype' => 'html'
+            );
+
+            $this->load->library('email', $config);
+            $this->email->set_newline("\r\n");
+
+            $this->email->from('cmarwabriki@gmail.com');
+            $this->email->to(getsessionhelper()['email'],'missoby@hotmail.fr');//client connecté 
+
+            $this->email->subject('succes de paiement');
+            $msg = 'Paiement avec succes pour la commande de référence '.$ref.'de prix total'.$prix.'Le '.$date;
+            $this->email->message($msg);
+            
+            if (!$this->email->send())
+                show_error($this->email->print_debugger());
+            else
+            {                //send notif to client and admin
+                $idclient = getsessionhelper()['id'];
+                $msg = 'Un nouveau paiement a été effectué consulter votre mail';
+                $this->paiement_model->NotifSuccessPay($idclient, $msg);
+            }
+            //send mail to list comm that they have product commanded
+           $Listcomm =  $this->paiement_model->getListCommPay($idcmd, $ref, $date, $prix);
+                
+                 foreach ($Listcomm as $var)
+                 {$idcom = $var['idcom']; 
+                  $prixtot = 0;
+                  foreach ($Listcomm as $q)
+                  {
+                      if($q['idcom'] == $idcom)
+                      {
+                          $libelle .=  $q['libelle'] . 'pour une quantité de' . $q['qty'];
+                          $prixtot = $prixtot + $q['prixprod'];
+                          
+                          
+                      }
+                      
+                  }
+                  //send email to comm
+            $config = Array(
+                'protocol' => 'smtp',
+                'smtp_host' => 'ssl://smtp.googlemail.com',
+                'smtp_port' => 465,
+                'smtp_user' => 'cmarwabriki@gmail.com',
+                'smtp_pass' => 'marwa26041989',
+                'mailtype' => 'html'
+            );
+
+            $this->load->library('email', $config);
+            $this->email->set_newline("\r\n");
+
+            $this->email->from('cmarwabriki@gmail.com');
+            $this->email->to($var['email']);//To commercant 
+
+            $this->email->subject('Produits Vendu');
+            $msg = 'Liste de produit vendu '.$libelle.'Pour Un prix total de'.$prixtot.'La  commande de référence'.
+                    $ref.'le '.$date;
+            $this->email->message($msg);
+            
+            if (!$this->email->send())
+                show_error($this->email->print_debugger());
+
+            else
+                {
+                //send notif to comm
+                 $msg = 'Un nouveau paiement a été effectué consulter votre mail';
+                $this->paiement_model->NotifSuccessPayComm($var['idcom'], $msg);
+                }
+                     
+                 }
+           
+
+        echo "Reference=$ref&Action=$act&Reponse=OK";
+        break;
+
+
+        case "REFUS":
+        
+        echo "Reference=$ref&Action=$act&Reponse=OK";
+        break;
+
+
+        case "ANNULATION":
+        
+        echo "Reference=$ref&Action=$act&Reponse=OK";
+        break;
+
+    }
     
     }
     
@@ -159,6 +304,65 @@ $this->twig->render('paiement/echec_view');
 $this->twig->render('paiement/success_view');
     
     } 
+    
+    function listeAchat()
+    {
+        if(getsessionhelper()['login'] != NULL)
+        {
+       $data['connect'] = 'yes';
+     $data['shopping'] = $this->shopping;
+     $this->twig->render('paiement/ListeAchat_view', $data);
+        }
+        else 
+        {
+            // we need to display  error msg!!!
+          $data['connect'] = 'no';
+          $data['shopping'] = $this->shopping;
+          $this->twig->render('paiement/ListeAchat_view', $data);
+
+        }
+
+        
+    }
+    
+    function saveCmd()
+     { 
+//     $this->shopping['content'] = $this->cart->contents();
+//        $this->shopping['nbr'] = $this->cart->total_items(); 
+//    
+      $prixtotal = $this->shopping['total'] = $this->cart->total();
+      $cmd =  $this->paiement_model->saveCmd($prixtotal);
+
+        foreach ($this->cart->contents() as  $var)
+        {
+           $idp =  $var['options']['idp'];
+           $qty = $var['qty'];
+           $this->paiement_model->saveProdCmd($idp,$qty, $cmd);
+            
+        }
+            
+           // $t = rand(); echo $t;
+//             $prixtotal = $this->shopping['total'] = $this->cart->total();
+//            $this->paiement_model->saveCmd($prixtotal);
+              //redirect('home_page');// to form created by 3alé
+             $data['refcmd'] = $this->paiement_model->getRefCmd($cmd);
+             $data['affilCmd'] = $this->paiement_model->getAffilCmd();
+             $data['idsess'] = session_id();
+            $this->twig->render('paiement/FormPay_view', $data);
+// tu recupère le prix total, refference, affilier , et l'id du session courrantree w tab3athhom ilkol fi page fil vieww 8adika bech na3mel ena le formulaire OK ?
+
+    }
+    
+         function getnotifpayclient()
+    {
+          //get notif for activate paiement
+         $pay = $this->paiement_model->GetNotifClient();
+         
+         $data['pay'] = $pay;
+         $this->twig->render('client/notif/notifpayclient_view',$data);
+
+   
+    }
     
   
 
