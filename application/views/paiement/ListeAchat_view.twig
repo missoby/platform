@@ -27,7 +27,7 @@
                         {#---hidden id---#}
                         <input type="hidden" name="rowid[]" value="{{items.rowid}}">
                         <tr>
-                            <td><img src="{{items.options.path}}{{items.options.photo}}" class="span1 img-polaroid" height="50"></td>
+                            <td><img src="{{items.options.path}}{{items.options.photo}}" class="span6 img-polaroid" height="50"></td>
                             <td>{{items.name}}</td> 
                             <td>{{items.price}} </td>  
                             <td><input type="text" name="qty[]" placeholder="Quantité"  value="{{items.qty}}"></td>
@@ -49,9 +49,10 @@
                             </div>
                         </div>
                         {%else%}
-                        <p> Veuillez vous inscrire  ou vous connectez </p>
-               <a href="/inscription/inscription" class="btn btn-mini" >S'inscrire</a></span>
-               <a href="/inscription/login" class="btn btn-mini" >Se connecter</a></span>
+                         <p class="text-left">Veuillez vous connectez</p>
+              <span><a href="/inscription/login" class="btn btn-mini" >Se connecter</a></span>
+              <p class="text-left"> Vous n'etes pas inscri ? </p>
+               <span><a href="/inscription/inscription" class="btn btn-mini" >S'inscrire</a></span>
                         {%endif%}
                 </form>
                 {% endif %}

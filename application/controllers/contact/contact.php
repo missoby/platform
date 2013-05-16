@@ -76,6 +76,21 @@ class Contact extends CI_Controller {
              $data['shopping'] = $this->shopping;
             $this->twig->render('contact/aboutUs_view', $data);
         }
+        
+        function PlanSite()
+        {
+           $enscom = $this->produit_model->getcommercant();
+        $data['comm'] = $enscom;
+        $data['pathphoto'] = site_url() . 'uploads/';
+
+
+        $ensproduitdate = $this->produit_model->get_product_by_date();
+        $data['produitdate'] = $ensproduitdate;
+        $data['comm'] = $enscom;
+        
+             $data['shopping'] = $this->shopping;
+            $this->twig->render('contact/plan_view', $data); 
+        }
 
 
 }
