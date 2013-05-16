@@ -257,7 +257,7 @@ public function publierfb($id)
                 redirect('/produit/afficheproduit/details/'.$idp);
     }
     
-    
+    // afficher les produit avec remise
     function getProdRemise() {
         $enscom = $this->produit_model->getcommercant();
         $ensproduit = $this->produit_model->get_remise_product();

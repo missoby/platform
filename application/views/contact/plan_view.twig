@@ -1,0 +1,51 @@
+{% extends "/layout/layout.twig" %}
+
+{% block title %} {{parent()}} - Login{% endblock title %}
+
+{% block content %}
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="row-fluid">
+                <div class="span9 well" style="min-height:302px">
+                <ul class="nav nav-pills border">
+                    <li class="pull-left"><h4>Plan Du Site</h4></li>
+
+                </ul>
+                <ul>
+                    <li ><a href="/home_page">Home</a></li>
+                    <li ><a href="/contact/contact/aboutUs">A propos De Nous</a></li>
+                    {% if getsessionhelper() %}
+                    <li><a href="/forum/forum">Forum</a></li>
+                                {% else %}
+                   <li><a href="/inscription/login">Forum</a></li>
+                                {%endif%}
+                       <li class="offset1 "><a href="#">Informatiques</a></li>
+                       <li class="offset1"><a href="#">Montres Et Bijoux</a></li>
+                       <li class="offset1"><a href="#">Téléphones Portables</a></li>
+                       <li class="offset1"><a href="#">Eléctronics</a></li>
+                       <li class="offset1"><a href="#">Vetements Et Accessoires</a></li>
+                       <li class="offset1"><a href="#">domicile et bureau</a></li>
+                  <li><a href="/contact/contact">Contact</a></li>
+                  <li><a href="/inscription/inscription">Inscription</a></li>
+                       <li class="offset1 "><a href="#">Client</a></li>
+                       <li class="offset1"><a href="#">Commercant</a></li>
+                  <li><a href="/inscription/login">Login</a></li>
+                  <li><a href="#">services</a></li>
+                       <li class="offset1 "><a href="#">Recherche</a></li>
+                       <li class="offset1 "><a href="/home_page">Produit Les plus appréciés</a></li>
+                       <li class="offset1 "><a href="/home_page">Les Nouveutés</a></li>
+                       <li class="offset1 "><a href="/home_page">Partenaires</a></li>
+                       <li class="offset1 "><a href="/home_page">NewsLetter</a></li>
+
+
+                </ul>
+    
+                </div>
+                <div class="span3">
+                      {% block slider2 %}{{parent()}}{% endblock slider2 %}
+                 </div>
+            </div>
+        </div>   
+    </div>
+    {% block partenaires %} {{parent()}} {% endblock partenaires %}
+    {% endblock content %}
