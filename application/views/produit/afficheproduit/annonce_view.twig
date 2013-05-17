@@ -1,36 +1,30 @@
 {% extends "/layout/layout.twig" %}
 
-{% block title %} {{parent()}} - Offres{% endblock title %}
+{% block title %} {{parent()}} - Détails d'un produit{% endblock title %}
 
-{% block container %}
-<div class="row">
-        {% block menuVertical%}{% endblock menuVertical%}
-        {% block content %}
+{% block content %}
+    <div class="row-fluid">
         <div class="span12">
-            <div class="well">
-                <ul class="nav nav-pills" style="border-bottom: 1px solid #cccccc">
-                    <li class="pull-left"><h4>Détails annnonce</h4></li>
-                </ul>
+            <div class="row-fluid">
+                 <ul class="nav nav-pills border">
+                    <li class="pull-left"><h4>Détails annonces</h4></li>
+                    </ul>
 
                 <div class="span3">
                     <div class="row">
-                        <img src="{{ finalpath }}" alt="" height="159" class="img-polaroid span3">
+                        <img src="{{ finalpath }}" alt="" height="159" class="img-polaroid span8">
                     </div>
                 </div> 
                
                 <div class="span3">
-                    <p class="colorlabel"><strong>Nom annonce : </strong> <span>{{ annonce.titre}}</span> </p>
+                    <p class="colorlabel"><strong>Annonce : </strong> <span>{{ annonce.titre}}</span> </p>
                </div>
                <div class="span7">
                     <hr>
                      <p class="colorlabel"><strong>Description : </strong> <span> {{ annonce.contenu }}</span></p>
                 </div>
                 </div>
-            </div>
         </div>
-        {% endblock content %}
     </div>
-        {% block partenaires %} {{parent()}} {% endblock partenaires %}
-{% endblock container %}
-
-{% block js %} {% endblock js %} 
+    {% block partenaires %} {{parent()}} {% endblock partenaires %}
+       {% endblock content %}
