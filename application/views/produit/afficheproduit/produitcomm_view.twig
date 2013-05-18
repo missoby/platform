@@ -57,9 +57,16 @@
                             <div class="caption">
                                 <form action="/cart/cart/add_cart_item" method="POST" style="margin-bottom: 0">
                                     {% set id = row.commercant_idcommercant %}
+                                         {% set actvpay = 0 %}
                                         <h5 class="text-center">{{row.libelle}}</h5>
                                     {% for row2 in comm.result_array() %}
                                         {% if row2.idcommercant == id  %}
+                                        {# vérifier si le paiement en ligne est active     #}
+                                            {%if row2.paiement == 1 %}
+                                            {% set actvpay = 1 %}
+                                              {%else%}
+                                         {% set actvpay = 0 %}
+                                            {%endif%}
                                         <p class="text-center" > {{row2.societe}}</p>  
                                         {% endif %}
                                     {% endfor %}
@@ -74,8 +81,10 @@
 
                                     {#---hidden id---#}
                                     <input type="hidden" name="product_id" value="{{row.idproduit}}">
-
+                                   
+                                    {%if actvpay == 1%}
                                     <button type="submit"  class="btn btn-mini" name="submit" title="Ajouter au panier"><i class="icon-shopping-cart"></i></button>
+                                    {%endif%}                                     
                                     <a href="/produit/afficheproduit/details/{{row.idproduit}}" class="btn btn-mini" title="Plus Détails"><i class="icon-plus"></i></a>
                                     <span class="pull-right label">{{row.prix}} DT</span>
                                     </div>

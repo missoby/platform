@@ -141,6 +141,18 @@ class Afficheproduit extends CI_Controller {
         //afficher les sous categories selon le commercant ds l'interface comm
         $data['souscategorie'] = $this->produit_model->Get_Sous_Cat_Comm($id);
         $data['idcom'] = $id;
+        
+        //afficher slider
+         $slider = $this->produit_model->Get_Slider($id);
+        $i = $slider->num_rows();
+        $data['nbPhoto'] =  $i;
+       
+      
+        if($i != 0)
+        {
+        $data['finalpath'] = site_url() . 'uploads/';
+        }
+         $data['slider'] = $slider;
 
         $this->twig->render('produit/afficheproduit/produitCommByCat_view', $data);
     }
@@ -166,6 +178,17 @@ class Afficheproduit extends CI_Controller {
         //afficher les sous categories selon le commercant ds l'interface comm
         $data['souscategorie'] = $this->produit_model->Get_Sous_Cat_Comm($id);
         $data['idcom'] = $id;
+        //afficher slider
+         $slider = $this->produit_model->Get_Slider($id);
+        $i = $slider->num_rows();
+        $data['nbPhoto'] =  $i;
+       
+      
+        if($i != 0)
+        {
+        $data['finalpath'] = site_url() . 'uploads/';
+        }
+         $data['slider'] = $slider;
 
         $this->twig->render('produit/afficheproduit/produitCommByCat_view', $data);
     }
