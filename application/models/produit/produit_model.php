@@ -16,11 +16,11 @@ class produit_model extends CI_Model {
 		return $this->db->count_all($this->tbl_produit);
 	}
 	
-	function get_paged_list($limit, $offset, $id){
-		
-		$this->db->where('commercant_idcommercant', $id);
-                $this->db->order_by('idproduit','asc');
-		return $this->db->get($this->tbl_produit, $limit, $offset);
+	function get_paged_list($idcomm, $limit, $offset){
+		$this->db->order_by('idproduit','asc');
+		$this->db->where('commercant_idcommercant', $idcomm);
+                $this->db->limit($limit, $offset);
+		return $this->db->get($this->tbl_produit)->result();
 	}
 	
 	function get_by_id($id){
@@ -364,5 +364,25 @@ class produit_model extends CI_Model {
             $i++;
         }
         return $tableau;
+    }
+    
+    
+    
+    
+    
+    function listprodmobile($id)
+    {
+//         $this->db->select('*');
+//         $this->db->from($this->tbl_produit);
+//        $this->db->where('active', 1);
+//         $this->db->where('stock >', 0);
+//         $query = $this->db->get();
+//         return $query->result();
+        $this->db->select('*');
+        $this->db->from($this->tbl_produit);
+                 $this->db->where('souscategorie_idsouscategorie', $id);
+                 $query = $this->db->get();
+                  return $query->result();
+		
     }
 }

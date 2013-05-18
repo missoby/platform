@@ -23,7 +23,7 @@ class annonce_model extends CI_Model {
 		return $this->db->count_all($this->tbl_annonce);
 	}
 	
-	function get_paged_list($idcomm, $limit = 10, $offset = 0){
+	function get_paged_list($idcomm, $limit, $offset){
 		$this->db->order_by('idannonce','asc');
 		$this->db->where('commercant_idcommercant', $idcomm);
                 $this->db->limit($limit, $offset);

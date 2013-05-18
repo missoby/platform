@@ -8,11 +8,8 @@
        	<link href="{{base_url()}}assets/css/style.css" rel="stylesheet" type="text/css"  />
        	<link href="{{base_url()}}assets/css/bootstrap.css" rel="stylesheet" type="text/css"  />
         <link href="{{base_url()}}assets/css/bootstrap-responsive.css" rel="stylesheet" type="text/css" />  
-        <link href="{{base_url()}}assets/css/slider.css" rel="stylesheet" type="text/css" /> 
-         <link rel="stylesheet" href="{{base_url()}}assets/css/tufte-graph.css" type="text/css" media="screen" charset="utf-8" />
-    
-        <script type="text/javascript" src="{{base_url()}}assets/js/modernizr.custom.js"></script>
-                
+        <link href="{{base_url()}}assets/css/slider.css" rel="stylesheet" type="text/css" />     
+        <script type="text/javascript" src="{{base_url()}}assets/js/modernizr.custom.js"></script>        
         {% block head %} {% endblock head %}
     </head>
     <body>
@@ -37,7 +34,7 @@
                                 <li><a href="/inscription/login">Forum</a></li>
                                 {%endif%}
                                 <li><a href="/contact/contact">Contact</a></li>                  
-                                 <li><a href="/contact/contact/planSite">Plan</a></li>                  
+                                 <li><a href="/contact/contact/planSite">Plan du site</a></li>                  
                                 </ul>
                             {% block login%}
                             {#---Navigator right---#}
@@ -128,8 +125,7 @@
                             <div class="btn-group input-prepend  pull-right">
                                 <span class="add-on">{{shopping.nbr}} Articles</span>
                                 <a class="btn" href="#" data-toggle="dropdown">
-                                    <i class="icon-shopping-cart"></i> Pannier
-                                    s<span class="caret"></span>
+                                    <i class="icon-shopping-cart"></i> Pannier <span class="caret"></span>
                                 </a>
 
                                 <ul class="dropdown-menu" style="padding: 26px">

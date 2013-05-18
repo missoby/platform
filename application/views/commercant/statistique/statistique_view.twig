@@ -1,110 +1,75 @@
 {% extends "/layout/layout.twig" %}
 
-{% block title %} {{parent()}} - Profil{% endblock title %}
-
+{% block title %} {{parent()}} - Statistique{% endblock title %}
+{% block head %}
+    <link rel="stylesheet" href="{{base_url()}}assets/css/tufte-graph.css" type="text/css" media="screen" charset="utf-8" />
+{% endblock head %}
 {% block content %}
     <div class="row-fluid">
         <div class="span12 well">
             <div class="row-fluid">
                  <ul class="nav nav-pills border">
-                        <li class="pull-left"><h4>Statistique</h4></li>
-                        <li class="pull-right"><a href="/annonce/annonce">Gestion des annonces</a></li>
-                        <li class="pull-right"><a href="/produit/produit">Gestion des produits</a></li> 
-                        <li class="pull-right"><a href="/produit/produit/slider">Gestion Slider</a></li> 
-                        <li class="pull-right"><a href="/statistique/Statistique/statcomm">Statistique</a></li> 
-               {%if (commercant.paiement == 0) and (commercant.dempaiement == 0) %}
-                       <li class="pull-right"><a href="/paiement/paiement/DemActivePay/{{getsessionhelper()['id']}}">Demande activation de paiement</a></li> 
-                  {%elseif commercant.paiement == 0 %}
-                      <li class="pull-right"><a href="#">Demande activation en cour de traitement</a></li> 
-               {%else %}    
-                      <li class="pull-right"><a href="#">Gestion Paiement</a></li> 
+                    <li class="pull-left"><h4>Statistique</h4></li>
+                    <li class="dropdown pull-right">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Gestion Commerçant<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/produit/produit">Gestion des produits</a></li>
+                            <li><a href="/annonce/annonce">Gestion des annonces</a</li>
+                            <li><a href="/produit/produit/slider">Gestion Slider</a></li>
+                        </ul>
+                    </li>
+                    <li class="pull-right"><a href="/statistique/Statistique/statcomm">Statistique</a></li> 
+                    {%if (commercant.paiement == 0) and (commercant.dempaiement == 0) %}
+                    <li class="pull-right"><a href="/paiement/paiement/DemActivePay/{{getsessionhelper()['id']}}">Demande activation de paiement</a></li> 
+                    {%elseif commercant.paiement == 0 %}
+                    <li class="pull-right"><a href="" class="text-error">Demande d'activation en cour de traitement</a></li> 
+                    {%else %}    
+                    <li class="pull-right"><a href="#">Gestion Paiement</a></li> 
                     {%endif%} 
-                   </ul>
+                 </ul>
                  <div class="span11">
-               
-                <div class="span6 offset2 well" style="background-color: rgb(250, 250, 250);box-shadow: 0px 0px 7px rgb(189, 186, 186);">
-                <div id='awesome-graph' class='graph' style='width: 370px; height: 200px;'></div>
+                    <div class="span6 offset3 well" style="background-color: rgb(250, 250, 250);box-shadow: 0px 0px 7px rgb(189, 186, 186);">
+                        <div id='awesome-graph' class='graph' style='width: 370px; height: 200px;'></div>
+                    </div>
+                         
                 </div>
-            </div>
-               
+                <div class="span11">   
+                    <p class="text-center text-info"> Statistique des produits Noter</p>
+                </div>
            </div>
-        </div>
-         
+        </div>  
     </div>
     {% block partenaires %} {{parent()}} {% endblock partenaires %}
     {% endblock content %}
 
 {% block js %}
- <script type="text/javascript" src="{{base_url()}}assets/js/raphael.js"></script>
+    {#js statistique#}
+    <script type="text/javascript" src="{{base_url()}}assets/js/raphael.js"></script>
     <script type="text/javascript" src="{{base_url()}}assets/js/jquery.enumerable.js"></script>
     <script type="text/javascript" src="{{base_url()}}assets/js/jquery.tufte-graph.js"></script>
-   
-     <script type="text/javascript">
+    <script type="text/javascript">
      $(document).ready(function () {
         jQuery('#awesome-graph').tufteBar({
-        data: [
-          // First element is the y-value
-          // Other elements are arbitary - they are not used by the lib
-          // but are passed back into callback functions
-          [{{nbnote1}}, {label: 'Note 1'}],
-          [{{nbnote2}}, {label: 'Note 2'}],
-          [{{nbnote3}}, {label: 'Note 3'}],
-          [{{nbnote4}}, {label: 'Note 4'}],
-           [{{nbnote5}}, {label: 'Note 5'}],
-          // etc...
-
-          // For stacked graphs, pass an array of non-cumulative y values
-        //S  [[1.5, 1.0, 0.51], {label: '2005'}]
+        data: [ 
+          [{{nbnote1}}, {label: '<i class="icon-star"></i>'}],
+          [{{nbnote2}}, {label: '<i class="icon-star"></i><i class="icon-star"></i>'}],
+          [{{nbnote3}}, {label: '<i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i>'}],
+          [{{nbnote4}}, {label: '<i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i>'}],
+           [{{nbnote5}}, {label: '<i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i>'}],
         ],
-
-        // Any of the following properties can be either static values 
-        // or a function that will be called for each data point. 
-        // For functions, 'this' will be set to the current data element, 
-        // just like jQuery's $.each
-
-        // Bar width in arbitrary units, 1.0 means the bars will be snuggled
-        // up next to each other
         barWidth: 0.4, 
-
-        // The label on top of the bar - can contain HTML
-        // formatNumber inserts commas as thousands separators in a number
         barLabel:  function(index) { 
           return $.tufteBar.formatNumber(this[0]) //+ 'x' 
         }, 
-
-        // The label on the x-axis - can contain HTML
         axisLabel: function(index) { return this[1].label }, 
-
-        // The color of the bar
         color:     function(index) { 
           return ['rgb(117, 1, 6)', '#82293B'][index % 2] 
         },
-
-        // Stacked graphs also pass a stackedIndex parameter
         color:     function(index, stackedIndex) { 
-          return ['rgb(117, 1, 6)', '#82293B'][stackedIndex % 2] 
+          return ['rgb(3, 51, 136)', '#82293B'][stackedIndex % 2] 
         },
-
-        // Alternatively, you can just override the default colors and keep
-        // the built in color functions
-        colors: ['#82293B', 'rgb(117, 1, 6)', '#FFBE33'],
-     
-        // Legend is optional
-        // legend: {
-        //   // Data can be an array of any type of object, but the default
-        //   // formatter works with strings
-        //   data: ["North", "East", "West"],
-
-        //   // By default, the colors of the graph are used
-        //   color: function(index) { 
-        //     return ['#E57536', '#82293B'][index % 2] 
-        //   },
-
-        //   // You can customize the element label - can contain HTML
-        //   label: function(index) { return this }
-        // }
+        colors: ['#82293B', 'rgb(3, 51, 136)', '#FFBE33'],
       });
-});
+    });
     </script> 
-
 {% endblock js %}

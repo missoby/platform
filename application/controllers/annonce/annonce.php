@@ -6,15 +6,16 @@ if (!defined('BASEPATH'))
 class Annonce extends CI_Controller {
 
     // num of records per page
-    private $limit = 10;
+    private $limit = 6;
     private $shopping = array();
+
     function __construct() {
         parent::__construct();
 
         $this->load->model('annonce/annonce_model', '', TRUE);
-      $this->load->model('inscription/inscription_model', '', TRUE);
+        $this->load->model('inscription/inscription_model', '', TRUE);
         $this->twig->addFunction('getsessionhelper');
-        
+
         $this->shopping['content'] = $this->cart->contents();
         $this->shopping['total'] = $this->cart->total();
         $this->shopping['nbr'] = $this->cart->total_items();
@@ -22,14 +23,10 @@ class Annonce extends CI_Controller {
 
     function index($offset = 0) {
         //recuperer l'id du commercant 
-
         $idcomm = getsessionhelper()['id'];
-        // offset
-        $uri_segment = 3;
-        $offset = $this->uri->segment($uri_segment);
 
         // load data
-        $annonces = $this->annonce_model->get_paged_list($idcomm,$this->limit, $offset);
+        $annonces = $this->annonce_model->get_paged_list($idcomm, $this->limit, $offset);
 
         // generate pagination
         $this->load->library('pagination');
@@ -56,20 +53,24 @@ class Annonce extends CI_Controller {
         }
         $data['table'] = $this->table->generate();
         $data['shopping'] = $this->shopping;
-         $commercant = $this->inscription_model->getchildcomm(getsessionhelper()['idpersonne'])->row();
-         $data['commercant'] = $commercant;
+        //paiement
+        $commercant = $this->inscription_model->getchildcomm(getsessionhelper()['idpersonne'])->row();
+        $data['commercant'] = $commercant;
         // load view
         $this->twig->render('annonce/annonceList_view', $data);
     }
 
     function add() {
         $data['shopping'] = $this->shopping;
+        //paiement
+        $commercant = $this->inscription_model->getchildcomm(getsessionhelper()['idpersonne'])->row();
+        $data['commercant'] = $commercant;
+        
         $this->twig->render('annonce/annonceajout_view', $data);
     }
 
     function addannonce() {
         //login comm  
-
         $id = getsessionhelper()['id'];
         //récupérer les données apartir du formulaire
         $this->form_validation->set_rules('titre', 'titre', 'required|trim|xss_clean|max_length[45]');
@@ -99,25 +100,29 @@ class Annonce extends CI_Controller {
                 $name = $data['file_name'];
             }
             /////////// END photo///////////////////// 
- 
+
             $form_data = array('titre' => $this->input->post('titre'),
                 'contenu' => $this->input->post('contenu'),
                 'photo' => $name,
                 'active' => 1,
                 'commercant_idcommercant' => $id// test
             );
-
+           //paiement
+           $commercant = $this->inscription_model->getchildcomm(getsessionhelper()['idpersonne'])->row();
+           
             if ($this->annonce_model->addannonce($form_data) == true) {
                 $data = array(
                     'msg' => 'Ajout annonce avec succes',
-                    'shopping' => $this->shopping
-                    );
+                    'shopping' => $this->shopping,
+                    'commercant' => $commercant
+                );
                 $this->twig->render('annonce/successadd_view', $data);
             } else {
                 $data = array(
                     'msg' => 'Echec ajout annonce',
-                    'shopping' => $this->shopping
-                    );
+                    'shopping' => $this->shopping,
+                    'commercant' => $commercant
+                );
                 $this->twig->render('annonce/echecadd_view', $data);
 //                   
             }
@@ -126,15 +131,20 @@ class Annonce extends CI_Controller {
 
     function view($id) {
         $req = $this->annonce_model->get_by_id($id)->row();
-
         $data['annonce'] = $req;
         $data['finalpath'] = site_url() . 'uploads/' . $req->photo;
         $data['shopping'] = $this->shopping;
+        //paiement
+        $commercant = $this->inscription_model->getchildcomm(getsessionhelper()['idpersonne'])->row();
+        $data['commercant'] = $commercant;
         $this->twig->render('annonce/annonce_view', $data);
     }
 
     function update($id) {
         $annonce = $this->annonce_model->getannonce($id)->result();
+        //paiement
+        $commercant = $this->inscription_model->getchildcomm(getsessionhelper()['idpersonne'])->row();
+
         //recupérer categorie et sous categorie
         foreach ($annonce as $row) {
             $photo = $row->photo;
@@ -156,18 +166,17 @@ class Annonce extends CI_Controller {
                 'active' => $row->active,
                 'photo' => $path,
                 'namephoto' => $photo,
-                'shopping' => $this->shopping
-               
+                'shopping' => $this->shopping,
+                'commercant' => $commercant
+                
             );
         }
-        
+
         $this->twig->render('annonce/annonceEdittemp_view', $data);
     }
 
     function updateannonce($active, $namephoto = NULL, $id = NULL) {
         //login comm 
-
-
         $idcomm = getsessionhelper()['id'];
         //récupérer les données apartir du formulaire
         $this->form_validation->set_rules('titre', 'titre', 'required|trim|xss_clean|max_length[45]');
@@ -191,15 +200,14 @@ class Annonce extends CI_Controller {
             $this->load->library('upload', $config);
 
             if (!$this->upload->do_upload()) {
-               
+                
             } else {
 
                 $data = $this->upload->data();
                 $name = $data['file_name'];
             }
 
-/////////// END photo/////////////////////
-            
+            /////////// END photo/////////////////////
             //tester si on a ajouter une nouvelle photo
 
             if (!(empty($name))) {
@@ -214,17 +222,22 @@ class Annonce extends CI_Controller {
                 'photo' => $updatedphoto,
                 'commercant_idcommercant' => $idcomm// test
             );
+            
+            //paiement
+            $commercant = $this->inscription_model->getchildcomm(getsessionhelper()['idpersonne'])->row();
+        
             if ($this->annonce_model->updateannonce($form_data, $idcomm, $id) == true) {
                 $data = array(
                     'msg' => 'Annonce modifiée avec succes',
-                    'shopping' => $this->shopping
-                    );
+                    'shopping' => $this->shopping,
+                    'commercant' => $commercant
+                );
                 $this->twig->render('annonce/successadd_view', $data);
             } else {
                 $data = array(
                     'msg' => 'Echec modification annonce',
                     'shopping' => $this->shopping
-                    );
+                );
                 $this->twig->render('annonce/echecadd_view', $data);
             }
         }
@@ -238,22 +251,25 @@ class Annonce extends CI_Controller {
         redirect('annonce/annonce/index/', 'refresh');
     }
 
-
     function activer($id) {
+        //paiement
+        $commercant = $this->inscription_model->getchildcomm(getsessionhelper()['idpersonne'])->row();
         //activer produit
         if ($this->annonce_model->activer($id) == true) {
-
             redirect('annonce/annonce/index/', 'refresh');
         } else {
             $data = array(
                 'msg' => 'Erreur activation produit',
-                'shopping' => $this->shopping
-                );
+                'shopping' => $this->shopping,
+                'commercant' => $commercant
+            );
             $this->twig->render('Echec_view', $data);
         }
     }
 
     function desactiver($id) {
+        //paiement
+        $commercant = $this->inscription_model->getchildcomm(getsessionhelper()['idpersonne'])->row();
         //desactiver produit
         if ($this->annonce_model->desactiver($id) == true) {
 
@@ -261,8 +277,9 @@ class Annonce extends CI_Controller {
         } else {
             $data = array(
                 'msg' => 'Erreur activation produit',
-                'shopping' => $this->shopping
-                );
+                'shopping' => $this->shopping,
+                'commercant' => $commercant
+            );
             $this->twig->render('Echec_view', $data);
         }
     }

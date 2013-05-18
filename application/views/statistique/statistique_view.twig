@@ -1,7 +1,9 @@
 {% extends "/layout/admin-layout.twig" %}
 
-{% block title %} {{parent()}} - login administrateur{% endblock title %}
-
+{% block title %} {{parent()}} - Statistique{% endblock title %}
+{% block head %}
+    <link rel="stylesheet" href="{{base_url()}}assets/css/tufte-graph.css" type="text/css" media="screen" charset="utf-8" />
+{% endblock head %}
 {% block container %}
     <div class="row">
         {% block content %}
@@ -22,7 +24,37 @@
             </div>
             </div>
         {% endblock content %}
-    </div>
-            
-    
+    </div> 
 {% endblock container %}
+            {% block js %}
+ <script type="text/javascript" src="{{base_url()}}assets/js/raphael.js"></script>
+    <script type="text/javascript" src="{{base_url()}}assets/js/jquery.enumerable.js"></script>
+    <script type="text/javascript" src="{{base_url()}}assets/js/jquery.tufte-graph.js"></script>
+   
+     <script type="text/javascript">
+     $(document).ready(function () {
+        jQuery('#awesome-graph').tufteBar({
+        data: [ 
+          [{{nbnote1}}, {label: 'Note 1'}],
+          [{{nbnote2}}, {label: 'Note 2'}],
+          [{{nbnote3}}, {label: 'Note 3'}],
+          [{{nbnote4}}, {label: 'Note 4'}],
+           [{{nbnote5}}, {label: 'Note 5'}],
+        ],
+        barWidth: 0.4, 
+        barLabel:  function(index) { 
+          return $.tufteBar.formatNumber(this[0]) //+ 'x' 
+        }, 
+        axisLabel: function(index) { return this[1].label }, 
+        color:     function(index) { 
+          return ['rgb(117, 1, 6)', '#82293B'][index % 2] 
+        },
+        color:     function(index, stackedIndex) { 
+          return ['rgb(117, 1, 6)', '#82293B'][stackedIndex % 2] 
+        },
+        colors: ['#82293B', 'rgb(117, 1, 6)', '#FFBE33'],
+      });
+});
+    </script> 
+
+{% endblock js %}

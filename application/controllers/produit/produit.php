@@ -7,7 +7,7 @@ class Produit extends CI_Controller {
 
     private $shopping = array();
     // num of records per page
-    private $limit = 4;
+    private $limit = 6;
 
     function __construct() {
         parent::__construct();
@@ -22,14 +22,12 @@ class Produit extends CI_Controller {
         $this->shopping['total'] = $this->cart->total();
         $this->shopping['nbr'] = $this->cart->total_items();
     }
-    
-      function index($offset = 0) {
+
+    function index($offset = 0) {
         //recuperer l'id du commercant 
-        $idcom = getsessionhelper()['id'];
-
+        $idcomm = getsessionhelper()['id'];
         // load data
-        $produits = $this->produit_model->get_paged_list($this->limit, $offset, $idcom)->result();
-
+        $produits = $this->produit_model->get_paged_list($idcomm, $this->limit, $offset);
         // generate pagination
         $this->load->library('pagination');
         $config['base_url'] = site_url('produit/produit/index/');
@@ -43,10 +41,9 @@ class Produit extends CI_Controller {
         $this->load->library('table');
         $this->table->set_empty("&nbsp;");
         $this->table->set_heading('Libelle', 'stock', 'prix', 'remise', 'active', 'Actions');
-        $i = 0 + $offset;   
+        $i = 0 + $offset;
         foreach ($produits as $produit) {
-            $this->table->add_row($produit->libelle, $produit->stock, $produit->prix, $produit->remise, $produit->active, 
-                    anchor('produit/produit/view/' . $produit->idproduit, '<i class="icon-eye-open"></i>', 'title="Voir Produit" class= "btn"') . ' ' .
+            $this->table->add_row($produit->libelle, $produit->stock, $produit->prix, $produit->remise, $produit->active, anchor('produit/produit/view/' . $produit->idproduit, '<i class="icon-eye-open"></i>', 'title="Voir Produit" class= "btn"') . ' ' .
                     anchor('produit/produit/update/' . $produit->idproduit, '<i class="icon-edit"></i>', 'title="Modifier Produit" class= "btn"') . ' ' .
                     anchor('produit/produit/delete/' . $produit->idproduit, '<i class="icon-trash"></i>', 'title="Supprimer Produit" class= "btn"', array('onclick' => "return confirm('Vous voulez vraiment supprimer ce produit?')")) . ' ' .
                     anchor('produit/produit/activer/' . $produit->idproduit, '<i class="icon-ok"></i>', 'title="Activer Produit" class= "btn"') . ' ' .
@@ -55,8 +52,9 @@ class Produit extends CI_Controller {
         }
         $data['table'] = $this->table->generate();
         $data['shopping'] = $this->shopping;
-         $commercant = $this->inscription_model->getchildcomm(getsessionhelper()['idpersonne'])->row();
-         $data['commercant'] = $commercant;
+        //paiement
+        $commercant = $this->inscription_model->getchildcomm(getsessionhelper()['idpersonne'])->row();
+        $data['commercant'] = $commercant;
         // load view
         $this->twig->render('produit/produitList_view', $data);
     }
@@ -67,15 +65,17 @@ class Produit extends CI_Controller {
         $data['categorie'] = $enscat;
         $data['souscat'] = $enssouscat;
         $data['shopping'] = $this->shopping;
+        //paiement
+        $commercant = $this->inscription_model->getchildcomm(getsessionhelper()['idpersonne'])->row();
+        $data['commercant'] = $commercant;
+        
         $this->twig->render('produit/produitajout_view', $data);
     }
 
     function addproduct() {
-
-//        $data['shopping'] = $this->shopping;
         //login comm 
         $id = getsessionhelper()['id'];
-        //rÃ©cupÃ©rer les donnÃ©es apartir du formulaire
+        //récupérer les donnÃ©es apartir du formulaire
         $this->form_validation->set_rules('libelle', 'libelle', 'required|trim|xss_clean|max_length[45]');
         $this->form_validation->set_rules('stock', 'stock', 'required|trim|xss_clean|max_length[45]|integer');
         $this->form_validation->set_rules('description', 'description', 'required|trim|xss_clean');
@@ -114,8 +114,9 @@ class Produit extends CI_Controller {
                 $name = $data['file_name'];
             }
             //----- END photo -----
-            if ($name == NULL)
-            {$name = ' ';}
+            if ($name == NULL) {
+                $name = ' ';
+            }
 
             $form_data = array('libelle' => $this->input->post('libelle'),
                 'stock' => $this->input->post('stock'),
@@ -130,19 +131,23 @@ class Produit extends CI_Controller {
                 'soussouscategorie_id' => $this->input->post('soussouscat'),
                 'commercant_idcommercant' => $id// test
             );
-
+            //paiement
+            $commercant = $this->inscription_model->getchildcomm(getsessionhelper()['idpersonne'])->row();
+            
             if ($this->produit_model->addproduct($form_data) == true) {
                 $data = array(
                     'msg' => 'Ajout produit avec succes',
-                    'shopping' => $this->shopping
-                    );
+                    'shopping' => $this->shopping,
+                    'commercant'=> $commercant
+                );
                 $this->twig->render('produit/successadd_view', $data);
             } else {
 
                 $data = array(
                     'msg' => 'Echec ajout produit',
-                    'shopping' => $this->shopping
-                    );
+                    'shopping' => $this->shopping,
+                    'commercant'=> $commercant
+                );
                 $this->twig->render('produit/echecadd_view', $data);
             }
         }
@@ -155,14 +160,18 @@ class Produit extends CI_Controller {
         $idsscat = $req->soussouscategorie_id;
 
         $categorie = $this->produit_model->getcat($idcat)->row(); //titre du cat :: normalment c unutile
-        $souscategorie = $this->produit_model->getsouscatvoir($idscat)->row(); 
-        $soussouscategorie = $this->produit_model->getsoussouscatvoir($idsscat)->row(); 
+        $souscategorie = $this->produit_model->getsouscatvoir($idscat)->row();
+        $soussouscategorie = $this->produit_model->getsoussouscatvoir($idsscat)->row();
 
         $data['produit'] = $req;
         $data['categorie'] = $categorie;
         $data['souscat'] = $souscategorie;
         $data['soussouscat'] = $soussouscategorie;
         $data['finalpath'] = site_url() . 'uploads/' . $req->photo;
+        
+        //paiement
+        $commercant = $this->inscription_model->getchildcomm(getsessionhelper()['idpersonne'])->row();
+        $data['commercant'] = $commercant;
 
         $data['shopping'] = $this->shopping;
         $this->twig->render('produit/produit_view', $data);
@@ -170,7 +179,7 @@ class Produit extends CI_Controller {
 
     function update($id) {
         $produit = $this->produit_model->getproduct($id)->result();
-        //recupÃ©rer categorie et sous categorie
+        //recuperer categorie et sous categorie
         foreach ($produit as $row) {
 
             $idsoussouscat = $row->soussouscategorie_id;
@@ -191,7 +200,9 @@ class Produit extends CI_Controller {
         }
 
         //end of tester si une image existe ou pas
-
+        //paiement
+        $commercant = $this->inscription_model->getchildcomm(getsessionhelper()['idpersonne'])->row();
+        
         foreach ($produit as $row) {
             $data = array(
                 'id' => $row->idproduit,
@@ -204,12 +215,13 @@ class Produit extends CI_Controller {
                 'dateajout' => $row->dateajout,
                 'photo' => $path,
                 'namephoto' => $photo,
-                'idcat'=> $idcat,
+                'idcat' => $idcat,
                 'idsoussouscat' => $idsoussouscat,
                 'idsouscat' => $idscat,
                 'categorie' => $enscat,
                 'souscat' => $enssouscat,
-                'shopping' => $this->shopping
+                'shopping' => $this->shopping,
+                'commercant'=> $commercant
             );
         }
         $this->twig->render('produit/produitEdittemp_view', $data);
@@ -228,7 +240,7 @@ class Produit extends CI_Controller {
 //        $this->form_validation->set_rules('cat', 'cat', 'required');
 //        $this->form_validation->set_rules('souscat', 'souscat', 'required');
 //        $this->form_validation->set_rules('soussouscat', 'soussouscat', 'required');
-        
+
         $this->form_validation->set_error_delimiters('<br /><span class="error">', '</span>');
 
         if ($this->form_validation->run() == FALSE) { // validation hasn't been passed
@@ -261,7 +273,7 @@ class Produit extends CI_Controller {
             } else {
                 $updatedphoto = $namephoto;
             }
-             if ($this->input->post('cat') != NULL) {
+            if ($this->input->post('cat') != NULL) {
                 $idcat = $this->input->post('cat');
             }
             if ($this->input->post('souscat') != NULL) {
@@ -277,25 +289,28 @@ class Produit extends CI_Controller {
                 'prix' => $this->input->post('prix'),
                 'remise' => $this->input->post('remise'),
                 'active' => $active,
-                'dateajout' =>date("y-m-d H:i:s"),
+                'dateajout' => date("y-m-d H:i:s"),
                 'photo' => $updatedphoto,
                 'souscategorie_idsouscategorie' => $idsouscat,
                 'souscategorie_categorie_idcategorie' => $idcat,
                 'soussouscategorie_id' => $idsoussouscat,
                 'commercant_idcommercant' => $idcomm
             );
-
+            //paiement
+            $commercant = $this->inscription_model->getchildcomm(getsessionhelper()['idpersonne'])->row();
 
             if ($this->produit_model->updateproduct($form_data, $idcomm, $id) == true) {
                 $data = array(
-                    'msg' => 'Produit modifiÃ© avec succes',
-                    'shopping' => $this->shopping
+                    'msg' => 'Produit modifié avec succes',
+                    'shopping' => $this->shopping,
+                    'commercant'=> $commercant
                 );
                 $this->twig->render('produit/successadd_view', $data);
             } else {
                 $data = array(
                     'msg' => 'Echec modification produit',
-                    'shopping' => $this->shopping
+                    'shopping' => $this->shopping,
+                    'commercant'=> $commercant
                 );
                 $this->twig->render('Echec_view', $data);
             }
@@ -311,6 +326,9 @@ class Produit extends CI_Controller {
     }
 
     function activer($id) {
+        //paiement
+        $commercant = $this->inscription_model->getchildcomm(getsessionhelper()['idpersonne'])->row();
+        $data['commercant'] = $commercant;
         //activer produit
         if ($this->produit_model->activer($id) == true) {
             redirect('produit/produit/index/', 'refresh');
@@ -318,13 +336,17 @@ class Produit extends CI_Controller {
             // echo 'erreur activation';
             $data = array(
                 'msg' => 'Erreur activation produit',
-                'shopping' => $this->shopping
+                'shopping' => $this->shopping,
+                'commercant'=> $commercant
             );
             $this->twig->render('Echec_view', $data);
         }
     }
 
     function desactiver($id) {
+        //paiement
+        $commercant = $this->inscription_model->getchildcomm(getsessionhelper()['idpersonne'])->row();
+        $data['commercant'] = $commercant;
         //desactiver produit
         if ($this->produit_model->desactiver($id) == true) {
 
@@ -332,7 +354,8 @@ class Produit extends CI_Controller {
         } else {
             $data = array(
                 'msg' => 'Erreur activation produit',
-                'shopping' => $this->shopping
+                'shopping' => $this->shopping,
+                'commercant'=> $commercant
             );
             $this->twig->render('Echec_view', $data);
         }
@@ -351,77 +374,81 @@ class Produit extends CI_Controller {
         echo json_encode($data);
         return;
     }
-    
-    public function slider()
-    {
+
+    public function slider() {
+        
         $id = getsessionhelper()['id'];
         $slider = $this->produit_model->Get_Slider($id);
         $i = $slider->num_rows();
-        $data['nbPhoto'] =  $i;
-       
-      
-        if($i != 0)
-        {
-        $data['finalpath'] = site_url() . 'uploads/';
+        $data['nbPhoto'] = $i;
+
+
+        if ($i != 0) {
+            $data['finalpath'] = site_url() . 'uploads/';
         }
-         $data['slider'] = $slider;
-         $commercant = $this->inscription_model->getchildcomm(getsessionhelper()['idpersonne'])->row();
-         $data['commercant'] = $commercant;
-         $this->twig->render('produit/Slider_view', $data);
+        $data['slider'] = $slider;
+        //paiement
+        $commercant = $this->inscription_model->getchildcomm(getsessionhelper()['idpersonne'])->row();
+        $data['commercant'] = $commercant;
+        $this->twig->render('produit/Slider_view', $data);
     }
-    
-    public function addSlider()
-    {
-        
-              $this->twig->render('produit/addSlider_view');
+
+    public function addSlider() {
+        //paiement
+        $commercant = $this->inscription_model->getchildcomm(getsessionhelper()['idpersonne'])->row();
+        $data['commercant'] = $commercant;
+
+        $this->twig->render('produit/addSlider_view', $data);
     }
-    
-    public function Insertslider()
-    {        $id = getsessionhelper()['id'];
 
-            $config['upload_path'] = './uploads/';
-            $config['allowed_types'] = 'gif|jpg|png';
-            $config['max_size'] = '10000';
-            $config['max_width'] = '10000';
-            $config['max_height'] = '8000';
-            $config['encrypt_name'] = TRUE;
+    public function Insertslider() {
+        $id = getsessionhelper()['id'];
 
-            $this->load->library('upload', $config);
+        $config['upload_path'] = './uploads/';
+        $config['allowed_types'] = 'gif|jpg|png';
+        $config['max_size'] = '10000';
+        $config['max_width'] = '10000';
+        $config['max_height'] = '8000';
+        $config['encrypt_name'] = TRUE;
 
-            if (!$this->upload->do_upload()) {
-                $error = array('error' => $this->upload->display_errors());
-            } else {
-                $data = $this->upload->data();
-                $name = $data['file_name'];
-            }
-            //----- END photo -----
-            if ($name == NULL)
-            {$name = ' ';}
+        $this->load->library('upload', $config);
 
-            $form_data = array('photo' => $name,
-                'commercant_idcommercant' => $id
+        if (!$this->upload->do_upload()) {
+            $error = array('error' => $this->upload->display_errors());
+        } else {
+            $data = $this->upload->data();
+            $name = $data['file_name'];
+        }
+        //----- END photo -----
+        if ($name == NULL) {
+            $name = ' ';
+        }
+
+        $form_data = array('photo' => $name,
+            'commercant_idcommercant' => $id
+        );
+        //paiement
+        $commercant = $this->inscription_model->getchildcomm(getsessionhelper()['idpersonne'])->row();
+
+        if ($this->produit_model->InsertSlider($form_data) == true) {
+            redirect('produit/produit/slider');
+        } else {
+
+            $data = array(
+                'msg' => 'Echec ajout slider',
+                'shopping' => $this->shopping,
+                'commercant'=> $commercant
             );
-
-            if ($this->produit_model->InsertSlider($form_data) == true) {
-                redirect('produit/produit/slider');
-            } else {
-
-                $data = array(
-                    'msg' => 'Echec ajout slider',
-                    'shopping' => $this->shopping
-                    );
-                $this->twig->render('produit/echecadd_view', $data);
-            }
-        
+            $this->twig->render('produit/echecadd_view', $data);
+        }
     }
-    
-    function deleteSlider($id)
-    {
-           // delete tof of slider
+
+    function deleteSlider($id) {
+        // delete tof of slider
         $this->produit_model->deleteSlider($id);
 
         // redirect to product list page
-                redirect('produit/produit/slider');
+        redirect('produit/produit/slider');
     }
 
 }

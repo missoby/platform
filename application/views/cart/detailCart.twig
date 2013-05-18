@@ -9,6 +9,20 @@
                 <ul class="nav nav-pills border">
                     <li class="pull-left"><h4>Détails de votre carte </h4></li>
                 </ul>
+
+                <div class="span8 offset1">
+                    <ul id="breadcrumbs-one">
+                        <li><span class="current"><strong>1.</strong> Résumé</span></li>
+                        <li><span><strong>2.</strong> Identifiez-vous</span></li>
+                        <li><span><strong>3.</strong> Adresse</span></li>
+                        <li><span><strong>3.</strong> Frais de port</span></li>
+                        <li><span><strong>4.</strong> Paiement</span></li>
+                    </ul>
+
+
+                </div>
+                    <div class="span12">  <div class="row-fluid"> <hr></div></div>
+                   
                 {% if not shopping.content  %}
                 <div class="alert alert-info">Votre carte est vide !</div>
                 {% else %}  
@@ -32,10 +46,10 @@
                         {#---hidden id---#}
                         <input type="hidden" name="rowid[]" value="{{items.rowid}}">
                         <tr>
-                            <td><img src="{{items.options.path}}{{items.options.photo}}" class="span6 img-polaroid" height="50"></td>
+                            <td><img src="{{items.options.path}}{{items.options.photo}}" class="img-polaroid" width="50" height="50"></td>
                             <td>{{items.name}}</td> 
                             <td>{{items.price}} </td>  
-                            <td><input type="text" name="qty[]" placeholder="Quantité"  value="{{items.qty}}"></td>
+                            <td><input type="text" name="qty[]" placeholder="Quantité"  value="{{items.qty}}" class="input-small"></td>
                             <td>{{items.subtotal}} </td>      
                         </tr>
                         {% endfor %}
@@ -48,7 +62,7 @@
                         </tr>
                     </table>
                 </form>
-     <a href="/paiement/paiement/listeAchat" class="btn btn-mini" >Commander</a></span>
+                <a href="/paiement/paiement/listeAchat" class="btn pull-right btn-inverse">Suivant  <i class="icon-chevron-right icon-white"></i> </a></span>
                 {% endif %}
            </div>
         </div>
