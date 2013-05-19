@@ -1,27 +1,14 @@
-{% extends "/layout/layout.twig" %}
-
-{% block title %} {{parent()}} - Login{% endblock title %}
-
-{% block content %}
-    <div class="row-fluid">
-        <div class="span12">
-            <div class="row-fluid">
-                <div class="span12 well" style="min-height:302px">
-                <ul class="nav nav-pills border">
-                    <li class="pull-left"><h4>Form</h4></li>
-                    <li class="pull-right"></li>
-                </ul>
-                
-                        <h3>form view</h3>
-                        <li>{{refcmd}}</li>
-                         <li>{{affilCmd}}</li>
-                            <li>{{idsess}}</li>
-
-                       
-                </div>
-                
-            </div>
-        </div>   
-    </div>
-    {% block partenaires %} {{parent()}} {% endblock partenaires %}
-    {% endblock content %}
+<html>
+<body>
+<form name="nzomyform" action="https://www.smt-sps.com.tn/paiement/" method="post" class="hidden">
+   <input name="Reference" type="hidden" value="{{refcmd}}">   
+   <input name="Montant" type="hidden" value="{{montant}}">    
+   <input name="Devise" type="hidden" value="TND">   
+   <input type="hidden" name="sid" value="<?php echo session_id(); ?>">    
+   <input type="hidden" name="affilie" value="{{affilCmd}}">    
+</form>
+<script>
+document.nzomyform.submit();
+</script>
+</body>
+</html>

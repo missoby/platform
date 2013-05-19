@@ -12,7 +12,7 @@
                 {% if not shopping.content  %}
                 <div class="alert alert-info">Vous n'avez rien commandez !</div>
                 {% else %}  
-                    <form action="/paiement/paiement/saveCmd" method="POST">
+                    <form action="/paiement/paiement/saveAdr" method="POST">
                     
                     <table class="table">           
                         <tr>
@@ -45,7 +45,7 @@
                         {%if connect == 'yes'%}
                         <div class="control-group pull-right">
                             <div class="controls">
-                                <button type="submit" name="submit" class="btn"><i class="icon-refresh"></i> Payer</button>
+                                <button type="submit" name="submit" class="btn"><i class="icon-refresh"></i> Suivant</button>
                             </div>
                         </div>
                         {%else%}
