@@ -1,0 +1,38 @@
+{% extends "/layout/layout.twig" %}
+
+{% block title %} {{parent()}} - Pannier{% endblock title %}
+
+{% block content %}
+    <div class="row-fluid">
+        <div class="span12 well">
+            <div class="row-fluid">
+                <ul class="nav nav-pills border">
+                    <li class="pull-left"><h4>Adresse de livraison </h4></li>
+                </ul>
+                
+                    <form action="/paiement/paiement/InsertAdr" method="POST">
+                    
+                        <div class="control-group">
+                            <label class="control-label" for="adresse">Adresse <span class="required">*</span></label>
+                            <div class="controls">
+                                <input type="text" name="adresse" for="adresse" placeholder="Votre Adresse" class="input-large"  required="required">
+                                <div class="error">
+                                        {{ form_error('adresse') }}         
+                                    </div>
+                                </div>
+                            </div>
+                 
+                        <div class="control-group pull-right">
+                            <div class="controls">
+                                <button type="submit" name="submit" class="btn"><i class="icon-refresh"></i> Suivant</button>
+                            </div>
+                        </div>
+                    
+                </form>
+             
+           </div>
+        </div>
+         
+    </div>
+    {% block partenaires %} {{parent()}} {% endblock partenaires %}
+    {% endblock content %}

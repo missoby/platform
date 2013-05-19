@@ -324,7 +324,37 @@ $this->twig->render('paiement/success_view');
 
         
     }
+     function saveAdr()
+     { 
+         $data['shopping'] = $this->shopping;
+         $this->twig->render('paiement/Adresse_view', $data);
+        
+    }
     
+     function InsertAdr()
+     { 
+          $this->form_validation->set_rules('adresse', 'adresse', 'required|trim');
+  
+        if ($this->form_validation->run() == FALSE) {
+            $data['shopping'] = $this->shopping;
+         $this->twig->render('paiement/Adresse_view', $data);
+        } else
+         {//save the adr of the client
+               
+         $idclt = getsessionhelper()['id'];
+            $this->paiement_model->saveAdr($idclt);
+            redirect('paiement/paiement/livraison');
+        
+    }
+     }
+     
+     function livraison()
+     {
+      $data['shopping'] = $this->shopping;
+     $this->twig->render('paiement/Livraison_view', $data);
+ 
+     }
+     
     function saveCmd()
      { 
 //     $this->shopping['content'] = $this->cart->contents();
@@ -347,7 +377,9 @@ $this->twig->render('paiement/success_view');
               //redirect('home_page');// to form created by 3alé
              $data['refcmd'] = $this->paiement_model->getRefCmd($cmd);
              $data['affilCmd'] = $this->paiement_model->getAffilCmd();
-             $data['idsess'] = session_id();
+             $data['idsess'] =  $this->session->userdata('session_id');
+             $data['montant'] = $prixtotal;
+            
             $this->twig->render('paiement/FormPay_view', $data);
 // tu recupère le prix total, refference, affilier , et l'id du session courrantree w tab3athhom ilkol fi page fil vieww 8adika bech na3mel ena le formulaire OK ?
 

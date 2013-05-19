@@ -349,7 +349,15 @@ Class Paiement_model extends CI_Model {
           }
         }
  
-
+        function saveAdr($idclt) {
+       
+           $adr = $this->input->post('adresse');
+               
+        $this->db->where('idclient', $idclt);
+        $this->db->set('adrlivraison', $adr);
+        $this->db->update('client');
+       
+    }
        
 }
 
