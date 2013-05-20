@@ -9,7 +9,9 @@
        	<link href="{{base_url()}}assets/css/bootstrap.css" rel="stylesheet" type="text/css"  />
         <link href="{{base_url()}}assets/css/bootstrap-responsive.css" rel="stylesheet" type="text/css" />  
         <link href="{{base_url()}}assets/css/slider.css" rel="stylesheet" type="text/css" />     
-        <script type="text/javascript" src="{{base_url()}}assets/js/modernizr.custom.js"></script>        
+        <script type="text/javascript" src="{{base_url()}}assets/js/modernizr.custom.js"></script>   
+         {#---SCRIPT---#} 
+        <script src="{{base_url()}}assets/js/jquery-1.9.1.min.js"></script>
         {% block head %} {% endblock head %}
     </head>
     <body>
@@ -137,24 +139,24 @@
                                     {% for items in shopping.content %}
                                     <li class="shop" style="margin-left: 0px">
                                         <input type="hidden" name="rowid[]" placeholder="rowid[]" value="{{items.rowid}}">
-                                        <img src="{{items.options.path}}{{items.options.photo}}" width="60" height="50" class="img-polaroid span4"  style="margin-left: 0px;">
-                                        <div class="" style="margin-left: 16px;">
+                                        <img src="{{items.options.path}}{{items.options.photo}}" width="60" height="70" class="img-polaroid span4"  style="margin-left: 0px;">
+                                        <div style="margin-left: 80px;width: 150px">
                                             <p>{{items.name}}</p>
                                             <span> <input type="text" name="qty[]" placeholder="Quantité"  value="{{items.qty}}" class="input-mini"></span>
                                             <span class="pull-right"> {{items.price}} DT</span>
                                         </div>
                                     </li>
                                     {% endfor %}
-                                    <li class="" style="margin-left: 0px;">
+                                    <li class="divider" style="margin-left: 0px;"></li>
+                                    <li style="margin-left: 0px; margin-bottom: 55px">
                                         <span class="pull-left"><span class="colorlabel">Total</span>  {{shopping.total}} DT</span> 
                                         <span class="pull-right">
                                             <button type="submit" class="btn" title="Actualiser la carte"><i class="icon-refresh"></i></button> 
-
                                             <a href="/cart/cart/empty_cart" class="btn" title="vider la carte"><i class="icon-trash"></i></a>
                                         </span>
                                     </li>
-                                    <li class="divider" style="margin-left: 0px;"></li>
-                                    <li class="" style="margin-left: 0px;"> <a href="/cart/cart" class="btn btn-block pull-right btn-info">Détails carte</a> </li>
+                                    <li class="divider" style="margin-left: 0px; width: 100%"></li>
+                                    <li class="" style="margin-left: 0px;"> <a href="/cart/cart" class="btn btn-block btn-inverse">Détails panier</a> </li>
                                     {% endif %}
                                     </form>
                                 </ul>
@@ -794,8 +796,7 @@
         {% endblock footer %}
         
          
-        {#---SCRIPT---#} 
-        <script src="{{base_url()}}assets/js/jquery-1.9.1.min.js"></script>
+       
         {#---Notification---#}
         <script src="{{base_url()}}assets/js/jquery.bxslider.js"></script>
         <script type="text/javascript">

@@ -493,7 +493,7 @@ ul.sb_dropdown li.sb_filter {
 #etoileselect{margin: 7px 12px }
 
 .shop {
-    border-bottom: 1px solid rgb(201, 201, 201);
+/*    border-bottom: 1px solid rgb(201, 201, 201);*/
     padding-bottom: 14px;
     margin-bottom: 16px;}
 
@@ -594,13 +594,13 @@ ul.sb_dropdown li.sb_filter {
 /*_____________________________________________ End - Projects - jCarouselLiteDemo _____________________________________________*/
 
 #breadcrumbs-one{
-  background: #eee;
+/*  background: #eee;
   border-width: 1px;
   border-style: solid;
   border-color: #f5f5f5 #e5e5e5 #ccc;
   border-radius: 5px;
   box-shadow: 0 0 2px rgba(0,0,0,.2);
-  overflow: hidden;
+  overflow: hidden;*/
   width: 100.1%;
 }
 
@@ -616,6 +616,9 @@ ul.sb_dropdown li.sb_filter {
   position: relative;
   text-shadow: 0 1px 0 rgba(255,255,255,.5);
   background-color: #ddd;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #f5f5f5 #e5e5e5 #ccc;
   background-image: linear-gradient(to right, #f5f5f5, #ddd);  
 }
 
@@ -623,6 +626,11 @@ ul.sb_dropdown li.sb_filter {
 {
   padding-left: 1em;
   border-radius: 5px 0 0 5px;
+}
+#breadcrumbs-one li:last-child span
+{
+
+  border-radius: 0 5px 5px 0;
 }
  #breadcrumbs-one li:last-child span::after,
  #breadcrumbs-one li:last-child span::before{ border:none;}

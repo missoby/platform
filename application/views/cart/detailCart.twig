@@ -7,35 +7,46 @@
         <div class="span12 well">
             <div class="row-fluid">
                 <ul class="nav nav-pills border">
-                    <li class="pull-left"><h4>Détails de votre carte </h4></li>
+                    <li class="pull-left"><h4>Détails de votre panier</h4></li>
                 </ul>
-
-                <div class="span8 offset1">
-                    <ul id="breadcrumbs-one">
-                        <li><span class="current"><strong>1.</strong> Résumé</span></li>
-                        <li><span><strong>2.</strong> Identifiez-vous</span></li>
-                        <li><span><strong>3.</strong> Adresse</span></li>
-                        <li><span><strong>3.</strong> Frais de port</span></li>
-                        <li><span><strong>4.</strong> Paiement</span></li>
-                    </ul>
-
-
-                </div>
-                    <div class="span12">  <div class="row-fluid"> <hr></div></div>
-                   
+         
                 {% if not shopping.content  %}
-                <div class="alert alert-info">Votre carte est vide !</div>
+                <div class="alert alert-info">Votre panier est vide !</div>
                 {% else %}  
+                        {% if getsessionhelper() %}
+             <div class="span8 offset2">
+                    <ul id="breadcrumbs-one">
+                        <li><span class="current"><strong>1.</strong> Votre Panier</span></li>
+                        <li><span><strong>2.</strong> Résumé</span></li>
+                        <li><span><strong>3.</strong> Adresse</span></li>
+                        <li><span><strong>4.</strong> Frais de port</span></li>
+                        <li><span><strong>5.</strong> Paiement</span></li>
+                    </ul>
+                </div>
+                {% else %}
+                      <div class="span10 offset1">
+                    <ul id="breadcrumbs-one">
+                        <li><span class="current"><strong>1.</strong> Votre panier</span></li>
+                        <li><span><strong>2.</strong> Résumé</span></li>
+                        <li><span><strong>3</strong> Identifiez vous</span></li>
+                        <li><span><strong>4.</strong> Adresse</span></li>
+                        <li><span><strong>5.</strong> Frais de port</span></li>
+                        <li><span><strong>6.</strong> Paiement</span></li>
+                    </ul>
+                </div>  
+                {% endif %}
+                    <div class="span12">  <div class="row-fluid"> <hr></div></div>
+                 
                     <form action="/cart/cart/update_cart" method="POST">
                      <div class="control-group pull-right">
                       <div class="controls">
-                         <button type="submit" name="submit" class="btn"><i class="icon-refresh"></i> Actualiser la Carte</button>
-                         <a href="/cart/cart/empty_cart" class="btn"><i class="icon-trash"></i> Vider la carte</a>  
+                         <button type="submit" name="submit" class="btn"><i class="icon-refresh"></i> Actualiser votre panier</button>
+                         <a href="/cart/cart/empty_cart" class="btn"><i class="icon-trash"></i> Vider votre panier</a>  
                       </div>
                     </div>
                     <table class="table">           
                         <tr>
-                            <th>photos</th>
+                            <th>Photos</th>
                             <th>Nom Article</th>
                             <th>Prix</th>
                             <th>Quantité</th>
@@ -63,7 +74,8 @@
                     </table>
                 </form>
                 <a href="/paiement/paiement/listeAchat" class="btn pull-right btn-inverse">Suivant  <i class="icon-chevron-right icon-white"></i> </a></span>
-                {% endif %}
+           
+{% endif %}
            </div>
         </div>
          

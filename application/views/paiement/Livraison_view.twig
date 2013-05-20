@@ -9,16 +9,37 @@
                 <ul class="nav nav-pills border">
                     <li class="pull-left"><h4>Adresse de livraison </h4></li>
                 </ul>
-                
-                    <form action="/paiement/paiement/saveCmd" method="POST">
-                    
-                        <div class="control-group">
-                            <p>Les frais de livraison seront payés lors de livraison a l'adresse déja spécifiée</p>
+               {% if getsessionhelper() %}
+                <div class="span8 offset2">
+                    <ul id="breadcrumbs-one">
+                        <li><span><strong>1.</strong> Votre Panier</span></li>
+                        <li><span><strong>2.</strong> Résumé</span></li>
+                        <li><span><strong>3.</strong> Adresse</span></li>
+                        <li><span class="current"><strong>4.</strong> Frais de port</span></li>
+                        <li><span><strong>5.</strong> Paiement</span></li>
+                    </ul>
+                </div>
+                {% else %}
+                      <div class="span10 offset1">
+                    <ul id="breadcrumbs-one">
+                        <li><span><strong>1.</strong> Votre panier</span></li>
+                        <li><span><strong>2.</strong> Résumé</span></li>
+                        <li><span><strong>3</strong> Identifiez vous</span></li>
+                        <li><span><strong>4.</strong> Adresse</span></li>
+                        <li><span class="current"><strong>5.</strong> Frais de port</span></li>
+                        <li><span><strong>6.</strong> Paiement</span></li>
+                    </ul>
+                </div>  
+                {% endif %}
+                    <div class="span11">
+                        <hr>
+                                 <p class="text-center text-error"><strong>* Les frais de livraison seront payés lors de livraison à l'adresse déja spécifiée</strong></p>
+                   
                             </div>
-                 
+                    <form action="/paiement/paiement/saveCmd" method="POST">
                         <div class="control-group pull-right">
                             <div class="controls">
-                                <button type="submit" name="submit" class="btn"><i class="icon-refresh"></i> Payer</button>
+                                <button type="submit" name="submit" class="btn pull-right btn-inverse">Suivant  <i class="icon-chevron-right icon-white"></i></button>
                             </div>
                         </div>
                     

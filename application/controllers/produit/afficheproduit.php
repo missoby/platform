@@ -63,7 +63,8 @@ class Afficheproduit extends CI_Controller {
         $data['idp'] = $id;
         $data['idclt'] = getsessionhelper()['id'];
 
-     
+        $enscom = $this->produit_model->getcommercant();
+         $data['comm'] = $enscom;
 
         $this->twig->render('produit/afficheproduit/produit_view', $data);
     }
