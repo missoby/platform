@@ -36,7 +36,9 @@ class Statistique extends CI_Controller {
             $data['nbnote5'] = $this->statistique_model->GetNbNot5($idcom);
             $data['shopping'] = $this->shopping;
             $commercant = $this->inscription_model->getchildcomm(getsessionhelper()['idpersonne'])->row();
-         $data['commercant'] = $commercant;
+            $data['commercant'] = $commercant;
+             $data['nbCmd'] = $this->statistique_model->getNbVenteComm();
+
 
             $this->twig->render('commercant/statistique/statistique_view', $data);
             

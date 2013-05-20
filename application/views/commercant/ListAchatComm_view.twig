@@ -1,0 +1,45 @@
+{% extends "/layout/layout.twig" %}
+
+{% block title %} {{parent()}} - Slider{% endblock title %}
+
+{% block content %}
+    <div class="row-fluid">
+        <div class="span12 well">
+            <div class="row-fluid">
+                <ul class="nav nav-pills border">
+                    <li class="pull-left"><h4>Liste Ventes</h4></li>
+                   <li class="dropdown pull-right">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Gestion Commerce<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/produit/produit">Gestion des produits</a></li>
+                            <li><a href="/annonce/annonce">Gestion des annonces</a</li>
+                            <li><a href="/produit/produit/slider">Gestion Slider</a></li>
+                        </ul>
+                    </li>
+                    <li class="pull-right"><a href="/statistique/Statistique/statcomm">Statistique</a></li> 
+                    {%if (commercant.paiement == 0) and (commercant.dempaiement == 0) %}
+                    <li class="pull-right"><a href="/paiement/paiement/DemActivePay/{{getsessionhelper()['id']}}">Demande activation de paiement</a></li> 
+                    {%elseif commercant.paiement == 0 %}
+                    <li class="pull-right"><a href="#" class="text-error">Demande d'activation en cour de traitement</a></li> 
+                    {%else %}    
+                    <li class="pull-right"><a href="/paiement/paiement/ListeVenteComm">Suivi Ventes</a></li> 
+                    {%endif%} 
+                </ul>      
+                    <div class="span11">
+                    {%for var in vente %}
+                    <div class="span3 well">
+                        <div class="row-fluid">
+                      <img src="{{ path }}{{var.photo}}" alt="" class="slider-shadow" height="146"/>
+                      <p class="text-center">{{var.libelle}}</p>
+                      <p class="text-center">{{var.prixprod}}</p>
+                      <p class="text-center">{{var.date }}</p>
+                    </div>
+                        </div>
+                    {%endfor%}
+                </div>
+                </div>
+        </div>
+         
+    </div>
+    {% block partenaires %} {{parent()}} {% endblock partenaires %}
+    {% endblock content %}

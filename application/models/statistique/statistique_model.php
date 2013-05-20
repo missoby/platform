@@ -113,6 +113,40 @@ class Statistique_model extends CI_Model {
             $query = $this->db->get();
             return $rowcount = $query->num_rows();
     }
+    
+     function  getNbVenteComm()
+     {
+        // get vente of comm from table commande
+        $sql = "select * 
+                  from commande c 
+                ORDER BY c.datecmd DESC";
+        $query = $this->db->query($sql);
+        $tab = $query->result_array();
+
+        //*************
+        // get idproduct from table quantité and then get information from table produit 
+        $tableau = array();
+        $i = 0;
+        foreach ($tab as $res) {
+            // récupérer id produit
+            $produitquantite = $this->db->where('commande_idcommande', $res['idcommande'])
+                    ->get('quantite')
+                    ->row();
+           
+            //get info prod from table produit
+            $prod = $this->db->where('idproduit', $produitquantite->produit_idproduit)
+                    ->where('commercant_idcommercant', getsessionhelper()['id'])
+                    ->get('produit')
+                    ->row();
+            if ($prod != NULL)
+            {
+            $tableau[$i] = array('idprod' => $prod->idproduit,'prixprod'=> $prod->prix 
+              ,'libelle'=>$prod->libelle, 'photo' => $prod->photo,'date'=>$res['datecmd']);
+            $i++;
+            }
+        }
+        return $i;
+    }
 
 
     

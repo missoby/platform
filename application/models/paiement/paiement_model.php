@@ -358,6 +358,71 @@ Class Paiement_model extends CI_Model {
         $this->db->update('client');
        
     }
-       
+    
+      function getListAchatClt($idclt) {
+        // get achat from table commande
+        $sql = "select * 
+                  from commande c 
+                  where c.client_idclient = '$idclt'
+                ORDER BY c.datecmd DESC";
+        $query = $this->db->query($sql);
+        $tab = $query->result_array();
+
+        //*************
+        // get idproduct from table quantité and then get information from table produit 
+        $tableau = array();
+        $i = 0;
+        foreach ($tab as $res) {
+            // récupérer id produit
+            $produitquantite = $this->db->where('commande_idcommande', $res['idcommande'])
+                    ->get('quantite')
+                    ->row();
+           
+            //get info prod from table produit
+            $prod = $this->db->where('idproduit', $produitquantite->produit_idproduit)
+                    ->get('produit')
+                    ->row();
+            
+            
+            $tableau[$i] = array('idprod' => $prod->idproduit,'prixprod'=> $prod->prix 
+              ,'libelle'=>$prod->libelle, 'photo' => $prod->photo,'date'=>$res['datecmd']);
+            $i++;
+        }
+        return $tableau;
+    }
+ 
+    function  getListVenteComm()
+     {
+        // get vente of comm from table commande
+        $sql = "select * 
+                  from commande c 
+                ORDER BY c.datecmd DESC";
+        $query = $this->db->query($sql);
+        $tab = $query->result_array();
+
+        //*************
+        // get idproduct from table quantité and then get information from table produit 
+        $tableau = array();
+        $i = 0;
+        foreach ($tab as $res) {
+            // récupérer id produit
+            $produitquantite = $this->db->where('commande_idcommande', $res['idcommande'])
+                    ->get('quantite')
+                    ->row();
+           
+            //get info prod from table produit
+            $prod = $this->db->where('idproduit', $produitquantite->produit_idproduit)
+                    ->where('commercant_idcommercant', getsessionhelper()['id'])
+                    ->get('produit')
+                    ->row();
+            if ($prod != NULL)
+            {
+            $tableau[$i] = array('idprod' => $prod->idproduit,'prixprod'=> $prod->prix 
+              ,'libelle'=>$prod->libelle, 'photo' => $prod->photo,'date'=>$res['datecmd']);
+            $i++;
+            }
+        }
+        return $tableau;
+    }
 }
 
