@@ -6,6 +6,7 @@ class Paiement extends CI_Controller {
         parent::__construct();
         $this->twig->addFunction('getsessionhelper');
         $this->load->model('notification/notif_model');
+        $this->load->model('inscription/inscription_model');
         $this->load->model('paiement/paiement_model', '', TRUE);
          $this->shopping['content'] = $this->cart->contents();
         $this->shopping['total'] = $this->cart->total();
@@ -394,6 +395,34 @@ $this->twig->render('paiement/success_view');
          $this->twig->render('client/notif/notifpayclient_view',$data);
 
    
+    }
+    
+    function GetAchat($idclt)
+    {
+        $data['shopping'] = $this->shopping;
+        $data['achat'] = $this->paiement_model->getListAchatClt($idclt);
+         // $achat =  $this->paiement_model->getListAchatClt($idclt);
+//          foreach ($achat as $var)
+//          {
+//              echo $var['libelle'];
+//          }
+//          return;
+        $data['path'] = site_url() . 'uploads/'; 
+        $this->twig->render('client/ListAchatClt_view',$data);
+
+    }
+    
+    function ListeVenteComm()
+    {
+        $data['shopping'] = $this->shopping;
+        $data['vente'] = $this->paiement_model->getListVenteComm();
+        $data['path'] = site_url() . 'uploads/'; 
+        $commercant = $this->inscription_model->getchildcomm(getsessionhelper()['idpersonne'])->row();
+        $data['commercant'] = $commercant;
+        $this->twig->render('commercant/ListAchatComm_view',$data);
+
+        
+        
     }
     
   
