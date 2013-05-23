@@ -18,6 +18,18 @@ class Recherche_model extends CI_Model {
         return $query->result_array();
     }
 
+    function getsearchmotmobile($id)
+  {
+        $this->db->select('*');
+        $this->db->from($this->tbl_produit);
+                 $this->db->where('active', 1);
+                $this->db->where('stock >', 0);
+                $this->db->where('commercant_idcommercant', $id);
+                 $query = $this->db->get();
+                  return $query->result();
+                  
+           
+  }
 }
 
 ?>

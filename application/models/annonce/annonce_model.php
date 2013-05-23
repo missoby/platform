@@ -154,5 +154,18 @@ class annonce_model extends CI_Model {
                 $this->db->where('commercant_idcommercant', $id);
 		return $this->db->get($this->tbl_annonce);
   }
+  
+  
+   function get_annonce_comm_mobile($id)
+  {
+        $this->db->select('*');
+        $this->db->from($this->tbl_annonce);
+                 $this->db->where('active', 1);
+                $this->db->where('commercant_idcommercant', $id);
+                 $query = $this->db->get();
+                  return $query->result();
+            
+           
+  }
 }
 ?>

@@ -292,6 +292,13 @@ class Inscription_model extends CI_Model {
                );
         $this->db->insert('newsletter', $email);
     }
+    
+    function getidpers($idcomm) {
+       // $this->db->order_by('idpersonne', 'asc');
+        $this->db->where('idcommercant', $idcomm);
+        return $this->db->get('commercant');
+    }
+    
 
 }
 

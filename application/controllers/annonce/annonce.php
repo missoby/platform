@@ -283,6 +283,8 @@ class Annonce extends CI_Controller {
             $this->twig->render('Echec_view', $data);
         }
     }
+    
+   
 
 }
 

@@ -104,6 +104,18 @@ class forum_model extends CI_Model {
            return true ;
      
  }
+ 
+ public function getAllSujets_mobile($idcat) {
+            
+     $this->db->select('*');
+        $this->db->from($this->tbl_produit);
+                 $this->db->where('categorie_idcategorie', $idcat);
+                 $this->db->order_by('datepublication', 'desc');
+                 $query = $this->db->get();
+                  return $query->result();
+     
+            
+        }
   
         
         

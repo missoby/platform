@@ -377,12 +377,10 @@ Class Paiement_model extends CI_Model {
             $produitquantite = $this->db->where('commande_idcommande', $res['idcommande'])
                     ->get('quantite')
                     ->row();
-           
             //get info prod from table produit
             $prod = $this->db->where('idproduit', $produitquantite->produit_idproduit)
                     ->get('produit')
                     ->row();
-            
             
             $tableau[$i] = array('idprod' => $prod->idproduit,'prixprod'=> $prod->prix 
               ,'libelle'=>$prod->libelle, 'photo' => $prod->photo,'date'=>$res['datecmd']);

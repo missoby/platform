@@ -372,17 +372,26 @@ class produit_model extends CI_Model {
     
     function listprodmobile($id)
     {
-//         $this->db->select('*');
-//         $this->db->from($this->tbl_produit);
-//        $this->db->where('active', 1);
-//         $this->db->where('stock >', 0);
-//         $query = $this->db->get();
-//         return $query->result();
+
         $this->db->select('*');
         $this->db->from($this->tbl_produit);
-                 $this->db->where('souscategorie_idsouscategorie', $id);
+                 $this->db->where('souscategorie_categorie_idcategorie', $id);
                  $query = $this->db->get();
                   return $query->result();
 		
     }
+    function get_product_comm_mobile($id)
+  {
+        $this->db->select('*');
+        $this->db->from($this->tbl_produit);
+                 $this->db->where('active', 1);
+                $this->db->where('stock >', 0);
+                $this->db->where('commercant_idcommercant', $id);
+                 $query = $this->db->get();
+                  return $query->result();
+                  
+           
+  }
+  
+  
 }
