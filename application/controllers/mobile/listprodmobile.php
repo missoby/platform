@@ -7,6 +7,7 @@ header('Access-Control-Allow-Origin: *');
 
 class Listprodmobile extends CI_Controller {
 
+    public $tableauglob = array();
     public function __construct() {
         parent::__construct();
         $this->load->model('produit/produit_model', '', TRUE);
@@ -116,23 +117,27 @@ class Listprodmobile extends CI_Controller {
     public function login()
         {
              $this->form_validation->set_rules('login', 'Nom utilisateur', 'trim|required|xss_clean');
-        $this->form_validation->set_rules('pwd', 'Mot de passe', 'trim|required|xss_clean|callback_check_login');
+             $this->form_validation->set_rules('pwd', 'Mot de passe', 'trim|required|xss_clean|callback_check_login');
         if ($this->form_validation->run() == FALSE)
             {
-                //echo  $this->tableau = array('error' => validation_errors());
                 echo json_encode( array('error' => validation_errors()) );
-               // echo validation_errors();
+             
             }
             else
             {
 //                    /$data = array('error' => 0, 'test' => 'abc');
 //                    echo json_encode($data);/
-                   echo json_encode($this->tableau); // print_r($this->tableau);
+                   echo json_encode($this->tableauglob); // print_r($this->tableau);
             }
         }
         
-        public function check_login()
+        function check_login() 
         {
+        if (!$result = $this->user_model->login()) {
+            $this->form_validation->set_message('check_login', 'Mot de passe ou nom utilisateur incorrecte');
+            return false;
+        } else {
+            //verifier si compte valide ou pas 
             foreach ($result as $row) {  //recuperer type 
                 if ($row->active == 0) {
                     $this->form_validation->set_message('check_login', 'veuillez confirmer l\'inscription par mail');
@@ -153,13 +158,11 @@ class Listprodmobile extends CI_Controller {
                     $notif = $this->user_model->getnotif_commercant($row->idpersonne)->row();
             }
                 ;
-                    
-                    $this->tableau = array('error' => 0, 'id' => $reqid, 'idpersonne' => $row->idpersonne, 'email' => $row->email, 'login' => $row->login, 'type' => $row->type,);
-                      //  return $tableau;
-                }
-                
-                return TRUE;
-             }
+                $this->tableauglob = array('error' => 0, 'id' => $reqid, 'idpersonne' => $row->idpersonne, 'email' => $row->email, 'login' => $row->login, 'type' => $row->type, 'notifaction' => $notif->notifaction, 'notifmsg' => $notif->notifmsg);
+            }
+            return TRUE;
+        }
+    }
         
 
 }
