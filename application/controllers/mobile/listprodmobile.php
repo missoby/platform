@@ -158,10 +158,24 @@ class Listprodmobile extends CI_Controller {
                     $notif = $this->user_model->getnotif_commercant($row->idpersonne)->row();
             }
                 ;
-                $this->tableauglob = array('error' => 0, 'id' => $reqid, 'idpersonne' => $row->idpersonne, 'email' => $row->email, 'login' => $row->login, 'type' => $row->type, 'notifaction' => $notif->notifaction, 'notifmsg' => $notif->notifmsg);
+                $this->tableauglob = array(
+                    'error' => 0, 'id' => $reqid, 'idpersonne' => $row->idpersonne, 
+                    'email' => $row->email, 'login' => $row->login, 'type' => $row->type, 
+                    'notifaction' => $notif->notifaction, 'notifmsg' => $notif->notifmsg,
+                    'adresse' => $row->adresse, 'pays' => $row->pays, 'ville'=> $row->adresse,
+                    'nom' => $row ->nom, 'prenom' => $row ->prenom ,'tel' => $row ->tel
+               );
             }
             return TRUE;
         }
+    }
+    
+      public function commercantprofil() {
+       $idpers = $this->input->post('id');
+        $commercant = $this->inscription_model->getidcommprofil($idpers);
+       
+        $data['commercant'] = $commercant;
+        echo json_encode($data);
     }
         
 

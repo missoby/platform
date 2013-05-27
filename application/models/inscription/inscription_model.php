@@ -298,6 +298,15 @@ class Inscription_model extends CI_Model {
         $this->db->where('idcommercant', $idcomm);
         return $this->db->get('commercant');
     }
+    function getidcommprofil($idpers) {
+
+        
+        $this->db->select('*');
+        $this->db->from('commercant');
+              $this->db->where('personne_idpersonne', $idpers);
+                 $query = $this->db->get();
+                  return $query->result();
+    }
     
 
 }
