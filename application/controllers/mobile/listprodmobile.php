@@ -177,6 +177,13 @@ class Listprodmobile extends CI_Controller {
         $data['commercant'] = $commercant;
         echo json_encode($data);
     }
-        
+     
+    
+    public function panier() {
+       $data = json_decode(stripslashes($_POST['data']));;
+       foreach($data as $d){
+     echo $d;
+}
+    }
 
 }
