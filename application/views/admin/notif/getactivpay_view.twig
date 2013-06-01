@@ -14,13 +14,13 @@
                    </ul>
                          <div>
                     {%for var in res%}
-                       <ul >
-                         <li>{{var.nom}} </li>
-                          <li>{{var.prenom}} </li>
-                         <li>{{var.societe}} </li>
-            <li><a href="/paiement/paiement/desactiver/{{var.idcommercant}}">Désactiver</a></li>                                              
-                    </ul> 
-                            
+                       <div class="alert alert-success">
+                         <a href="/paiement/paiement/desactiver/{{var.idcommercant}}" class="close" data-dismiss="alert">&times;</a>  
+                                <p>{{var.nom}}  </p>
+                                 <p>{{var.prenom}} </p>
+                                  <p>{{var.societe}} <strong>Désactiver</strong></p>
+                            </div> 
+                         
                             
                         {%endfor%}
                     

@@ -7,6 +7,9 @@ class Notif extends CI_Controller {
         $this->twig->addFunction('getsessionhelper');
         $this->load->model('notification/notif_model');
         $this->load->model('produit/produit_model', '', TRUE);
+          $this->shopping['content'] = $this->cart->contents();
+        $this->shopping['total'] = $this->cart->total();
+        $this->shopping['nbr'] = $this->cart->total_items();
     }
 
 
@@ -21,6 +24,7 @@ class Notif extends CI_Controller {
     // get the notif for the commercant (table notifcomm)
         function Getnotif()
     {
+       $data['shopping'] = $this->shopping;
         $req = $this->notif_model->GetNotifComm();
 
         $data['req']= $req;
@@ -40,6 +44,7 @@ class Notif extends CI_Controller {
      // get the notif for the client (table notifclient)
         function GetnotifClient()
     {
+            $data['shopping'] = $this->shopping;
         $req = $this->notif_model->GetNotifClient();
         $enscom = $this->produit_model->getcommercant();
         $data['comm'] = $enscom;
