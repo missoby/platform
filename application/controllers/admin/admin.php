@@ -21,6 +21,10 @@ class Admin extends CI_Controller {
     }
 
     function index() {
+        if (!getsessionhelper())
+        {
+            redirect('admin/admin/login');
+        }
        $this->twig->render('admin/administration/administration_view');
     }
 
@@ -68,7 +72,7 @@ class Admin extends CI_Controller {
             // generate table data
             $this->load->library('table');
             $this->table->set_empty("&nbsp;");
-            $this->table->set_heading('login', 'email','active', 'societe', 'enable', 'action');
+            $this->table->set_heading('login', 'email','compte actif', 'societe', 'Commercant accepté', 'action');
             $i = 0;
             foreach ($res as $row) {
                 $id = $row->idpersonne;
@@ -343,6 +347,7 @@ class Admin extends CI_Controller {
             {
                 $value->type = 'commercant';
                 //put the idpersonne of the comm  in idclt
+               
                 $value->idclt = $this->notif_model->getProprietaireCom($value->idcomm);
             }
             else //client

@@ -73,6 +73,7 @@ class Produit extends CI_Controller {
     }
 
     function addproduct() {
+        $name = '';
         //login comm 
         $id = getsessionhelper()['id'];
         //récupérer les données apartir du formulaire
@@ -81,9 +82,13 @@ class Produit extends CI_Controller {
         $this->form_validation->set_rules('description', 'description', 'required|trim|xss_clean');
         $this->form_validation->set_rules('prix', 'prix', 'required|trim|xss_clean|max_length[60]|integer');
         $this->form_validation->set_rules('remise', 'remise', 'required|trim|xss_clean|max_length[45]|integer');
-        $this->form_validation->set_rules('cat', 'cat', 'required');
+        $this->form_validation->set_rules('cat', 'catégorie', 'required');
         $this->form_validation->set_rules('souscat', 'souscat', 'required');
         $this->form_validation->set_rules('soussouscat', 'soussouscat', 'required');
+        if (empty($_FILES['userfile']['name']))
+{
+    $this->form_validation->set_rules('userfile', 'Image', 'required');
+}
         //$this->form_validation->set_rules('userfile', 'userfile', 'required');
 
         $this->form_validation->set_error_delimiters('<br /><span class="error">', '</span>');
@@ -107,7 +112,7 @@ class Produit extends CI_Controller {
             $this->load->library('upload', $config);
 
             if (!$this->upload->do_upload()) {
-                echo 'error';
+                //echo 'error';
                 $error = array('error' => $this->upload->display_errors());
             } else {
                 $data = $this->upload->data();
@@ -124,6 +129,7 @@ class Produit extends CI_Controller {
                 'prix' => $this->input->post('prix'),
                 'remise' => $this->input->post('remise'),
                 'photo' => $name,
+                'note' => 0,
                 'active' => 1, //par defaut le produit est active
                 'dateajout' => date("y-m-d H:i:s"),
                 'souscategorie_idsouscategorie' => $this->input->post('souscat'),
@@ -136,7 +142,7 @@ class Produit extends CI_Controller {
             
             if ($this->produit_model->addproduct($form_data) == true) {
                 $data = array(
-                    'msg' => 'Produit ajouter avec sucèss',
+                    'msg' => 'Produit ajouté avec sucèss',
                     'shopping' => $this->shopping,
                     'commercant'=> $commercant
                 );
@@ -227,16 +233,17 @@ class Produit extends CI_Controller {
         $this->twig->render('produit/produitEdittemp_view', $data);
     }
 
-    function updateproduct($active, $namephoto = NULL, $id = NULL, $idsouscat, $idsoussouscat, $idcat, $dateajout) {
+    function updateproduct($active, $namephoto = NULL, $id = NULL, $idsouscat, $idsoussouscat, $idcat) {
         //login comm 
         $idcomm = getsessionhelper()['id'];
 
         //rÃ©cupÃ©rer les donnÃ©es apartir du formulaire
         $this->form_validation->set_rules('libelle', 'libelle', 'required|trim|xss_clean|max_length[45]');
-        $this->form_validation->set_rules('stock', 'stock', 'required|trim|xss_clean|max_length[45]');
+        $this->form_validation->set_rules('stock', 'stock', 'required|trim|xss_clean|max_length[45]|integer');
         $this->form_validation->set_rules('description', 'description', 'required|trim|xss_clean');
         $this->form_validation->set_rules('prix', 'prix', 'required|trim|xss_clean|max_length[60]|integer');
         $this->form_validation->set_rules('remise', 'remise', 'required|trim|xss_clean|max_length[45]|integer');
+ 
 //        $this->form_validation->set_rules('cat', 'cat', 'required');
 //        $this->form_validation->set_rules('souscat', 'souscat', 'required');
 //        $this->form_validation->set_rules('soussouscat', 'soussouscat', 'required');

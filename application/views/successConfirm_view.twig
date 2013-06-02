@@ -1,0 +1,14 @@
+{% extends "/layout/layout.twig" %}
+
+{% block title %} {{parent()}} - echec{% endblock title %}
+
+{% block content %}
+    <div class="row-fluid">
+        <div class="span12 well">
+            <div class="row-fluid">
+                 <div class="alert alert-success text-center">Succés de confirmation<a class="close" data-dismiss="alert" href="#">&times;</a></div>
+            </div>
+        </div>  
+    </div>
+    {% block partenaires %} {{parent()}} {% endblock partenaires %}
+    {% endblock content %}

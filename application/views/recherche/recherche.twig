@@ -26,7 +26,7 @@
                                         <h5 class="text-center">{{row.libelle}}</h5>
                                     {% for row2 in comm.result_array() %}
                                         {% if row2.idcommercant == id  %}
-                                        <p class="text-center" > {{row2.societe}}</p>  
+                                      <p class="text-center" > <a href="/produit/afficheproduit/view_prod_comm/{{row2.idcommercant}}"> {{row2.societe}}</a></p>  
                                         {% endif %}
                                     {% endfor %}
                                     <p class="text-center" >
