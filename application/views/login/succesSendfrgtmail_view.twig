@@ -1,18 +1,16 @@
 {% extends "/layout/layout.twig" %}
-
-{% block title %} {{parent()}} - Succes{% endblock title %}
-
-{% block container %}
-    <div class="row">
-        {% block menuVertical%}{{parent()}}{% endblock menuVertical%}
-        {% block content %}
-        <div class="span12">
-            <div class="well">
-                        <div class="alert alert-success text-center">Votre E-mail a été envoyé avec succes<a class="close" data-dismiss="alert" href="#">&times;</a></div>
-                        <div class="alert alert-info text-center">Veuillez consulter votre E-mail</div>
-                </div>
-            </div>
-        {% endblock content %}
-        </div>
-        {% block partenaires %} {{parent()}} {% endblock partenaires %}
-{% endblock container %}
+{% block title %} {{parent()}} - Modification mot de passe{% endblock title %}
+{% block content %}
+    <div class="row-fluid">
+        <div class="span12 well">
+            <div class="row-fluid">
+                <ul class="nav nav-pills border">
+                    <li class="pull-left"><h4>Mot de passe oublier</h4></li>
+                </ul>
+                    <div class="alert alert-success text-center">Votre E-mail a été envoyé avec succes<a class="close" data-dismiss="alert" href="#">&times;</a></div>
+                    <div class="alert alert-info text-center">Veuillez consulter votre E-mail</div>
+           </div>
+        </div>  
+    </div>
+    {% block partenaires %} {{parent()}} {% endblock partenaires %}
+{% endblock content %}

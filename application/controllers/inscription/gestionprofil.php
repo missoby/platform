@@ -142,7 +142,7 @@ class Gestionprofil extends CI_Controller {
         $this->form_validation->set_rules('ville', 'ville', 'required|trim|xss_clean|max_length[45]');
         $this->form_validation->set_rules('tel', 'Numéro telephone', 'required|trim|xss_clean|max_length[45]');
         $this->form_validation->set_rules('adrsoc', 'Adresse Societe', 'required|trim|xss_clean|max_length[45]');
-        $this->form_validation->set_rules('descsoc', 'Description Societe', 'required|trim|xss_clean|max_length[45]');
+        $this->form_validation->set_rules('descsoc', 'Description Societe', 'required|trim|xss_clean');
         $this->form_validation->set_rules('siteweb', 'Site Web', 'required|trim|xss_clean|max_length[45]');
         $this->form_validation->set_rules('telpro', ' Telephone professionnel', 'required|trim|xss_clean|max_length[45]|integer');
         $this->form_validation->set_rules('fax', 'Fax', 'required|trim|xss_clean|max_length[45]|integer');

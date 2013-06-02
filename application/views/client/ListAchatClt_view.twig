@@ -8,7 +8,12 @@
             <div class="row-fluid">
                 <ul class="nav nav-pills border">
                     <li class="pull-left"><h4>Liste Des Achats</h4></li>
-                </ul>        
+                </ul>  
+                    {% if not achat %}
+                    <div class="alert">
+                        <h5>Vous n'avez effectuer aucune commande pour le moment. </h5>
+                    </div>
+                    {% else %}
                     <div class="span11">
                     {%for var in achat %}
                     <div class="span3 well">
@@ -19,8 +24,10 @@
                       <p class="text-center">{{var.date }}</p>
                     </div>
                         </div>
-                    {%endfor%}
-                </div>
+                    {% endfor %}
+                               </div>
+                    {% endif %}
+             
                 </div>
         </div>
          

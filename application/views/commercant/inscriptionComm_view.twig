@@ -10,7 +10,7 @@
                     <ul class="nav nav-pills border">
                         <li class="pull-left"><h4>Inscrivez vous en tant que Commerçant</h4></li>
                     </ul>
-                    <form action="/inscription/inscription/inscriptionClient" method="POST">
+                    <form action="/inscription/inscription/inscriptionCommercant" method="POST">
                         <div class="span10 well offset1" style="background-color: rgb(250, 250, 250)">
                             <fieldset>
                                 <legend>Informations Personnels</legend>
@@ -171,19 +171,6 @@
                                             </div>
                                         </div>
                                     </div>
-
-                                   {#---Description Société---#}
-                                    <div class="control-group">
-                                        <label class="control-label" for="descsoc">Description Société <span class="required">*</span></label>
-                                        <div class="controls">
-                                            <input type="text" name="descsoc" placeholder="Description de la societe" class="input-large" value="{{ set_value('descsoc') }}" required="required">
-                                            <div class="error">
-                                                {{ form_error('descsoc') }}         
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="span5">
                                     {#---Site web---#}
                                     <div class="control-group">
                                         <label class="control-label" for="siteweb">Site Web <span class="required">*</span></label>
@@ -194,7 +181,8 @@
                                             </div>
                                         </div>
                                     </div>
-
+                                </div>
+                                <div class="span5">
                                     {#---Télephone professionnel---#}
                                     <div class="control-group">
                                         <label class="control-label" for="telpro">Numéro téléphone société<span class="required">*</span></label>
@@ -213,6 +201,16 @@
                                             <input type="text" name="fax" placeholder="Fax Société" class="input-large" value="{{ set_value('fax') }}" required="required">
                                             <div class="error">
                                                 {{ form_error('fax') }}         
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {#---Description Société---#}
+                                    <div class="control-group">
+                                        <label class="control-label" for="descsoc">Description Société <span class="required">*</span></label>
+                                        <div class="controls">
+                                            <textarea name="descsoc" placeholder="Description de la societe" class="input-large" required="required">{{ set_value('descsoc') }}</textarea>
+                                            <div class="error">
+                                                {{ form_error('descsoc') }}         
                                             </div>
                                         </div>
                                     </div>

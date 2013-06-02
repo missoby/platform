@@ -2,64 +2,64 @@
 .border{border-bottom: 1px solid rgb(146, 2, 2)}
 .best{
     position: absolute;
-z-index: 10;
-margin: 0;
+    z-index: 10;
+    margin: 0;
 }
 .resolved{
-        position: absolute;
-z-index: 10;
+    position: absolute;
+    z-index: 10;
     margin-top: -23px;
-margin-left: -19px;
+    margin-left: -19px;
 }
 .notifblack{
     background: url(../img/icon-notifblack.png) no-repeat;
     display: inline-block;
-width: 15px;
-height: 15px;
-vertical-align: text-top;
+    width: 15px;
+    height: 15px;
+    vertical-align: text-top;
 
 }
 .notifred{
     background: url(../img/icon-notifred.png) no-repeat;
     display: inline-block;
-width: 15px;
-height: 15px;
-vertical-align: text-top;
+    width: 15px;
+    height: 15px;
+    vertical-align: text-top;
 }
 .notifblackmsg{
     background: url(../img/white.png) no-repeat;
     display: inline-block;
-width: 15px;
-height: 15px;
-vertical-align: text-top;
+    width: 15px;
+    height: 15px;
+    vertical-align: text-top;
 
 }
 .notifredmsg{
     background: url(../img/red.png) no-repeat;
     display: inline-block;
-width: 15px;
-height: 15px;
-vertical-align: text-top;
+    width: 15px;
+    height: 15px;
+    vertical-align: text-top;
 }
 .bg{
-min-height: 282px;
-padding: 19px;
-margin-bottom: -20px;
-background-color: #f5f5f5;
-border: 1px solid #e3e3e3;
-background: rgb(252, 252, 252) url('../img/bg_noise-2.png');
-box-shadow: 0px 0px 7px rgb(116, 116, 116);
+    min-height: 282px;
+    padding: 19px;
+    margin-bottom: -20px;
+    background-color: #f5f5f5;
+    border: 1px solid #e3e3e3;
+    background: rgb(252, 252, 252) url('../img/bg_noise-2.png');
+    box-shadow: 0px 0px 7px rgb(116, 116, 116);
 }
 .thumbnail:hover {
--webkit-box-shadow: 0px 0px 9px rgba(50, 50, 50, 0.1);
--moz-box-shadow: 0px 0px 9px rgba(50, 50, 50, 0.1);
-box-shadow: 0px 0px 9px rgba(50, 50, 50, 0.1);
+    -webkit-box-shadow: 0px 0px 9px rgba(50, 50, 50, 0.1);
+    -moz-box-shadow: 0px 0px 9px rgba(50, 50, 50, 0.1);
+    box-shadow: 0px 0px 9px rgba(50, 50, 50, 0.1);
 }
 .tumbprod{
     background-color: rgb(241, 241, 241);
-width: 106.6%;
-margin-left: -13px;
-padding: 7px;
+    width: 106.6%;
+    margin-left: -13px;
+    padding: 6.7px;
 }
 .colorlabel {color: rgb(56, 153, 177); }
 .colorlabel span {color: rgb(111, 111, 111);}
@@ -493,7 +493,7 @@ ul.sb_dropdown li.sb_filter {
 #etoileselect{margin: 7px 12px }
 
 .shop {
-/*    border-bottom: 1px solid rgb(201, 201, 201);*/
+    /*    border-bottom: 1px solid rgb(201, 201, 201);*/
     padding-bottom: 14px;
     margin-bottom: 16px;}
 
@@ -509,177 +509,177 @@ ul.sb_dropdown li.sb_filter {
     margin: 0 0 20px 10px;
     position: relative;     
 }
-    #jCarouselLiteDemo .digg {
-        position: absolute;
-        left: 610px;
-        top: 110px;
-    }
-    #jCarouselLiteDemo .main {
-        margin-left: 40px;
-    }
+#jCarouselLiteDemo .digg {
+    position: absolute;
+    left: 610px;
+    top: 110px;
+}
+#jCarouselLiteDemo .main {
+    margin-left: 40px;
+}
 
-    #jCarouselLiteDemo .demo em {
-        color: #FF3300;
-        font-weight: bold;
-        font-size: 60%;        
-        font-style: normal;
-    }
-    #jCarouselLiteDemo .carousel button { /*Don't remove this. we still use this for individual demos. only the front pages use images as of now*/
-        float: left;
-    }              
-    #jCarouselLiteDemo .carousel a.prev, #jCarouselLiteDemo .carousel a.next {
-        display: block;
-        float: left;
-        width: 30px;
-        height: 143px;
-        text-decoration: none;
-        background: url("../img/up.png") left 60px no-repeat;
-    }
-        #jCarouselLiteDemo .carousel a.next {
-            background: url("../img/up.png") right 60px no-repeat;
-        }
-            #jCarouselLiteDemo .carousel a.next:hover {
-                background-image: url("../img/up.png");
-            }
-            #jCarouselLiteDemo .carousel a.prev:hover {
-                background-image: url("../img/up.png");
-            }    
-            #jCarouselLiteDemo .carousel a:hover, #jCarouselLiteDemo .carousel a:active {
-                border: none;
-                outline: none;
-            }                 
-    #jCarouselLiteDemo .carousel .jCarouselLite {
-        border: 1px solid black;
-        float: left;
-        background-color: #dfdfdf;
-        
-        /* Needed for rendering without flicker */
-        position: relative;
-        visibility: hidden;
-        left: -5000px;
-    }
-        #jCarouselLiteDemo .carousel ul {
-            margin: 0;
-        }
-        #jCarouselLiteDemo .carousel li img, 
-        #jCarouselLiteDemo .carousel li p {
-            background-color: #fff;
-            width: 150px;
-            height: 118px;
-            margin: 10px;
-        }
-        
-        #jCarouselLiteDemo .widget img {
-            cursor: pointer;
-        }
-            #jCarouselLiteDemo .mid {
-                margin-left: 80px;
-                width: 400px;
-                height: 300px;
-            }
-            #jCarouselLiteDemo .vertical {
-                margin-left: 170px;
-            }
-                #jCarouselLiteDemo .vertical .jCarouselLite {   /* so that in IE 6, the carousel div doesnt expand to fill the space */
-                    width: 170px;
-                }
-            #jCarouselLiteDemo .imageSlider li img, 
-            #jCarouselLiteDemo .imageSlider li p, 
-            #jCarouselLiteDemo .imageSliderExt li img , 
-            #jCarouselLiteDemo .imageSliderExt li p {
-                width: 400px;
-                height: 300px;
-            }
-            
+#jCarouselLiteDemo .demo em {
+    color: #FF3300;
+    font-weight: bold;
+    font-size: 60%;        
+    font-style: normal;
+}
+#jCarouselLiteDemo .carousel button { /*Don't remove this. we still use this for individual demos. only the front pages use images as of now*/
+    float: left;
+}              
+#jCarouselLiteDemo .carousel a.prev, #jCarouselLiteDemo .carousel a.next {
+    display: block;
+    float: left;
+    width: 30px;
+    height: 143px;
+    text-decoration: none;
+    background: url("../img/up.png") left 60px no-repeat;
+}
+#jCarouselLiteDemo .carousel a.next {
+    background: url("../img/up.png") right 60px no-repeat;
+}
+#jCarouselLiteDemo .carousel a.next:hover {
+    background-image: url("../img/up.png");
+}
+#jCarouselLiteDemo .carousel a.prev:hover {
+    background-image: url("../img/up.png");
+}    
+#jCarouselLiteDemo .carousel a:hover, #jCarouselLiteDemo .carousel a:active {
+    border: none;
+    outline: none;
+}                 
+#jCarouselLiteDemo .carousel .jCarouselLite {
+    border: 1px solid black;
+    float: left;
+    background-color: #dfdfdf;
+
+    /* Needed for rendering without flicker */
+    position: relative;
+    visibility: hidden;
+    left: -5000px;
+}
+#jCarouselLiteDemo .carousel ul {
+    margin: 0;
+}
+#jCarouselLiteDemo .carousel li img, 
+#jCarouselLiteDemo .carousel li p {
+    background-color: #fff;
+    width: 150px;
+    height: 118px;
+    margin: 10px;
+}
+
+#jCarouselLiteDemo .widget img {
+    cursor: pointer;
+}
+#jCarouselLiteDemo .mid {
+    margin-left: 80px;
+    width: 400px;
+    height: 300px;
+}
+#jCarouselLiteDemo .vertical {
+    margin-left: 170px;
+}
+#jCarouselLiteDemo .vertical .jCarouselLite {   /* so that in IE 6, the carousel div doesnt expand to fill the space */
+    width: 170px;
+}
+#jCarouselLiteDemo .imageSlider li img, 
+#jCarouselLiteDemo .imageSlider li p, 
+#jCarouselLiteDemo .imageSliderExt li img , 
+#jCarouselLiteDemo .imageSliderExt li p {
+    width: 400px;
+    height: 300px;
+}
+
 /*_____________________________________________ End - Projects - jCarouselLiteDemo _____________________________________________*/
 
 #breadcrumbs-one{
-/*  background: #eee;
-  border-width: 1px;
-  border-style: solid;
-  border-color: #f5f5f5 #e5e5e5 #ccc;
-  border-radius: 5px;
-  box-shadow: 0 0 2px rgba(0,0,0,.2);
-  overflow: hidden;*/
-  width: 100.1%;
+    /*  background: #eee;
+      border-width: 1px;
+      border-style: solid;
+      border-color: #f5f5f5 #e5e5e5 #ccc;
+      border-radius: 5px;
+      box-shadow: 0 0 2px rgba(0,0,0,.2);
+      overflow: hidden;*/
+    width: 100.1%;
 }
 
 #breadcrumbs-one li{
-  float: left;
+    float: left;
 }
 
 #breadcrumbs-one span{
-  padding: .7em 1em .7em 2em;
-  float: left;
-  text-decoration: none;
-  color: #444;
-  position: relative;
-  text-shadow: 0 1px 0 rgba(255,255,255,.5);
-  background-color: #ddd;
-  border-width: 1px;
-  border-style: solid;
-  border-color: #f5f5f5 #e5e5e5 #ccc;
-  background-image: linear-gradient(to right, #f5f5f5, #ddd);  
+    padding: .7em 1em .7em 2em;
+    float: left;
+    text-decoration: none;
+    color: #444;
+    position: relative;
+    text-shadow: 0 1px 0 rgba(255,255,255,.5);
+    background-color: #ddd;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #f5f5f5 #e5e5e5 #ccc;
+    background-image: linear-gradient(to right, #f5f5f5, #ddd);  
 }
 
 #breadcrumbs-one li:first-child span
 {
-  padding-left: 1em;
-  border-radius: 5px 0 0 5px;
+    padding-left: 1em;
+    border-radius: 5px 0 0 5px;
 }
 #breadcrumbs-one li:last-child span
 {
 
-  border-radius: 0 5px 5px 0;
+    border-radius: 0 5px 5px 0;
 }
- #breadcrumbs-one li:last-child span::after,
- #breadcrumbs-one li:last-child span::before{ border:none;}
+#breadcrumbs-one li:last-child span::after,
+#breadcrumbs-one li:last-child span::before{ border:none;}
 
 #breadcrumbs-one span:hover{
-  background: #fff;
+    background: #fff;
 }
 
 #breadcrumbs-one span::after,
 #breadcrumbs-one span::before{
-  content: "";
-  position: absolute;
-  top: 50%;
-  margin-top: -1.5em;   
-  border-top: 1.5em solid transparent;
-  border-bottom: 1.5em solid transparent;
-  border-left: 1em solid;
-  right: -13px;
+    content: "";
+    position: absolute;
+    top: 50%;
+    margin-top: -1.5em;   
+    border-top: 1.5em solid transparent;
+    border-bottom: 1.5em solid transparent;
+    border-left: 1em solid;
+    right: -13px;
 }
 
 #breadcrumbs-one span::after{ 
-  z-index: 2;
-  border-left-color: #ddd;  
+    z-index: 2;
+    border-left-color: #ddd;  
 }
 
 #breadcrumbs-one span::before{
-  border-left-color: #ccc;  
-  right: -14px;
-  z-index: 1; 
+    border-left-color: #ccc;  
+    right: -14px;
+    z-index: 1; 
 }
 
 #breadcrumbs-one span:hover::after{
-  border-left-color: #fff;
+    border-left-color: #fff;
 }
 
 #breadcrumbs-one li span.current,
 #breadcrumbs-one li span.current:hover{
-  text-shadow: none;
-  color: white;
-  background-color: rgb(85, 2, 2);
-  background-image: linear-gradient(to right, rgb(204, 15, 15), rgb(114, 6, 6));
+    text-shadow: none;
+    color: white;
+    background-color: rgb(85, 2, 2);
+    background-image: linear-gradient(to right, rgb(204, 15, 15), rgb(114, 6, 6));
 }
 
 
 #breadcrumbs-one li span.current::after{ 
-  z-index: 2;
-  border-left-color: rgb(114, 6, 6);  
+    z-index: 2;
+    border-left-color: rgb(114, 6, 6);  
 }
 
 #breadcrumbs-one li span.current::before{
-  border-left-color: #ccc;  
+    border-left-color: #ccc;  
 }

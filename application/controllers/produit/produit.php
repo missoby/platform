@@ -47,7 +47,7 @@ class Produit extends CI_Controller {
                     anchor('produit/produit/update/' . $produit->idproduit, '<i class="icon-edit"></i>', 'title="Modifier Produit" class= "btn"') . ' ' .
                     anchor('produit/produit/delete/' . $produit->idproduit, '<i class="icon-trash"></i>', 'title="Supprimer Produit" class= "btn"', array('onclick' => "return confirm('Vous voulez vraiment supprimer ce produit?')")) . ' ' .
                     anchor('produit/produit/activer/' . $produit->idproduit, '<i class="icon-ok"></i>', 'title="Activer Produit" class= "btn"') . ' ' .
-                    anchor('produit/produit/desactiver/' . $produit->idproduit, '<i class="icon-remove"></i>', 'title="DÃƒÂ©sactiver Produit" class= "btn"')
+                    anchor('produit/produit/desactiver/' . $produit->idproduit, '<i class="icon-remove"></i>', 'title="Désactiver Produit" class= "btn"')
             );
         }
         $data['table'] = $this->table->generate();
@@ -75,7 +75,7 @@ class Produit extends CI_Controller {
     function addproduct() {
         //login comm 
         $id = getsessionhelper()['id'];
-        //récupérer les donnÃ©es apartir du formulaire
+        //récupérer les données apartir du formulaire
         $this->form_validation->set_rules('libelle', 'libelle', 'required|trim|xss_clean|max_length[45]');
         $this->form_validation->set_rules('stock', 'stock', 'required|trim|xss_clean|max_length[45]|integer');
         $this->form_validation->set_rules('description', 'description', 'required|trim|xss_clean');
@@ -136,7 +136,7 @@ class Produit extends CI_Controller {
             
             if ($this->produit_model->addproduct($form_data) == true) {
                 $data = array(
-                    'msg' => 'Ajout produit avec succes',
+                    'msg' => 'Produit ajouter avec sucèss',
                     'shopping' => $this->shopping,
                     'commercant'=> $commercant
                 );
@@ -144,7 +144,7 @@ class Produit extends CI_Controller {
             } else {
 
                 $data = array(
-                    'msg' => 'Echec ajout produit',
+                    'msg' => 'Echec d\'ajout de votre produit',
                     'shopping' => $this->shopping,
                     'commercant'=> $commercant
                 );

@@ -1,18 +1,17 @@
 {% extends "/layout/layout.twig" %}
 
-{% block title %} {{parent()}} - Echec{% endblock title %}
+{% block title %} {{parent()}} - Mot de passe oublier{% endblock title %}
 
-{% block container %}
-    <div class="row">
-        {% block menuVertical%}{% endblock menuVertical%}
-        {% block content %}
-            <div class="span12">
-                <div class="well">
-                    <legend>Modification mot de passe</legend>
+{% block content %}
+    <div class="row-fluid">
+        <div class="span12 well">
+            <div class="row-fluid">
+                   <ul class="nav nav-pills border">
+                        <li class="pull-left"><h4>Modification du mot de passe</h4></li>
+                    </ul>
                      <div class="alert alert-success text-center">Echec de modification mot de passe<a class="close" data-dismiss="alert" href="#">&times;</a></div>
                 </div>
-            </div>
-        {% endblock content %}
-        </div>
-        {% block partenaires %} {{parent()}} {% endblock partenaires %}
-{% endblock container %}
+        </div>  
+    </div>
+    {% block partenaires %} {{parent()}} {% endblock partenaires %}
+{% endblock content %}

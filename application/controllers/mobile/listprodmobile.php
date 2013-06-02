@@ -180,10 +180,16 @@ class Listprodmobile extends CI_Controller {
      
     
     public function panier() {
-       $data = json_decode(stripslashes($_POST['data']));;
-       foreach($data as $d){
-     echo $d;
-}
-    }
+       $data = json_decode(stripslashes($this->input->post('tableau')));
+      //  $data = $_REQUEST['tabb'];
+      echo $data[0]['nom'];
+     //  echo $data;
+       return;
 
+  // here i would like use foreach:
+
+  foreach($data as $d){ 
+     echo $d;
+  }
+    }
 }

@@ -1,13 +1,13 @@
 {% extends "/layout/layout.twig" %}
 
-{% block title %} {{parent()}} - Slider{% endblock title %}
+{% block title %} {{parent()}} - Liste vente{% endblock title %}
 
 {% block content %}
     <div class="row-fluid">
         <div class="span12 well">
             <div class="row-fluid">
                 <ul class="nav nav-pills border">
-                    <li class="pull-left"><h4>Liste Ventes</h4></li>
+                    <li class="pull-left"><h4>Liste des ventes</h4></li>
                    <li class="dropdown pull-right">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Gestion Commerce<b class="caret"></b></a>
                         <ul class="dropdown-menu">
@@ -25,6 +25,11 @@
                     <li class="pull-right"><a href="/paiement/paiement/ListeVenteComm">Suivi Ventes</a></li> 
                     {%endif%} 
                 </ul>      
+                     {% if not vente %}
+                    <div class="alert">
+                        <h5>Personne n'a effectué des ventes. </h5>
+                    </div>
+                    {% else %}
                     <div class="span11">
                     {%for var in vente %}
                     <div class="span3 well">
@@ -37,6 +42,7 @@
                         </div>
                     {%endfor%}
                 </div>
+                    {% endif %}
                 </div>
         </div>
          

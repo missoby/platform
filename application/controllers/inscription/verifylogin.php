@@ -8,6 +8,7 @@ class VerifyLogin extends CI_Controller {
         $this->load->model('inscription/user_model', '', TRUE);
         $this->twig->addFunction('validation_errors');
         $this->twig->addFunction('getsessionhelper');
+        $this->load->model('produit/produit_model', '', TRUE);
         
         $this->shopping['content'] = $this->cart->contents();
         $this->shopping['total'] = $this->cart->total();
@@ -28,6 +29,11 @@ class VerifyLogin extends CI_Controller {
         }
         $data['shopping'] = $this->shopping;
         if ($this->form_validation->run() == FALSE) {
+            $enscom = $this->produit_model->getcommercant();
+        $data['comm'] = $enscom;
+        $data['pathphoto'] = site_url() . 'uploads/';
+             $ensproduitdate = $this->produit_model->get_product_by_date();
+             $data['produitdate'] = $ensproduitdate;
             //Field validation failed.  User redirected to login page
             $this->twig->render('login/login_view', $data);
         } else {

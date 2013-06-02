@@ -62,17 +62,6 @@
                                             </div>
                                         </div>
                                    </div>
-
-                                    {#---Societe---#}
-                                    <div class="control-group">
-                                        <label class="control-label" for="societe">Société <span class="required">*</span></label>
-                                        <div class="controls">
-                                            <input type="text" name="societe" placeholder="Votre Adresse" class="input-large" value="{{ societe }}" required="required">
-                                            <div class="error">
-                                                {{ form_error('societe') }}         
-                                            </div>
-                                        </div>
-                                    </div>
                                  </div>
                                 <div class="span5">
                         
@@ -121,7 +110,17 @@
                                     </div>
                                 </div>
                                  <legend>Informations sur Votre Société</legend>
-                                 <div class="span6">     
+                                 <div class="span6">  
+                                {#---Societe---#}
+                                <div class="control-group">
+                                    <label class="control-label" for="societe">Société <span class="required">*</span></label>
+                                    <div class="controls">
+                                        <input type="text" name="societe" placeholder="Votre Adresse" class="input-large" value="{{ societe }}" required="required">
+                                        <div class="error">
+                                            {{ form_error('societe') }}         
+                                        </div>
+                                    </div>
+                                </div>
                                 {#---Adresse Société---#}
                                 <div class="control-group">
                                     <label class="control-label" for="adrsoc">Adresse Société <span class="required">*</span></label>
@@ -132,16 +131,7 @@
                                         </div>
                                      </div>
                                 </div>
-                                {#---Description Société---#}
-                                <div class="control-group">
-                                    <label class="control-label" for="descsoc">Description Société <span class="required">*</span></label>
-                                    <div class="controls">
-                                        <input type="text" name="descsoc" placeholder="Description de la societe" class="input-large" value="{{ descsoc }}" required="required">
-                                        <div class="error">
-                                            {{ form_error('descsoc') }}         
-                                        </div>
-                                    </div>
-                                </div>
+                                
                                 {#---Site web---#}
                                 <div class="control-group">
                                     <label class="control-label" for="siteweb">Site Web <span class="required">*</span></label>
@@ -171,6 +161,16 @@
                                         <input type="text" name="fax" placeholder=" Fax" class="input-large" value="{{ fax }}" required="required">
                                         <div class="error">
                                              {{ form_error('fax') }}         
+                                        </div>
+                                    </div>
+                                </div>
+                                {#---Description Société---#}
+                                <div class="control-group">
+                                    <label class="control-label" for="descsoc">Description Société <span class="required">*</span></label>
+                                    <div class="controls">
+                                        <textarea name="descsoc" placeholder="Description de la societe" class="input-large" required="required">{{ descsoc }}</textarea>
+                                        <div class="error">
+                                            {{ form_error('descsoc') }}         
                                         </div>
                                     </div>
                                 </div>

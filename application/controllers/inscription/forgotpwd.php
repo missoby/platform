@@ -1,6 +1,7 @@
 <?php
 
-if (!defined('BASEPATH')) exit('No direct script access allowed');
+if (!defined('BASEPATH'))
+    exit('No direct script access allowed');
 
 class Forgotpwd extends CI_Controller {
 
@@ -16,14 +17,12 @@ class Forgotpwd extends CI_Controller {
         $this->shopping['nbr'] = $this->cart->total_items();
     }
 
-    function mail()
-    {
+    function mail() {
         $data['shopping'] = $this->shopping;
         $this->twig->render('login/mailforgpwd_view', $data);
     }
 
-    function verifmail()
-    {   
+    function verifmail() {
         $data['shopping'] = $this->shopping;
         $this->form_validation->set_rules('email', 'email', 'required|trim|xss_clean|valid_email|max_length[60]');
         $this->form_validation->set_error_delimiters('<br /><span class="error">', '</span>');
@@ -61,7 +60,7 @@ class Forgotpwd extends CI_Controller {
                     $this->email->to($email);
                     $this->email->subject('Mot de passe oubliée');
                     $this->email->set_mailtype("html");
-                    $this->email->message('Pour ajouter Votre mot de passe, cliquez sur ce' . anchor('inscription/forgotpwd/resetpwd/' . $pwdcrypt, ' Lien'));
+                    $this->email->message('Pour Modifier votre mot de passe, cliquez sur ce' . anchor('inscription/forgotpwd/resetpwd/' . $pwdcrypt, ' Lien'));
 
                     if ($this->email->send()) {
                         $this->twig->render('login/succesSendfrgtmail_view', $data);

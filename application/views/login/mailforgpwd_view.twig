@@ -9,11 +9,8 @@
                    <ul class="nav nav-pills border">
                         <li class="pull-left"><h4>Entrez votre email</h4></li>
                     </ul>
-                <form action="verifmail" method="POST" class="form-horizontal">
+                <form action="/inscription/forgotpwd/verifmail" method="POST" class="form-horizontal">
                     <fieldset>
-                            <div class="login offset2">
-                                {{ validation_errors() }}
-                              </div>
                             <div class="control-group offset2">
                                 <label class="control-label" for="email">E-mail</label>
                                 <div class="controls">

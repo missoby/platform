@@ -1,6 +1,6 @@
 {% extends "/layout/layout.twig" %}
 
-{% block title %} {{parent()}} - Login{% endblock title %}
+{% block title %} {{parent()}} - Contact{% endblock title %}
 
 {% block content %}
     <div class="row-fluid">
@@ -11,69 +11,40 @@
                     <li class="pull-left"><h4>Contactez nous</h4></li>
 
                 </ul>
-                <form action="/contact/contact/send" method="POST" >
-                    <div class="span6 well offset3" style="background-color: rgb(250, 250, 250)">
-                            <fieldset>
-                            
-                           <div class="control-group">
-                                <label class="control-label" for="Nom">Nom <span class="required">*</span></label>
-                                <div class="controls">
-                                    <div class="input-prepend">
-                                        <input type="text" class="input-large" name="nom"  placeholder="Votre Nom " />        
-                                    </div>
-                                         <div class="error">
-                                        {{ form_error('nom') }}         
-                                    </div>
-                                </div>
-                            </div>
+                <form action="/contact/contact/send" method="POST" class="well span10 offset1">
+                    <div class="row-fluid">
+                        <div class="span5">
+                            <div class="row-fluid">
+                                <label for="Nom">Nom <span class="required">*</span>
+                                <input type="text" class="input-xlarge"  name="nom"  placeholder="Votre Nom" >
 
-                                <!-- email-->
-                                <div class="control-group">
-                                    <label class="control-label" for="email">Email <span class="required">*</span></label>
-                                    <div class="controls">
-                                        <div class="input-prepend">
-                                            <input type="email"  name="email" class="input-large" placeholder="Votre Email" />
-                                        </div>
-                                        <div class="error">
-                                        {{ form_error('email') }}         
-                                            </div>
-                                        </div>
-                                    </div>
-                                <!-- Sujet-->
-                                <div class="control-group">
-                                    <label class="control-label" for="Sujet">Sujet <span class="required">*</span></label>
-                                    <div class="controls">
-                                        <div class="input-prepend">
-                                            <input type="text"  name="sujet" class="input-large" placeholder="Sujet" />
-                                        </div>
-                                        <div class="error">
-                                        {{ form_error('sujet') }}         
-                                            </div>
-                                        </div>
-                                    </div>
-                           
-                         {#---Message---#}
-                            <div class="control-group">
-                                <label class="control-label" for="message" >Message <span class="required">*</span></label>
-                                <div class="controls">
-                                    <textarea  name="message" placeholder="Message" class="input-large" ></textarea>
-                                    <div class="error">
-                                        {{ form_error('message') }}         
-                                    </div>
+                                <div class="error">
+                                   {{ form_error('nom') }}         
                                 </div>
-                            </div> 
-                                  <!-- Button -->
-                             
-                           <div class="control-group span1">
-                            <div class="controls offset8">
-                                    <button class="btn btn-info">Envoyer</button>
-                                    
+                                <label for="email">Email <span class="required">*</span></label>
+                                <input type="email"  name="email" class="input-xlarge" placeholder="Votre Email" />
+                                <div class="error">
+                                   {{ form_error('email') }}         
+                                </div>
+                                <label for="Sujet">Sujet <span class="required">*</span></label>
+                                <input type="text" name="sujet" class="input-xlarge" placeholder="Sujet" />
+                                <div class="error">
+                                   {{ form_error('sujet') }}         
                                 </div>
                             </div>
-                        </fieldset>
+                        </div>
+                        <div class="span5">
+                            <div class="row-fluid">
+                                <label>Message</label>
+                                <textarea name="message" name="message" class="input-xlarge" rows="8"></textarea>
+                                <div class="error">
+                                   {{ form_error('message') }}         
+                                </div>
+                                <button type="submit" class="btn btn-inverse pull-right">Envoyer</button>
                             </div>
-                           
-                    </form>
+                        </div>
+                    </div>  
+                </form>
                  </div>
            
             </div>
