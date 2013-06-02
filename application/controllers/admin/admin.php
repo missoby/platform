@@ -183,7 +183,7 @@ class Admin extends CI_Controller {
         $data['souscat'] = $souscategorie;
          $data['link_back'] = anchor('admin/admin/afficheComm/','Retour a la page d\'accueil',array('class'=>'back'));
         $data['finalpath'] = site_url() . 'uploads/' . $req->photo;
-       
+        $data['idproduit'] = $id;
         $this->twig->render('admin/administration/produit_view', $data);
     }
     
