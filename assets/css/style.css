@@ -1,3 +1,9 @@
+.wrap{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+}
 .body{background: url('../img/bg_diamond.png')}
 .border{border-bottom: 1px solid rgb(146, 2, 2)}
 .best{

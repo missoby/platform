@@ -35,7 +35,7 @@
                                 <form action="/cart/cart/add_cart_item" method="POST" style="margin-bottom: 0">
                                     {% set id = row.commercant_idcommercant %}
                                         {% set actvpay = 0 %}
-                                        <h5 class="text-center">{{row.libelle}}</h5>
+                                        <h5 class="text-center wrap">{{row.libelle}}</h5>
                                     {% for row2 in comm.result_array() %}
                                         {% if row2.idcommercant == id  %}
                                         {# vérifier si le paiement en ligne est active     #}
@@ -91,7 +91,7 @@
                                     <form action="/cart/cart/add_cart_item" method="POST" style="margin-bottom: 0">
                                         {% set id = rows.commercant_idcommercant %}
                                             {% set actvpay = 0 %}
-                                            <h5 class="text-center">{{rows.libelle}}</h5>
+                                            <h5 class="text-center wrap">{{rows.libelle}}</h5>
                                         {% for row2 in comm.result_array() %}
                                             {% if row2.idcommercant == id  %}
                                              {# vérifier si le paiement en ligne est active     #}

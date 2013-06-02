@@ -3,11 +3,9 @@
 {% block title %} {{parent()}} - login administrateur{% endblock title %}
 
 {% block nav%}{% endblock nav%}
-{% block container %}
-    <div class="row">
-        {% block content %}
-            <div class="span6 offset3">
-            <div class="well">
+{% block content %}
+    <div class="row-fluid">
+        <div class="span6 well offset3">
                 <form action="/admin/admin/verifylogin" method="POST" class="form-horizontal">
                     <fieldset>
                         <legend>Interface Administrateur</legend>
@@ -37,14 +35,11 @@
                          <div class="control-group">
                                 <!-- Button -->
                                 <div class="controls">
-                                    <button class="btn btn-info">Se connecter</button>
+                                    <button class="btn btn-inverse">Se connecter</button>
                                 </div>
                             </div>
                         </fieldset>
                     </form>
-                </div>
-            </div>
-        {% endblock content %}
+        </div>
     </div>
-{% endblock container %}
-{% block footer %}{% endblock footer %}
+{% endblock content %}
