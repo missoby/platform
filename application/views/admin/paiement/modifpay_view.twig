@@ -12,16 +12,8 @@
                     <ul class="nav nav-pills" style="border-bottom: 1px solid #cccccc">
                        
                    </ul>
-                {%if affil != NULL%}
-                    <div class="alert alert-success">
-                    <p class="">
-                <span>  Configuration déja établie </span>        
-                  <a href="/paiement/paiement/modifaffil"  class="pull-right" data-dismiss="alert">Modifier affilié</a>  
-                       </p> 
-                       </div>
-                    
-                    {%else%}
-                        <form action="/paiement/paiement/InsertAff" method="POST" class="span8 well offset2" style="background-color: rgb(250, 250, 250)">
+               
+                        <form action="/paiement/paiement/updateAff" method="POST" class="span8 well offset2" style="background-color: rgb(250, 250, 250)">
                             <div class="login">
                                 {{ validation_errors() }}
                             </div>
@@ -69,7 +61,7 @@
                                    
                             </div>
                     </form>
-                    {%endif%}
+                  
                 </div>       
         </div>
    </div>

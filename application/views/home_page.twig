@@ -131,6 +131,62 @@
                         </li>
                     {% endfor %}
                 </ul>
+                    {# {# fin produit en solde#}
+                <h4 class="title feature">
+                    <span class="pull-left">Produits soldés</span>
+                    <span class="pull-right">
+                        <a id="prev1" class="iconleft"></a>
+                        <a id="next1" class="iconright"></a>
+                    </span>
+                </h4>
+                <ul id="sold" class="thumbnails" style="margin-left:-18px">
+                     {% for rows in produitsolde %}
+                        <li>
+                            <div class="thumbnail">
+                                <img alt="{{rows.libelle}}" style="height: 194px;" src="{{pathphoto}}{{rows.photo}}"/>
+                                <div class="caption">
+                                    <form action="/cart/cart/add_cart_item" method="POST" style="margin-bottom: 0">
+                                        {% set id = rows.idcomm %}
+                                            {% set actvpay = 0 %}
+                                            <h5 class="text-center wrap">{{rows.libelle}}</h5>
+                                        {% for row2 in comm.result_array() %}
+                                            {% if row2.idcommercant == id  %}
+                                             {# vérifier si le paiement en ligne est active     #}
+                                            {%if row2.paiement == 1 %}
+                                            {% set actvpay = 1 %}
+                                              {%else%}
+                                         {% set actvpay = 0 %}
+                                            {%endif%}
+                                            <p class="text-center" > <a href="/produit/afficheproduit/view_prod_comm/{{row2.idcommercant}}"> {{row2.societe}}</a></p>  
+                                            {% endif %}
+                                        {% endfor %}
+                                        <p class="text-center">
+                                        {% for i in 1..rows.note %}
+                                            <img src="{{base_url()}}/assets/img/star-on.png">
+                                        {% endfor %}
+                                        </p>
+                                        <div class="tumbprod">
+                                        {#---Quantité hidden---#}
+                                        <input type="hidden" name="quantity" value="1">
+
+                                        {#---hidden id---#}
+                                        <input type="hidden" name="product_id" value="{{rows.idp}}">
+
+                                    {%if actvpay == 1%}
+                                    <button type="submit"  class="btn btn-mini" name="submit" title="Ajouter au panier"><i class="icon-shopping-cart"></i></button>
+                                    {%endif%}  
+                                        <a href="/produit/afficheproduit/details/{{rows.idp}}" class="btn btn-mini" title="Plus Détails"><i class="icon-plus"></i></a></span>
+                                        <span class="pull-right label">{{rows.oldprice}} DT</span>
+                                        <span class="pull-left label">{{rows.newprice}} DT</span>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="shadow"></div>
+                        </li>
+                    {% endfor %}
+                </ul>
+                    {# fin produit en solde#}
             </div>
         </div>
     </div>
@@ -150,7 +206,11 @@
         $('#last').carouFredSel({
             responsive: true, width: '100%', prev: '#prev2', next: '#next2', scroll: 2,
             items: { width: 228, visible: { min: 2, max: 4 } }
-        });       
+        });    
+        $('#sold').carouFredSel({
+            responsive: true, width: '100%', prev: '#prev1', next: '#next1', scroll: 2,
+            items: { width: 228, visible: { min: 2, max: 4 } }
+        });
     });
    </script>
    

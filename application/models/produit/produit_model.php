@@ -225,7 +225,7 @@ class produit_model extends CI_Model {
 	        $this->db->where('active', 1);
                 $this->db->where('stock >', 0);
                 $this->db->order_by('dateajout', 'desc');
-                $this->db->limit(6);
+                $this->db->limit(8);
 		return $this->db->get($this->tbl_produit);
 	     }
   
