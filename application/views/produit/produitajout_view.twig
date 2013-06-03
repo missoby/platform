@@ -49,7 +49,7 @@
                             <div class="control-group">
                                 <label class="control-label" for="libelle">Libelle <span class="required">*</span></label>
                                 <div class="controls">
-                                    <input type="text" name="libelle" placeholder="Libelle" class="input-xlarge" >
+                                    <input type="text" name="libelle" placeholder="Libelle" class="input-xlarge" value="{{ set_value('libelle')}}" >
                                     
                                 </div>
                                 <div class="error">
@@ -61,7 +61,7 @@
                             <div class="control-group">
                                 <label class="control-label" for="stock" >Stock <span class="required">*</span></label>
                                 <div class="controls">
-                                    <input type="text" name="stock" placeholder="Le stock" class="input-xlarge" >
+                                    <input type="text" name="stock" placeholder="Le stock" class="input-xlarge"  value="{{ set_value('stock')}}">
                                     <div class="error">
                                         {{ form_error('stock') }}         
                                     </div>
@@ -83,7 +83,7 @@
                             <div class="control-group">
                                 <label class="control-label" for="prix" >Prix <span class="required">*</span></label>
                                 <div class="controls">
-                                    <input type="text" name="prix" placeholder="Le prix" class="input-xlarge" >
+                                    <input type="text" name="prix" placeholder="Le prix" class="input-xlarge"  value="{{ set_value('prix')}}" >
                                     <div class="error">
                                         {{ form_error('prix') }}         
                                     </div>
@@ -93,7 +93,7 @@
                             <div class="control-group">
                                 <label class="control-label" for="remise" >Remise <span class="required">*</span></label>
                                 <div class="controls">
-                                    <input type="text" name="remise" placeholder="Remise" class="input-xlarge" >
+                                    <input type="text" name="remise" placeholder="Entrez 0 s'il n'ya pa de remise" class="input-xlarge" value="{{ set_value('remise')}}" >
                                     <div class="error">
                                         {{ form_error('remise') }}         
                                     </div>
@@ -105,7 +105,9 @@
                                 <label class="control-label" for="userfile" >Photo <span class="required">*</span></label>
                                 <div class="controls">
                                     <input type="file" name="userfile" size="20" />
-                                  
+                                   <div class="error">
+                                        {{ form_error('userfile') }}         
+                                    </div>
                                 </div>
                             </div>
                         

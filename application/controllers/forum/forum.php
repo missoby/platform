@@ -128,8 +128,8 @@ class forum extends CI_Controller {
         $data = array();
         $data['idcat'] = $idcat;
         
-        $this->form_validation->set_rules('titre', 'Titre', 'required|trim|xss_clean|max_length[255]');
-        $this->form_validation->set_rules('contenu', 'Contenu', 'required|trim|xss_clean');
+        $this->form_validation->set_rules('titre', 'Titre', 'required|trim|xss_clean|max_length[45]|min_length[8]');
+        $this->form_validation->set_rules('contenu', 'Contenu', 'required|trim|xss_clean|max_length[200]|min_length[30]');
         
         //$this->form_validation->set_error_delimiters('<span class="error" name="errortotal">', '</span>');
         
@@ -228,11 +228,12 @@ class forum extends CI_Controller {
 
             );
             if ($this->forum_model->InsertModif($idsj, $form_data) == true) {
-                $data = array(
-                    'msg' => 'Sujet modifié avec succes',
-                    'shopping' => $this->shopping
-                    );
-                $this->twig->render('Success_view', $data);
+//                $data = array(
+//                    'msg' => 'Sujet modifié avec succes',
+//                    'shopping' => $this->shopping
+//                    );
+//                $this->twig->render('Success_view', $data);
+                redirect('forum/forum/afficherDetail/'.$idsj);
             } else {
                 $data = array(
                     'msg' => 'Echec modification Sujet',

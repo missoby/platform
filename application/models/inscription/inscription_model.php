@@ -16,6 +16,28 @@ class Inscription_model extends CI_Model {
 
         $this->db->update('personne', $data, array('idpersonne' => $id));
     }
+    function verifemailforinsert()
+    {
+        $login = $this->input->post('login');
+        $email = $this->input->post('email');
+
+        $q = $this
+                ->db
+                ->where('login', $login)
+                ->limit(1)
+                ->get('personne');
+        
+        $q2 = $this
+                ->db
+                ->where('email', $email)
+                ->limit(1)
+                ->get('personne');
+
+        if (($q->num_rows == 0) and ($q2->num_rows == 0))
+        {return true;}
+        else 
+            return false;
+    }
     function SaveForm() {
         $form_data = array(
             'nom' => $this->input->post('nom'),
@@ -67,6 +89,28 @@ class Inscription_model extends CI_Model {
 
             return FAlSE ;
         }
+    }
+    function verifemailforinsertComm()
+    {
+        $login = $this->input->post('login');
+        $email = $this->input->post('email');
+
+        $q = $this
+                ->db
+                ->where('login', $login)
+                ->limit(1)
+                ->get('personne');
+        
+        $q2 = $this
+                ->db
+                ->where('email', $email)
+                ->limit(1)
+                ->get('personne');
+
+        if (($q->num_rows == 0) and ($q2->num_rows == 0))
+        {return true;}
+        else 
+            return false;
     }
 
     function SaveFormComm() {

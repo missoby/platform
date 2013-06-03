@@ -48,9 +48,13 @@
                                         {% endif %}
                                     {% endfor %}
                                     <p class="text-center" >
+                                        {%if row.note > 0 %}
                                     {% for i in 1..row.note %}
                                         <img src="{{base_url()}}/assets/img/star-on.png">
                                     {% endfor %}
+                                        {%else%}
+                                             <img src=""/>
+                                        {%endif%}
                                     </p>
                                     <div class="tumbprod">
 

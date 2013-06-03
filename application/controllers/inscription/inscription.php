@@ -7,6 +7,8 @@ class Inscription extends CI_Controller {
     function __construct() {
         parent::__construct();
         $this->load->model('inscription/inscription_model');
+    $this->load->model('notification/notif_model');
+
         $this->twig->addFunction('getsessionhelper');
         $this->load->model('produit/produit_model', '', TRUE);
 
@@ -56,7 +58,9 @@ class Inscription extends CI_Controller {
         $data['comm'] = $enscom;
         if ($this->form_validation->run() == FALSE) { // validation hasn't been passed
             $this->twig->render('client/inscription_view', $data);
-        } else {
+        } 
+        else {
+            $this->inscription_model->SaveForm();
             $link = base_url('/inscription/inscription/confirmation') . '/' . sha1($this->input->post('email') . 'XkI85BtF');
             //send email
             $config = Array(
@@ -85,11 +89,13 @@ class Inscription extends CI_Controller {
     }
 
     function verifemail() {
-        if (!$this->inscription_model->SaveForm()) {
+       
+        if (!$this->inscription_model->verifemailforinsert()) {
             $this->form_validation->set_message('verifemail', 'Le nom utilisateur ou email choisi existe deja');
             return FALSE;
         } else
             return TRUE;
+        
     }
 
     function inscriptionCommercant() {
@@ -127,7 +133,7 @@ class Inscription extends CI_Controller {
             // validation hasn't been passed
             $this->twig->render('commercant/inscriptioncomm_view', $data);
         } else {
-
+            $this->inscription_model->SaveFormComm();
             $link = base_url('inscription/inscription/confirmation') . '/' . sha1($this->input->post('email') . 'XkI85BtF');
             //send email
             $config = Array(
@@ -156,7 +162,7 @@ class Inscription extends CI_Controller {
     }
 
     function verifemailcomm() {
-        if (!$this->inscription_model->SaveFormcomm()) {
+        if (!$this->inscription_model->verifemailforinsertComm()) {
             $this->form_validation->set_message('verifemailcomm', 'Le nom utilisateur ou email choisi existe deja');
             return FALSE;
         } else {
@@ -170,10 +176,15 @@ class Inscription extends CI_Controller {
         foreach ($resultats as $res) {
             if (sha1($res->email . 'XkI85BtF') == $link) {
                 $this->inscription_model->update_activer($res->idpersonne);
-                $msg = "Un Nouveau Commercant vient d'etre inscri";
-                $this->notif_model->notifadmin(1,$comm->idcommercant, $msg);
+                 if($res->type == 'commercant')
+                {
+                    $comm = $this->notif_model->getCommercantFromPersonne($res->idpersonne);
+                   
+                    $msg = " Un Nouveau Commerçant vien d'étre inscrit ";
+                    $this->notif_model->notifadmin(1, $comm->idcommercant, $msg);
+                }
             }
-                $this->twig->render('successInscri_view', $data);
+                $this->twig->render('successConfirm_view', $data);
                 break;
             }
         }

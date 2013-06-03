@@ -26,7 +26,7 @@ class Msgclientcomm extends CI_Controller {
         } else {
             //update champ notifmsg de la table admin
             $this->message_model->msgCommAdmin($id);
-            redirect('message/msgclientcomm/listmsgclientcomm');
+            redirect('message/msgclientcomm/sendMsgToAdmin');
         }
     }
     
