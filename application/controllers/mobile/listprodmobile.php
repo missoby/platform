@@ -8,21 +8,24 @@ header('Access-Control-Allow-Origin: *');
 class Listprodmobile extends CI_Controller {
 
     public $tableauglob = array();
+
     public function __construct() {
         parent::__construct();
+        $this->load->library('email');
         $this->load->model('produit/produit_model', '', TRUE);
         $this->load->model('avis/avis_model');
         $this->load->model('forum/forum_model');
         $this->load->model('inscription/inscription_model');
         $this->load->model('annonce/annonce_model');
         $this->load->model('recherche/recherche_model');
-         $this->load->model('inscription/user_model', '', TRUE);
+        $this->load->model('inscription/user_model', '', TRUE);
 
         $this->twig->addFunction('validation_errors');
         $this->twig->addFunction('getsessionhelper');
     }
 
     public function index() {
+        
     }
 
     public function listprod() {
@@ -38,11 +41,10 @@ class Listprodmobile extends CI_Controller {
 
     public function avismobile() {
         $avis = $this->avis_model->getavis($this->input->post('id'));
-        foreach ($avis as $value) 
-            {
-                $value->idclient = $value->client_idclient;
-                $value->client_idclient = $this->forum_model->getProprietaireDelAvis($value->client_idclient);
-            }
+        foreach ($avis as $value) {
+            $value->idclient = $value->client_idclient;
+            $value->client_idclient = $this->forum_model->getProprietaireDelAvis($value->client_idclient);
+        }
         $data['avis'] = $avis;
         echo json_encode($data);
     }
@@ -84,10 +86,11 @@ class Listprodmobile extends CI_Controller {
     public function forum_sujet_mobile() {
         $id = $this->input->post('id');
         $res = $this->forum_model->getSujet($id);
-        if ($res->client_idclient == NULL) 
-            { $data['nom'] = $this->forum_model->getSociete($res->commercant_idcommercant)->societe;} 
-        else 
-            { $data['nom'] = $this->forum_model->getProprietaire($res->client_idclient); }
+        if ($res->client_idclient == NULL) {
+            $data['nom'] = $this->forum_model->getSociete($res->commercant_idcommercant)->societe;
+        } else {
+            $data['nom'] = $this->forum_model->getProprietaire($res->client_idclient);
+        }
         $data['sujetdetail'] = $res;
         echo json_encode($data);
     }
@@ -106,33 +109,26 @@ class Listprodmobile extends CI_Controller {
         $data['comm'] = $msg;
         echo json_encode($data);
     }
-    
+
     public function recherche_mobile() {
         $mot = $this->input->post('mot');
         $data['produit'] = $this->recherche_model->getsearchmot($mot);
         echo json_encode($data);
     }
-    
-    
-    public function login()
-        {
-             $this->form_validation->set_rules('login', 'Nom utilisateur', 'trim|required|xss_clean');
-             $this->form_validation->set_rules('pwd', 'Mot de passe', 'trim|required|xss_clean|callback_check_login');
-        if ($this->form_validation->run() == FALSE)
-            {
-                echo json_encode( array('error' => validation_errors()) );
-             
-            }
-            else
-            {
+
+    public function login() {
+        $this->form_validation->set_rules('login', 'Nom utilisateur', 'trim|required|xss_clean');
+        $this->form_validation->set_rules('pwd', 'Mot de passe', 'trim|required|xss_clean|callback_check_login');
+        if ($this->form_validation->run() == FALSE) {
+            echo json_encode(array('error' => validation_errors()));
+        } else {
 //                    /$data = array('error' => 0, 'test' => 'abc');
 //                    echo json_encode($data);/
-                   echo json_encode($this->tableauglob); // print_r($this->tableau);
-            }
+            echo json_encode($this->tableauglob); // print_r($this->tableau);
         }
-        
-        function check_login() 
-        {
+    }
+
+    function check_login() {
         if (!$result = $this->user_model->login()) {
             $this->form_validation->set_message('check_login', 'Mot de passe ou nom utilisateur incorrecte');
             return false;
@@ -144,52 +140,51 @@ class Listprodmobile extends CI_Controller {
                     return false;
                 }
                 $reqid = 0;
-                if($row->type == 'client'){
+                if ($row->type == 'client') {
                     $reqid = $this->user_model->getidclient($row->idpersonne)->row()->idclient;
                     $notif = $this->user_model->getnotif_client($row->idpersonne)->row();
-                }
-                elseif ($row->type == 'commercant') {
+                } elseif ($row->type == 'commercant') {
                     $enable = $this->user_model->getetatcomm($row->idpersonne)->row()->enable;
-                      if ($enable == 0) {
-                    $this->form_validation->set_message('check_login', 'En attente de la confirmation de la part de l\'administrateur');
-                    return false;
-                }
+                    if ($enable == 0) {
+                        $this->form_validation->set_message('check_login', 'En attente de la confirmation de la part de l\'administrateur');
+                        return false;
+                    }
                     $reqid = $this->user_model->getidcommercant($row->idpersonne)->row()->idcommercant;
                     $notif = $this->user_model->getnotif_commercant($row->idpersonne)->row();
-            }
+                }
                 ;
                 $this->tableauglob = array(
-                    'error' => 0, 'id' => $reqid, 'idpersonne' => $row->idpersonne, 
-                    'email' => $row->email, 'login' => $row->login, 'type' => $row->type, 
+                    'error' => 0, 'id' => $reqid, 'idpersonne' => $row->idpersonne,
+                    'email' => $row->email, 'login' => $row->login, 'type' => $row->type,
                     'notifaction' => $notif->notifaction, 'notifmsg' => $notif->notifmsg,
-                    'adresse' => $row->adresse, 'pays' => $row->pays, 'ville'=> $row->adresse,
-                    'nom' => $row ->nom, 'prenom' => $row ->prenom ,'tel' => $row ->tel
-               );
+                    'adresse' => $row->adresse, 'pays' => $row->pays, 'ville' => $row->adresse,
+                    'nom' => $row->nom, 'prenom' => $row->prenom, 'tel' => $row->tel
+                );
             }
             return TRUE;
         }
     }
-    
-      public function commercantprofil() {
-       $idpers = $this->input->post('id');
+
+    public function commercantprofil() {
+        $idpers = $this->input->post('id');
         $commercant = $this->inscription_model->getidcommprofil($idpers);
-       
+
         $data['commercant'] = $commercant;
         echo json_encode($data);
     }
-     
-    
+
     public function panier() {
-       $data = json_decode(stripslashes($this->input->post('tableau')));
-      //  $data = $_REQUEST['tabb'];
-      echo $data[0]['nom'];
-     //  echo $data;
-       return;
 
-  // here i would like use foreach:
 
-  foreach($data as $d){ 
-     echo $d;
-  }
+        $data = json_decode($this->input->post('myCars'));
+
+
+        for ($i = 0; $i < sizeof($data); $i++) {
+
+            $nom = $data[$i][0];
+            $prix = $data[$i][1];
+            $id = $data[$i][2];
+        }
     }
+
 }
