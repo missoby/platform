@@ -316,6 +316,15 @@ Class Paiement_model extends CI_Model {
          
      }
      
+      function getAffilConf()
+     {
+          return  $this->db->select('*')
+                             ->where('idadmin', 1)
+                            ->get('paiementconfiguration');
+                           // ->row()->numAffilier;
+         
+     }
+     
         public function GetNotifClient() {
          
               return $this->db->select('*')
@@ -421,6 +430,16 @@ Class Paiement_model extends CI_Model {
             }
         }
         return $tableau;
+    }
+    
+       function updateAff($idadmin) {
+       
+           $affil = $this->input->post('affil');
+               
+        $this->db->where('idadmin', $idadmin);
+        $this->db->set('numAffilier', $affil);
+        $this->db->update('paiementconfiguration');
+       
     }
 }
 

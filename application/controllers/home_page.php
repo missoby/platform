@@ -29,12 +29,15 @@ class Home_page extends CI_Controller {
         $data['shopping'] = $this->shopping;
         // $this->twig->render('home_page' , $data);
         // display product by date
-
         $ensproduitdate = $this->produit_model->get_product_by_date();
         $data['produitdate'] = $ensproduitdate;
         $data['comm'] = $enscom;
-
-
+       // dispaly  product in sale
+        $ensproduitsolde = $this->produit_model->get_remise_product();
+        $data['produitsolde'] = $ensproduitsolde;
+        
+       // print_r($ensproduitsolde);return;
+        
         $slider = $this->admin_model->GetSlider();
         $i = $slider->num_rows();
         $data['nbPhoto'] = $i;

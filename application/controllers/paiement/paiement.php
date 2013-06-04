@@ -87,7 +87,7 @@ class Paiement extends CI_Controller {
         //activer paiement pour commercant
         if ($this->paiement_model->desactiver($id, $msg) == true) {
 
-            redirect('paiement/paiement/getnotifpay/', 'refresh');
+            redirect('paiement/paiement/getactivpay/', 'refresh');
         } else {
             $data = array('msg' => 'Erreur activation paiement pour commercant');
             $this->twig->render('Echec_view', $data);
@@ -109,6 +109,7 @@ class Paiement extends CI_Controller {
            function saveAffil()
     {
               
+     $data['affil'] = $this->paiement_model->getAffilConf()->row();
      
         // les methode appelant les vue
         $data['liencontrole'] = base_url().'paiement/paiement/controle';
@@ -121,6 +122,39 @@ class Paiement extends CI_Controller {
    
     }
     
+           function modifaffil()
+    {
+ 
+        // les methode appelant les vue
+        $data['liencontrole'] = base_url().'paiement/paiement/controle';
+        $data['lienechec'] = base_url().'paiement/paiement/echec';
+        $data['liensucces'] = base_url().'paiement/paiement/success';
+        
+      $this->twig->render('admin/paiement/modifpay_view',$data);
+
+    }
+    
+     function updateAff()
+    {
+         $this->form_validation->set_rules('affil', 'affil', 'required|trim');
+  
+        if ($this->form_validation->run() == FALSE) {
+            $data['liencontrole'] = base_url().'/paiement/paiement/controle';
+        $data['lienechec'] = base_url().'/paiement/paiement/echec';
+        $data['liensucces'] = base_url().'/paiement/paiement/success';
+        
+      $this->twig->render('admin/paiement/modifpay_view',$data);
+        } else
+         {//update the affilié and idadmin
+               
+         $idadmin = getsessionhelper()['id'];
+            $this->paiement_model->updateAff($idadmin);
+            redirect('admin/admin');
+        }
+
+
+   
+    }
              function InsertAff()
     {
          $this->form_validation->set_rules('affil', 'affil', 'required|trim');

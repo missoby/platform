@@ -1,20 +1,21 @@
 {% extends "/layout/admin-layout.twig" %}
 
-{% block title %} {{parent()}} - Envoi message{% endblock title %}
+{% block title %} {{parent()}} - Espace Administrateur{% endblock title %}
 
-{% block container %}
-
-    {% block content %}
-            <div class="span12 well">
-                  <h3 class="text-center">Evoyer un message à un commeçant</h3>
-                  <hr>
-                   <div class="span7 offset2">
+{% block content %}
+    <div class="row-fluid">
+        <div class="span12 well" style="min-height: 585px">
+            <div class="row-fluid">
+                <ul class="nav nav-pills border">
+                    <li class="pull-left"><h3>Espace Administrateur</h3></li>
+                </ul>
+                <div class="span7 well-small offset2" style="background-color:white">
                   <form action="/message/msgcommadmin/sendmsg" method="POST" class="form-horizontal">
                         {#---Commercant---#}
                         <div id="categorieplace" class="control-group">
-                            <label class="control-label" for="com" >Catégorie <span class="required">*</span></label>
+                            <label class="control-label" for="com" >Commercant <span class="required">*</span></label>
                             <div class="controls">
-                                <select id="catselect" name="com" class="span3">
+                                <select id="catselect" name="com" class="input-xlarge">
                                     <option selected="selected">  </option>
                                     {% for row in enscomm.result_array() %}
                                          <option  data-id ="{{ row.idcommercant }} " value="{{ row.idcommercant }}" >
@@ -27,11 +28,11 @@
                             </div>
                         </div>
 
-                        {#---Pays---#}
+                        {#---sujet---#}
                         <div class="control-group">
                             <label class="control-label" for="sujet">sujet <span class="required">*</span></label>
                             <div class="controls">
-                                <input type="text" name="sujet" placeholder="Sujet" class="input-xlarge" >
+                                <input type="text" name="sujet" placeholder="Sujet" class="input-xlarge" value="{{ set_value('sujet') }}" >
                                 <div class="error">
                                     {{ form_error('sujet') }}         
                                 </div>
@@ -42,7 +43,7 @@
                         <div class="control-group">
                             <label class="control-label" for="contenu">Contenu <span class="required">*</span></label>
                             <div class="controls">
-                                <textarea name="contenu" rows="5" class="span5" placeholder="Ecrire ici le contenu de votre message"></textarea>
+                                <textarea name="contenu" rows="5" class="input-xlarge" placeholder="Ecrire ici le contenu de votre message"></textarea>
                                 <div class="error">
                                     {{ form_error('contenu') }}         
                                 </div>
@@ -56,8 +57,7 @@
                             </div>
                         </div>
                  </form>
-                  </div>
-             </div>
-       {% endblock content %}
-   
-{% endblock container %}
+                  </div>       
+        </div>
+   </div>
+    {% endblock content %}

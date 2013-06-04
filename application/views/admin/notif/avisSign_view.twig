@@ -14,20 +14,16 @@
                    </ul>
                     <div>
                     {%for var in req%}
-                       <p>
-                            <li>{{var.contenu}} </li>
-
-                            <a href="/admin/admin/deleteAvis/{{var.idcommentaire}}">Supprimer</a>
-                    
-                    </p>     
-                            
-                            
+                       <div class="alert alert-success">
+                            <a href="/admin/admin/deleteAvis/{{var.idcommentaire}}" class="close" data-dismiss="alert">&times;</a>  
+                             <p>{{var.contenu}} <p>
+                          </div>  
                             {%endfor%}
                     
                     
                     
-                    </div>
-           </div>       
+                   </div>
+             </div>       
         </div>
    </div>
     {% endblock content %}
