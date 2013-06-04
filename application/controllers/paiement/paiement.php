@@ -403,8 +403,10 @@ $this->twig->render('paiement/success_view');
            $idp =  $var['options']['idp'];
            $qty = $var['qty'];
            $this->paiement_model->saveProdCmd($idp,$qty, $cmd);
+           $this->paiement_model->updatestock($idp,$qty);
             
         }
+      
             
            // $t = rand(); echo $t;
 //             $prixtotal = $this->shopping['total'] = $this->cart->total();
