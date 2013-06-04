@@ -368,8 +368,6 @@ class produit_model extends CI_Model {
     
     
     
-    
-    
     function listprodmobile($id)
     {
 

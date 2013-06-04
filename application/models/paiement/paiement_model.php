@@ -441,5 +441,29 @@ Class Paiement_model extends CI_Model {
         $this->db->update('paiementconfiguration');
        
     }
+    
+     function updatestock($idp,$qty)
+     {
+         
+         $stock =   $this->db->select('*')
+                             ->where('idproduit', $idp)
+                            ->get('produit')
+                            ->row()->stock;
+
+         if($stock > $qty )
+         {
+            $this->db->where('idproduit', $idp);
+            $this->db->set('stock', $stock - $qty);
+        $this->db->update('produit'); 
+         }
+         else 
+         {
+           $this->db->where('idproduit', $idp);
+            $this->db->set('stock', 0);
+            $this->db->update('produit');   
+         }
+         
+     
+     }
 }
 
