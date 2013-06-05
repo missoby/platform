@@ -16,6 +16,7 @@ class Contact extends CI_Controller {
     }
 
     function index() {
+       
         $data['shopping'] = $this->shopping;
         $this->twig->render('contact/contact_view', $data);
     }

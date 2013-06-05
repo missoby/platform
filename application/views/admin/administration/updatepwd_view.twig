@@ -1,0 +1,66 @@
+{% extends "/layout/admin-layout.twig" %}
+
+{% block title %} {{parent()}} - Espace Administrateur{% endblock title %}
+
+{% block content %}
+    <div class="row-fluid">
+        <div class="span12 well" style="min-height: 585px">
+            <div class="row-fluid">
+                <ul class="nav nav-pills border">
+                    <li class="pull-left"><h3>Modification Mot De Passe</h3></li>
+                </ul>
+                    
+                     <div class="span7 well-small offset2" style="background-color:white">
+                  <form action="/admin/admin/SaveUpdatepwd" method="POST" class="form-horizontal">
+                        {#---Mot de passe courant---#}
+                        <div id="categorieplace" class="control-group">
+                            <label class="control-label" for="currentpwd" >Mot De Passe Courant <span class="required">*</span></label>
+                            <div class="controls">
+                              <input type="password" name="currentpwd"  class="input-xlarge" > 
+                                 <div class="error">
+                                    {{ form_error('currentpwd') }}         
+                                </div>
+                            </div>
+                        </div>
+
+                        {#---Nouveau de passe courant---#}
+                        <div id="categorieplace" class="control-group">
+                            <label class="control-label" for="newpwd" >Nouveau Mot De Passe <span class="required">*</span></label>
+                            <div class="controls">
+                              <input type="password" name="newpwd"  class="input-xlarge" > 
+                                 <div class="error">
+                                    {{ form_error('newpwd') }}         
+                                </div>
+                            </div>
+                        </div>
+
+                       {#---Confirmation  passe courant---#}
+                        <div id="categorieplace" class="control-group">
+                            <label class="control-label" for="confpwd" >Confirmation Mot De Passe <span class="required">*</span></label>
+                            <div class="controls">
+                              <input type="password" name="confpwd"  class="input-xlarge" > 
+                                 <div class="error">
+                                    {{ form_error('confpwd') }}         
+                                </div>
+                            </div>
+                        </div>
+
+                        {#---S'enregistrer---#}
+                        <div class="control-group">
+                            <div class="controls">
+                                <button type="submit" name="submit" class="btn btn-info">Valider</button>
+                                <button type="reset" name="reset" class="btn btn-info">Annuler</button>
+                       
+                            </div>
+                        </div>
+                 </form>
+                  </div>    
+                    
+                    
+                    
+                   </div>
+
+                </div>       
+        </div>
+   </div>
+    {% endblock content %}  

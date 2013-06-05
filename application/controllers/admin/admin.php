@@ -34,7 +34,7 @@ class Admin extends CI_Controller {
 
     function verifylogin() {
         $login = $this->input->post('login');
-        $pwd = $this->input->post('pwd');
+        $pwd = sha1($this->input->post('pwd'));
 
         $res = $this->admin_model->login($login, $pwd);
         if ($res) {
@@ -42,7 +42,7 @@ class Admin extends CI_Controller {
                     $reqid = $this->admin_model->getidadmin($login)->row();
              if (!empty($reqid))
              {
-                $login_in = array('id' => $reqid->idadmin, 'type'=> 'admin', 'notifaction' => $reqid->notifaction, 'notifmsg' => $reqid->notifmsg);
+                $login_in = array('id' => $reqid->idadmin, 'type'=> 'admin', 'notifaction' => $reqid->notifaction, 'notifmsg' => $reqid->notifmsg, 'login' => $login);
                 $this->session->set_userdata('login_in', $login_in);
                 $this->twig->render('admin/administration/administration_view');
             } 
@@ -451,6 +451,48 @@ class Admin extends CI_Controller {
         // redirect to notif list 
             redirect('admin/admin/getnotif/', 'refresh');
     }
+    //update pwd admin 
+      function UpdatePwd() {
+       
+        // afficher la vue pour saisir le nouveau pwd
+        $this->twig->render('admin/administration/updatepwd_view');
+    }
+    
+    function SaveUpdatepwd() {//mettre a jour le pwd
+        $this->form_validation->set_rules('currentpwd', 'Mot de passe courant', 'trim|max_length[255]|callback_change_password');
+        $this->form_validation->set_rules('newpwd', 'Nouveau Mot de passe', 'trim|max_length[255]|matches[confpwd]');
+        $this->form_validation->set_rules('confpwd', 'Conformatin du nouveau Mot de passe', 'trim|max_length[255]');
+        $this->form_validation->set_error_delimiters('<br /><span class="error">', '</span>');
+
+        if ($this->form_validation->run() == FALSE) {
+            
+            // validation hasn't been passed
+        $this->twig->render('admin/administration/updatepwd_view');
+        } else {
+           redirect('admin/admin');
+        }
+    }
+    
+     function change_password($pwdd) {
+        $pwd = sha1($pwdd);
+        $login = getsessionhelper()['login'];
+        $newpwd = sha1($this->input->post('newpwd'));
+        //verifier l'existance de l'ancien mot de passe
+        if ($this->admin_model->verifpwd($pwd, $login) == true) {
+            if ($this->admin_model->updatpwd($newpwd, $login) == true) {//update succeded
+                return true;
+            } else {
+
+                $this->form_validation->set_message('change_password', 'problème insertion dans la base');
+                return false;
+            }
+        } else {
+
+            $this->form_validation->set_message('change_password', 'Mot de passe courant inexistant');
+            return false;
+        }
+    }
+
 
 }
 
