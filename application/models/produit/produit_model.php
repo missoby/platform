@@ -390,6 +390,56 @@ class produit_model extends CI_Model {
                   
            
   }
+  // get idclient from idpersonne
+  function getidpers($idclient) {
+        $this->db->select('personne_idpersonne');
+        $this->db->from('client');
+        $this->db->where('idclient', $idclient);
+        $this->db->limit(1);
+        return $this->db->get();
+    }
+    function getidclt($idpers)
+    {
+        $this->db->select('idclient');
+        $this->db->from('client');
+        $this->db->where('personne_idpersonne', $idpers);
+        $this->db->limit(1);
+        return $this->db->get();
+    }
+    
+    function getProdMobile($idpersonne) {
+         
+        // get prod from table produitmobile
+        $sql = "select DISTINCT p.idprod
+                  from produitmobile p 
+                  where p.idclt = '$idpersonne'";
+        $query = $this->db->query($sql);
+        $tab = $query->result_array();
+
+        //*************
+        // get iproduct from table produit 
+        $tableau = array();
+        $i = 0;
+        foreach ($tab as $res) {
+            // récupérer libelle et idcomm du comm de produit
+            $produit = $this->db->where('idproduit', $res['idprod'])
+                    ->get('produit')
+                    ->row();
+         
+            $tableau[$i] = array('idprod' => $res['idprod'],'prixprod'=> $produit->prix ,'libelle' => $produit->libelle,'idcomm'=> $produit->commercant_idcommercant
+              ,'photo' => $produit->photo);
+            $i++;
+        }
+        return $tableau;
+ 
+       
+    }
+    
+    
+    function deletecmdmobile($idp){
+		$this->db->where('idprod', $idp);
+		$this->db->delete('produitmobile');
+	}
   
   
 }

@@ -7,6 +7,8 @@ class Paiement extends CI_Controller {
         $this->twig->addFunction('getsessionhelper');
         $this->load->model('notification/notif_model');
         $this->load->model('inscription/inscription_model');
+        $this->load->model('produit/produit_model');
+
         $this->load->model('paiement/paiement_model', '', TRUE);
          $this->shopping['content'] = $this->cart->contents();
         $this->shopping['total'] = $this->cart->total();
@@ -456,10 +458,29 @@ $this->twig->render('paiement/success_view');
         $commercant = $this->inscription_model->getchildcomm(getsessionhelper()['idpersonne'])->row();
         $data['commercant'] = $commercant;
         $this->twig->render('commercant/ListAchatComm_view',$data);
-
-        
-        
+   
     }
+    
+     function GetCmdMobile($idclient)
+    {
+        $data['shopping'] = $this->shopping;
+       
+    $idpersonne = $this->produit_model->getidpers($idclient)->row()->personne_idpersonne;
+        //$data['prodmobile'] = $this->paiement_model->getProdMobile($idclt);
+   $prodmobile =  $this->produit_model->getProdMobile($idpersonne);
+                
+                 foreach ($prodmobile as $var)
+                 {echo  $var['idprod']; 
+                 echo 'tof = '; echo  $var['photo'];
+                 }
+                 $enscom = $this->produit_model->getcommercant();
+                 $data['comm'] = $enscom;
+                 $data['pathphoto'] = site_url() . 'uploads/';
+                 $data['produit'] = $prodmobile;
+    $this->twig->render('paiement/ListProdAtt_view', $data);
+   
+    }
+    
     
   
 

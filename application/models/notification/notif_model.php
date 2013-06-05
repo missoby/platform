@@ -284,6 +284,19 @@ Class Notif_model extends CI_Model {
 		$this->db->delete('notifadmin');
 	} 
         
+         function testnotifmobile($idclt,$idprod, $nom, $prix)
+     {
+         $data = array(
+              'idprod' =>$idprod,
+               'idclt' =>$idclt,            
+             'libelle' => $nom,
+             'prix' => $prix
+         
+         );
+         $this->db->insert('produitmobile', $data);
+        
+     }
+        
        
        
         

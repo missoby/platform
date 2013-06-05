@@ -51,5 +51,19 @@ class Cart extends CI_Controller {
         $this->cart->destroy();
         redirect('cart/cart');
     }
+    
+    function add_cart_item_mobile() { // ds notre view on ajoute just l'appl a cette fonction <=> work done on view product 
+       $idp = $this->input->post('product_id');
+       $this->produit_model->deletecmdmobile($idp);
+        if ($this->cart_model->validate_add_cart_item() == TRUE) {
+
+            // Check if user has javascript enabled
+            if ($this->input->post('ajax') != '1') {
+                redirect('cart/cart'); // If javascript is not enabled, reload the page with new data
+            } else {
+                echo 'true'; // If javascript is enabled, return true, so the cart gets updated
+            }
+        }
+    }
 
 }

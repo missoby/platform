@@ -17,7 +17,11 @@ class Listprodmobile extends CI_Controller {
         $this->load->model('forum/forum_model');
         $this->load->model('inscription/inscription_model');
         $this->load->model('annonce/annonce_model');
+                $this->load->model('paiement/paiement_model');
+
         $this->load->model('recherche/recherche_model');
+        $this->load->model('notification/notif_model');
+
         $this->load->model('inscription/user_model', '', TRUE);
 
         $this->twig->addFunction('validation_errors');
@@ -177,14 +181,31 @@ class Listprodmobile extends CI_Controller {
 
 
         $data = json_decode($this->input->post('myCars'));
+           
 
 
         for ($i = 0; $i < sizeof($data); $i++) {
+            $idprod = $data[$i][0];
+            $idclt = $data[$i][1];
+            $nom = $data[$i][2];
+            $prix = $data[$i][3];
 
-            $nom = $data[$i][0];
-            $prix = $data[$i][1];
-            $id = $data[$i][2];
+             $this->notif_model->testnotifmobile($idclt,$idprod, $nom, $prix);
         }
+       
     }
+     public function suiviprod() {
+        $idpers = $this->input->post('id');
+        $idclt = $this->produit_model->getidclt($idpers)->row()->idclient;
+        $data['produit'] = $this->paiement_model->getListAchatClt($idclt);
+//          $achat =  $this->paiement_model->getListAchatClt(27);
+//          foreach ($achat as $var)
+//          {
+//              echo $var['libelle'];
+//          }
+//          return;
+        echo json_encode($data);
+    }
+    
 
 }
