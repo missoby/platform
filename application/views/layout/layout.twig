@@ -123,6 +123,9 @@
                                 </form>
                             </div>
                         </div>
+                            {%if getsessionhelper()['type'] == 'commercant'%}
+                            <div class="span3"></div>
+                            {%else%}
                         {#---Shopping Cart---#}
                         <div class="span3">
                             <div class="btn-group input-prepend  pull-right">
@@ -163,7 +166,8 @@
                                 </ul>
                             </div>
                         </div>
-                    </div>
+                    {%endif%}
+                        </div>
                 </header>
 
                 {#---Main Menu---#}  
@@ -625,7 +629,7 @@
                                                 <form action="/cart/cart/add_cart_item" method="POST" style="margin-bottom: 0">
                                                     {% set id = rows.commercant_idcommercant %}
                                                         {% set actvpay = 0 %}
-                                                        <h5 class="text-center">{{rows.libelle}}</h5>
+                                                        <h5 class="text-center wrap">{{rows.libelle}}</h5>
                                                     {% for row2 in comm.result_array() %}
                                                         {% if row2.idcommercant == id  %}
                                                         {# vérifier si le paiement en ligne est active     #}
@@ -645,7 +649,7 @@
                                                     {#---hidden id---#}
                                                     <input type="hidden" name="product_id" value="{{rows.idproduit}}">
 
-                                                     {%if actvpay == 1%}
+                                    {%if (actvpay == 1) and (getsessionhelper()['type'] != 'commercant')%}
                                                          <button type="submit"  class="btn btn-mini" name="submit" title="Ajouter au panier"><i class="icon-shopping-cart"></i></button>
                                                     {%endif%}                                                    <a href="/produit/afficheproduit/details/{{rows.idproduit}}" class="btn btn-mini" title="Plus Détails"><i class="icon-plus"></i></a></span>
                                                     <span class="pull-right label">{{rows.prix}} DT</span>

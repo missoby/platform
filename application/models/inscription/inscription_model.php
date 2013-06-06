@@ -352,6 +352,20 @@ class Inscription_model extends CI_Model {
                   return $query->result();
     }
     
+    //get informations about comm
+    function getInfoComm($idcom) {
+
+        $this->db->where('idcommercant', $idcom);
+        return $this->db->get('commercant');
+    }
+    //get informations about comm
+    function getInfoPersComm($idpers) {
+
+        $this->db->where('idpersonne', $idpers);
+        return $this->db->get('personne');
+    }
+
+    
 
 }
 

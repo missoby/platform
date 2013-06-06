@@ -15,6 +15,7 @@ class Afficheproduit extends CI_Controller {
         $this->fb = new Facebook($param);
         
         $this->load->model('produit/produit_model', '', TRUE);
+        $this->load->model('inscription/inscription_model', '', TRUE);
         $this->load->model('annonce/annonce_model', '', TRUE);
         $this->twig->addFunction('getsessionhelper');
         $this->load->model('avis/avis_model');
@@ -117,7 +118,14 @@ class Afficheproduit extends CI_Controller {
         $data['finalpath'] = site_url() . 'uploads/';
         }
          $data['slider'] = $slider;
-
+         // récupérer info commercant in a pop up
+         $commercant = $this->inscription_model->getInfoComm($id)->row();
+         $idpers = $commercant->personne_idpersonne; 
+         $inforperscomm = $this->inscription_model->getInfoPersComm($idpers)->row();
+         $data['infoperscom'] = $inforperscomm;
+         $data['infocom'] = $commercant;
+         
+         ////
         $this->twig->render('produit/afficheproduit/produitcomm_view', $data);
     }
     
