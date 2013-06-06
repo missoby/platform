@@ -110,6 +110,34 @@ Class Admin_model extends CI_Model {
         $this->db->where('id', $id);
         $this->db->delete('slideradmin');
     }
+    
+    //verifier existance du pwd
+    function verifpwd($pwd, $login) {
+        $q = $this
+                ->db
+                ->where('pwd', $pwd)
+                ->where('login', $login)
+                ->get('admin');
+        if ($q->num_rows == 1) {
+
+
+            return true;
+        } else {
+
+            return false;
+        }
+    }
+    
+    function updatpwd($newpwd, $login) {
+        $q = $this->db->set('pwd', $newpwd);
+        $this->db->where('login', $login);
+        $this->db->update('admin');
+        if ($q) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 }
 
