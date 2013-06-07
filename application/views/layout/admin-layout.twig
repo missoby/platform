@@ -96,36 +96,7 @@
        
     </script> 
     {% block js %}
-    {#js statistique#}
-    <script type="text/javascript" src="{{base_url()}}assets/js/raphael.js"></script>
-    <script type="text/javascript" src="{{base_url()}}assets/js/jquery.enumerable.js"></script>
-    <script type="text/javascript" src="{{base_url()}}assets/js/jquery.tufte-graph.js"></script>
-    <script type="text/javascript">
-     $(document).ready(function () {
-        jQuery('#awesome-graph').tufteBar({
-        data: [ 
-          [{{nbclientinscri}}, {label: 'Nb Cl Inscri'}],
-          [{{nbcomminscri}}, {label: 'Nb Comm Inscri'}],
-          [{{nbclientconfirm}}, {label: 'Nb Cl Conf'}],
-          [{{nbcommconfirm}}, {label: 'Nb Comm Conf'}],
-          [{{nbcommenable}}, {label: 'Nb Comm En'}],
-
-        ],
-        barWidth: 0.4, 
-        barLabel:  function(index) { 
-          return $.tufteBar.formatNumber(this[0]) //+ 'x' 
-        }, 
-        axisLabel: function(index) { return this[1].label }, 
-        color:     function(index) { 
-          return ['rgb(117, 1, 6)', '#82293B'][index % 2] 
-        },
-        color:     function(index, stackedIndex) { 
-          return ['rgb(3, 51, 136)', '#82293B'][stackedIndex % 2] 
-        },
-        colors: ['#82293B', 'rgb(3, 51, 136)', '#FFBE33'],
-      });
-    });
-    </script> 
+    
 {% endblock js %}
     </body>
 </html>

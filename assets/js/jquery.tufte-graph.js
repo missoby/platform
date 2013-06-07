@@ -138,7 +138,7 @@
       });
 
       addLabel = function(klass, text, pos) {
-        html = '<div style="position:absolute;" class="label2 ' + klass + '">' + text + "</div>";
+        html = '<div style="position:absolute;text-align: center;" class="label2 ' + klass + '">' + text + "</div>";
         $(html).css(pos).appendTo( plot.target );        
       }
 

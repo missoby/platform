@@ -171,6 +171,7 @@ class Listprodmobile extends CI_Controller {
 
     public function commercantprofil() {
         $idpers = $this->input->post('id');
+  
         $commercant = $this->inscription_model->getidcommprofil($idpers);
 
         $data['commercant'] = $commercant;

@@ -54,7 +54,7 @@ Class Message_model extends CI_Model {
             $pers = $this->db->where('idpersonne', $client->personne_idpersonne)
                     ->get('personne')
                     ->row();
-            $tableau[$i] = array('idp' => $pers->idpersonne, 'nom' => $pers->nom, 'prenom' => $pers->prenom, 'mail' => $pers->email, 'idcl' => $client->idclient, 'vue' => $res['vue']);
+            $tableau[$i] = array('idp' => $pers->idpersonne, 'login' => $pers->login, 'nom' => $pers->nom, 'prenom' => $pers->prenom, 'mail' => $pers->email, 'idcl' => $client->idclient, 'vue' => $res['vue']);
             $i++;
         }
         return $tableau;
@@ -82,7 +82,7 @@ Class Message_model extends CI_Model {
                 'sujet' => $res['sujet'],
                 'contenu' => $res['contenu'],
                 'dateenvoi' => $res['dateenvoi'],
-                'vue' => $res['vue'],
+                'vue' => $res['vue'],               
                 'idclt' => $res['client_idclient'],
             );
             $i++;
@@ -222,7 +222,7 @@ Class Message_model extends CI_Model {
             $pers = $this->db->where('idpersonne', $comm->personne_idpersonne)
                     ->get('personne')
                     ->row();
-            $tableau[$i] = array('idp' => $pers->idpersonne, 'nom' => $pers->nom, 'prenom' => $pers->prenom, 'mail' => $pers->email, 'idcom' => $comm->idcommercant, 'vue' => $res['vue']);
+            $tableau[$i] = array('idp' => $pers->idpersonne, 'login' => $pers->login, 'nom' => $pers->nom, 'prenom' => $pers->prenom, 'mail' => $pers->email, 'idcom' => $comm->idcommercant, 'vue' => $res['vue']);
             $i++;
         }
         return $tableau;
@@ -411,7 +411,7 @@ Class Message_model extends CI_Model {
             $pers = $this->db->where('idpersonne', $comm->personne_idpersonne)
                     ->get('personne')
                     ->row();
-            $tableau[$i] = array('idp' => $pers->idpersonne, 'nom' => $pers->nom, 'prenom' => $pers->prenom, 'mail' => $pers->email, 'idcom' => $comm->idcommercant, 'vue' => $res['vue']);
+            $tableau[$i] = array('idp' => $pers->idpersonne, 'login' => $pers->login, 'nom' => $pers->nom, 'prenom' => $pers->prenom, 'mail' => $pers->email, 'idcom' => $comm->idcommercant, 'vue' => $res['vue']);
             $i++;
         }
         return $tableau;

@@ -838,7 +838,7 @@
         <script type="text/javascript" >        
             $(document).ready(function(){
     
-                 if({{getsessionhelper()['notifaction']}} > 0)
+                {# if({{getsessionhelper()['notifaction']}} > 0)
                      {
                          $('#clicknotifaction').removeClass('notifblack');
                         if($('#clicknotifaction:not(.notifred)'))
@@ -851,7 +851,7 @@
                         if($('#clicknotifmsg:not(.notifredmsg)'))
                             $('#clicknotifmsg').addClass('notifredmsg');
                      }   
-     
+                     #}
                     setInterval(function(){ 
                         $.ajax({
                         url: 'http://localhost:8081/notification/notif/notifajax',

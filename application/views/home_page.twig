@@ -165,6 +165,10 @@
                                             <img src="{{base_url()}}/assets/img/star-on.png">
                                         {% endfor %}
                                         </p>
+                                        <p class="text-center">
+                                             <span class="label"><del>{{rows.oldprice}}</del> DT</span>
+                                             <span class="label label-important" style="color: white">{{rows.newprice}} DT</span>
+                                        </p>
                                         <div class="tumbprod">
                                         {#---Quantité hidden---#}
                                         <input type="hidden" name="quantity" value="1">
@@ -176,8 +180,7 @@
                                     <button type="submit"  class="btn btn-mini" name="submit" title="Ajouter au panier"><i class="icon-shopping-cart"></i></button>
                                     {%endif%}  
                                         <a href="/produit/afficheproduit/details/{{rows.idp}}" class="btn btn-mini" title="Plus Détails"><i class="icon-plus"></i></a></span>
-                                        <span class="pull-right label">{{rows.oldprice}} DT</span>
-                                        <span class="pull-left label">{{rows.newprice}} DT</span>
+                                       
                                         </div>
                                     </form>
                                 </div>
