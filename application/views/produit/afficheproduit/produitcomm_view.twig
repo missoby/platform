@@ -13,10 +13,16 @@
                     <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                            <h3 id="myModalLabel">Modal header</h3>
+                            <h3 id="myModalLabel">Société De : {{infoperscom.nom}} {{infoperscom.prenom}}</h3>
                         </div>
                         <div class="modal-body">
-                            <p>One fine body…</p>
+                            <p>Société : {{infocom.societe}}</p>
+                             <p>Adresse Société : {{infocom.adrsoc}}</p>
+                             <p>Description : {{infocom.descsoc}}</p>
+                             <p>Site Web : {{infocom.siteweb}}</p>
+                             <p>Téléphone : {{infocom.telpro}}</p>
+                             <p>Fax : {{infocom.fax}}</p>
+
                         </div>
                     </div>
                     <ul class="nav nav-tabs nav-stacked">
@@ -95,7 +101,7 @@
                                     {#---hidden id---#}
                                     <input type="hidden" name="product_id" value="{{row.idproduit}}">
                                    
-                                    {%if actvpay == 1%}
+                                    {%if (actvpay == 1) and (getsessionhelper()['type'] != 'commercant')%}
                                     <button type="submit"  class="btn btn-mini" name="submit" title="Ajouter au panier"><i class="icon-shopping-cart"></i></button>
                                     {%endif%}                                     
                                     <a href="/produit/afficheproduit/details/{{row.idproduit}}" class="btn btn-mini" title="Plus Détails"><i class="icon-plus"></i></a>
