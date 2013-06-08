@@ -10,7 +10,11 @@
                     <li class="pull-left"><h4>Espace Forum</h4></li>
                     <li class="pull-right"><a href="/forum/forum/ajouterSujet/{{idcat}}" class="btn-inverse"><i class="icon-plus-sign icon-white"></i> Créer un Sujet</a></li>
                 </ul>
-              
+               {%if res.result_array()== NULL%}
+                     <div class="alert">
+                        <h5>Il n'existe aucun sujet</h5>
+                    </div>
+               {%else%}
                 <ul class="unstyled">
                 {% for row in res.result_array() %}
                         <li class="well" style="min-height: 30px">
@@ -22,6 +26,7 @@
                         </li>
                 {% endfor %}
                 </ul>
+                {%endif%}
            </div>
         </div> 
     </div>

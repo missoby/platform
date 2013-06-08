@@ -16,54 +16,40 @@
                     <li class="pull-right">  
                         <a href="/forum/forum/ModifierSujet/{{row.idsujet}}" class="btn btn-inverse pull-right">Modifier Votre Sujet</a> 
                     </li>
-                </ul>    
-                
-             
-                {% if row.resolu ==  '1' %}
+                   {%endif%}
+                </ul> 
                 <div class="well" style="min-height: 100px">
-                    <div class="resolved"> <img src="{{base_url()}}assets/img/active.png" title="résolu"></div>                           
-                    <h5 class="colorlabel">{{row.titre}}</h5>
-                    <p>{{row.contenu}}</p> 
-                    <p>
-                        <i class="icon-user"></i> De <span class="colorlabel">{{nom}}</span> 
-                        | <i class="icon-calendar"></i> {{row.datepublication}}
-                    </p>
-               </div>
-               {% else%}
-               <div class="well" style="min-height: 100px">
-                   <ul class="nav nav-pills border">
+                           {% if (row.commercant_idcommercant ==  getsessionhelper()['id']) or (row.client_idclient ==  getsessionhelper()['id'])  %}
+
+                        {%if (row.resolu == "1" )%}
+                         <div class="resolved"> <img src="{{base_url()}}assets/img/active.png" title="résolu"></div>   
+                         <h5 class="colorlabel">{{row.titre}}</h5>
+                        {% else%}  
+                        <ul class="nav nav-pills border">
                         <li class="pull-left"><h5 class="colorlabel">{{row.titre}}</h5></li>
                         <li class="pull-right">  
                           <a href="/forum/forum/resoudre/{{row.idsujet}}" class="btn">Marquer comme Résolu</a>
                         </li>
-                    </ul>    
+                    </ul>  
+                     {% endif%}
+                    {% else%}  
+                         {%if (row.resolu == "1" )%}
+                         <div class="resolved"> <img src="{{base_url()}}assets/img/active.png" title="résolu"></div>   
+                         <h5 class="colorlabel">{{row.titre}}</h5>
+                         {% else%}  
+                        <h5 class="colorlabel">{{row.titre}}</h5>
+                    </ul>  
+                     {% endif%}
+                          {% endif%}
                     <p>{{row.contenu}}</p> 
                     <p>
                         <i class="icon-user"></i> De <span class="colorlabel">{{nom}}</span> 
                         | <i class="icon-calendar"></i> {{row.datepublication}}
                     </p>
                </div>
-               {%endif %}	
-               {%elseif row.resolu ==  '1'  %}	
-                <div class="well" style="min-height: 100px">
-                    <div class="resolved"> <img src="{{base_url()}}assets/img/active.png" title="résolu"></div>
-                    <h5 class="colorlabel">{{row.titre}}</h5>
-                    <p>{{row.contenu}}</p> 
-                    <p>
-                        <i class="icon-user"></i> De <span class="colorlabel">{{nom}}</span> 
-                        | <i class="icon-calendar"></i> {{row.datepublication}}
-                    </p>
-               </div>
-               {%else %}	
-              <div class="well" style="min-height: 100px">
-                   <h5 class="colorlabel">{{row.titre}}</h5>
-                    <p>{{row.contenu}}</p> 
-                    <p>
-                        <i class="icon-user"></i> De <span class="colorlabel">{{nom}}</span> 
-                        | <i class="icon-calendar"></i> {{row.datepublication}}
-                    </p>
-               </div>
-               {%endif %}	
+         
+         	
+               
               
                {% for m in msg %}
                     {% set type = 'forum'%}

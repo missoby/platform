@@ -16,6 +16,7 @@
                     </div>
                     {% else %}
                  <ul class="thumbnails">
+                    
                        {% for row in produit %}
                     <li class="span3">
                         <div class="thumbnail">
@@ -60,6 +61,11 @@
                    {% endfor %}
                 </ul>  
                      {% endif %}
+                     <div class="pagination">
+                        <ul>
+                          {{pagination}}
+                        </ul>
+                    </div>
            </div>
         </div>
          
