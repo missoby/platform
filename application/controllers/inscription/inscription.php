@@ -34,7 +34,7 @@ class Inscription extends CI_Controller {
     function inscriptionClient() {
         //validation des champs du formulaire
         $this->form_validation->set_rules('errortotal', '', 'callback_verifemail');
-        $this->form_validation->set_rules('nom', 'nom', 'required|trim|xss_clean|max_length[45]');
+        $this->form_validation->set_rules('nom', 'nom', 'required|xss_clean|trim|max_length[45]');
         $this->form_validation->set_rules('prenom', 'prenom', 'required|trim|xss_clean|max_length[45]');
         $this->form_validation->set_rules('civilite', 'civilite', 'trim|xss_clean|max_length[10]');
         $this->form_validation->set_rules('email', 'email', 'required|trim|xss_clean|valid_email|max_length[60]');

@@ -22,6 +22,13 @@ class Gestionprofil extends CI_Controller {
     }
 
     function viewprofile($idnotif = NULL, $typeclient = NULL) {
+       
+       if (!getsessionhelper())
+        {
+            redirect ('inscription/login');
+        }
+        
+        //
          
         if($idnotif != NULL)
         {
@@ -65,6 +72,15 @@ class Gestionprofil extends CI_Controller {
     }
 
     function modifier($id) {
+         if(empty($id))
+            redirect ('inscription/login');
+             //test sécurité de cnx
+       if (!getsessionhelper())
+        {
+            redirect ('inscription/login');
+        }
+        
+        //
         $type = getsessionhelper()['type'];
         $parent = $this->inscription_model->getprofilparent($id)->result();
         $child = $this->inscription_model->getprofilchild($id, $type)->result();
@@ -128,6 +144,14 @@ class Gestionprofil extends CI_Controller {
     }
 
     function updateprofilcomm() {
+         
+             //test sécurité de cnx
+       if (!getsessionhelper())
+        {
+            redirect ('inscription/login');
+        }
+        
+        //
 
         $id = getsessionhelper()['idpersonne'];
         //récupérer les données apartir du formulaire
@@ -207,9 +231,9 @@ class Gestionprofil extends CI_Controller {
     }
 
     function checkMailLogin() {
-        $id = getsessionhelper()['idpersonne']; // ya marwa raw 3ana l'email w login fi session donc meto93adch a chaque fois tejbed fihom mil bd, juste jibhom mil session 
-        $logincourant = $this->inscription_model->getlogincourant($id)->row(); // a changer
-        $emailcourant = $this->inscription_model->getmailcourant($id)->row(); // a changer
+        $id = getsessionhelper()['idpersonne']; 
+        $logincourant = $this->inscription_model->getlogincourant($id)->row(); 
+        $emailcourant = $this->inscription_model->getmailcourant($id)->row(); 
         $log = $this->input->post('login');
         $mail = $this->input->post('email');
         if ($logincourant->login != $log) {
@@ -231,6 +255,14 @@ class Gestionprofil extends CI_Controller {
     }
 
     function updateprofilclient() {
+         
+             //test sécurité de cnx
+       if (!getsessionhelper())
+        {
+            redirect ('inscription/login');
+        }
+        
+        //
 
         //récupérer les données apartir du formulaire
         $id = getsessionhelper()['idpersonne'];
@@ -291,12 +323,28 @@ class Gestionprofil extends CI_Controller {
     }
 
     function newpwd() {
+         
+             //test sécurité de cnx
+       if (!getsessionhelper())
+        {
+            redirect ('inscription/login');
+        }
+        
+        //
         $data['shopping'] = $this->shopping;
         // afficher la vue pour saisir le nouveau pwd
         $this->twig->render('login/updatepwd_view', $data);
     }
 
     function updatepwd() {//mettre a jour le pwd
+         
+             //test sécurité de cnx
+       if (!getsessionhelper())
+        {
+            redirect ('inscription/login');
+        }
+        
+        //
         $this->form_validation->set_rules('currpwd', 'Mot de passe courant', 'trim|max_length[255]|callback_change_password');
         $this->form_validation->set_rules('newpwd', 'Nouveau Mot de passe', 'trim|max_length[255]|matches[confpwd]');
         $this->form_validation->set_rules('confpwd', 'Conformatin du nouveau Mot de passe', 'trim|max_length[255]');

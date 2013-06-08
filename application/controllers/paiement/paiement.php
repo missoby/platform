@@ -17,6 +17,14 @@ class Paiement extends CI_Controller {
 
         function DemActivePay($idcomm)
     {
+            
+             //test sécurité de cnx
+       if (!getsessionhelper())
+        {
+            redirect ('inscription/login');
+        }
+        
+        //
                 $msg = "Une Nouvelle demande d'activation de paiement";
                 $this->paiement_model->notifadmin(1,$idcomm, $msg);
                 redirect('inscription/gestionprofil/viewprofile');
@@ -25,6 +33,14 @@ class Paiement extends CI_Controller {
     
        function getnotifpay()
     {
+          
+             //test sécurité de cnx
+       if (!getsessionhelper())
+        {
+            redirect ('admin/admin');
+        }
+        
+        //
           //get notif for activate paiement
          $pay = $this->paiement_model->GetNotif();
           foreach ($pay as $value) {
@@ -42,6 +58,15 @@ class Paiement extends CI_Controller {
     }
     
      function activer($id) {
+          if(empty($id))
+            redirect ('admin/admin');
+             //test sécurité de cnx
+       if (!getsessionhelper())
+        {
+            redirect ('admin/admin');
+        }
+        
+        //
          $idcom = $this->paiement_model->getidcom($id);
          $msg = "Votre demande activation paiement a été acceptée";
         //activer paiement pour commercant
@@ -56,6 +81,15 @@ class Paiement extends CI_Controller {
     }
     
       function delete($id) {
+           if(empty($id))
+            redirect ('admin/admin');
+             //test sécurité de cnx
+       if (!getsessionhelper())
+        {
+            redirect ('admin/admin');
+        }
+        
+        //
         // delete notif
         $this->paiement_model->delete($id);
 
@@ -64,6 +98,14 @@ class Paiement extends CI_Controller {
     }
     
       function getactivpay() {
+           
+             //test sécurité de cnx
+       if (!getsessionhelper())
+        {
+            redirect ('admin/admin');
+        }
+        
+        //
        
          $res = $this->paiement_model->getComm();
        
@@ -84,6 +126,15 @@ class Paiement extends CI_Controller {
     }
     
       function desactiver($id) {
+           if(empty($id))
+            redirect ('admin/admin');
+             //test sécurité de cnx
+       if (!getsessionhelper())
+        {
+            redirect ('admin/admin');
+        }
+        
+        //
         // $idcom = $this->paiement_model->getidcom($id);
          $msg = "Votre activation est annulée";
         //activer paiement pour commercant
@@ -99,6 +150,14 @@ class Paiement extends CI_Controller {
     
         function getnotifpaycomm()
     {
+            
+             //test sécurité de cnx
+       if (!getsessionhelper())
+        {
+            redirect ('admin/admin');
+        }
+        
+        //
           //get notif for activate paiement
          $pay = $this->paiement_model->GetNotifComm();
          
@@ -110,6 +169,14 @@ class Paiement extends CI_Controller {
     // ca sera pour l'admin et non pas pour le commercant
            function saveAffil()
     {
+               
+             //test sécurité de cnx
+       if (!getsessionhelper())
+        {
+            redirect ('admin/admin');
+        }
+        
+        //
               
      $data['affil'] = $this->paiement_model->getAffilConf()->row();
      
@@ -126,6 +193,14 @@ class Paiement extends CI_Controller {
     
            function modifaffil()
     {
+               
+             //test sécurité de cnx
+       if (!getsessionhelper())
+        {
+            redirect ('admin/admin');
+        }
+        
+        //
  
         // les methode appelant les vue
         $data['liencontrole'] = base_url().'paiement/paiement/controle';
@@ -138,6 +213,14 @@ class Paiement extends CI_Controller {
     
      function updateAff()
     {
+         
+             //test sécurité de cnx
+       if (!getsessionhelper())
+        {
+            redirect ('admin/admin');
+        }
+        
+        //
          $this->form_validation->set_rules('affil', 'affil', 'required|trim');
   
         if ($this->form_validation->run() == FALSE) {
@@ -159,6 +242,14 @@ class Paiement extends CI_Controller {
     }
              function InsertAff()
     {
+                  
+             //test sécurité de cnx
+       if (!getsessionhelper())
+        {
+            redirect ('admin/admin');
+        }
+        
+        //
          $this->form_validation->set_rules('affil', 'affil', 'required|trim');
   
         if ($this->form_validation->run() == FALSE) {
@@ -344,6 +435,8 @@ $this->twig->render('paiement/success_view');
     
     function listeAchat()
     {
+        
+             
         if(getsessionhelper()['login'] != NULL)
         {
        $data['connect'] = 'yes';
@@ -370,6 +463,14 @@ $this->twig->render('paiement/success_view');
     
      function InsertAdr()
      { 
+         
+             //test sécurité de cnx
+       if (!getsessionhelper())
+        {
+            redirect ('inscription/login');
+        }
+        
+        //
           $this->form_validation->set_rules('adresse', 'adresse', 'required|trim');
   
         if ($this->form_validation->run() == FALSE) {
@@ -387,6 +488,14 @@ $this->twig->render('paiement/success_view');
      
      function livraison()
      {
+          
+             //test sécurité de cnx
+       if (!getsessionhelper())
+        {
+            redirect ('inscription/login');
+        }
+        
+        //
       $data['shopping'] = $this->shopping;
      $this->twig->render('paiement/Livraison_view', $data);
  
@@ -394,6 +503,14 @@ $this->twig->render('paiement/success_view');
      
     function saveCmd()
      { 
+         
+             //test sécurité de cnx
+       if (!getsessionhelper())
+        {
+            redirect ('inscription/login');
+        }
+        
+        //
 //     $this->shopping['content'] = $this->cart->contents();
 //        $this->shopping['nbr'] = $this->cart->total_items(); 
 //    
@@ -426,6 +543,14 @@ $this->twig->render('paiement/success_view');
     
          function getnotifpayclient()
     {
+              
+             //test sécurité de cnx
+       if (!getsessionhelper())
+        {
+            redirect ('inscription/login');
+        }
+        
+        //
           //get notif for activate paiement
          $pay = $this->paiement_model->GetNotifClient();
          
@@ -437,6 +562,15 @@ $this->twig->render('paiement/success_view');
     
     function GetAchat($idclt)
     {
+         if(empty($idclt))
+            redirect ('inscription/login');
+             //test sécurité de cnx
+       if (!getsessionhelper())
+        {
+            redirect ('inscription/login');
+        }
+        
+        //
         $data['shopping'] = $this->shopping;
         $data['achat'] = $this->paiement_model->getListAchatClt($idclt);
          // $achat =  $this->paiement_model->getListAchatClt($idclt);
@@ -452,6 +586,14 @@ $this->twig->render('paiement/success_view');
     
     function ListeVenteComm()
     {
+         
+             //test sécurité de cnx
+       if (!getsessionhelper())
+        {
+            redirect ('inscription/login');
+        }
+        
+        //
         $data['shopping'] = $this->shopping;
         $data['vente'] = $this->paiement_model->getListVenteComm();
         $data['path'] = site_url() . 'uploads/'; 

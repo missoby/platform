@@ -11,6 +11,16 @@ class Signaler extends CI_Controller {
 
   function addSign($idsign, $type, $idp = NULL)
   {
+      //test sécurité
+        if(empty($idsign) and empty($type))
+            redirect ('inscription/login');
+         //test sécurité de cnx
+       if (!getsessionhelper())
+        {
+            redirect ('inscription/login');
+        }
+        
+        //
       $data['idsign'] = $idsign;
       $data['type'] = $type;
       $data['idp'] = $idp;
@@ -18,6 +28,16 @@ class Signaler extends CI_Controller {
   }
   function saveSign($idsign, $type, $idp = NULL)
   {
+      //test sécurité
+        if(empty($idsign) and empty($type))
+            redirect ('inscription/login');
+         //test sécurité de cnx
+       if (!getsessionhelper())
+        {
+            redirect ('inscription/login');
+        }
+        
+        //
        $this->form_validation->set_rules('titre', 'titre', 'required|trim');
         $this->form_validation->set_rules('description', 'description', 'required|trim');
         if ($this->form_validation->run() == FALSE) {
@@ -45,6 +65,16 @@ class Signaler extends CI_Controller {
   }
   
       function deleteSign($id) {
+          //test sécurité
+        if(empty($id))
+            redirect ('inscription/login');
+         //test sécurité de cnx
+       if (!getsessionhelper())
+        {
+            redirect ('inscription/login');
+        }
+        
+        //
         // delete notif
         $this->signaler_model->deleteSign($id);
 

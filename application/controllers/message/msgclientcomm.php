@@ -17,6 +17,14 @@ class Msgclientcomm extends CI_Controller {
     
       // prepare the form to send msg to the admin
       function sendMsgToAdmin() {
+         
+             //test sécurité de cnx
+       if (!getsessionhelper())
+        {
+            redirect ('inscription/login');
+        }
+        
+        //
         $id = getsessionhelper()['id'];
         $this->form_validation->set_rules('sujet', 'Sujet', 'required|trim');
         $this->form_validation->set_rules('contenu', 'Contenu', 'required|trim');
@@ -32,6 +40,15 @@ class Msgclientcomm extends CI_Controller {
     
     // save message sent from client to commercant (msgclient)
     function send($id, $idprod) {
+        if(empty($id) and empty($idprod))
+            redirect ('inscription/login');
+             //test sécurité de cnx
+       if (!getsessionhelper())
+        {
+            redirect ('inscription/login');
+        }
+        
+        //
         
         $this->form_validation->set_rules('sujet', 'Sujet', 'required|trim');
         $this->form_validation->set_rules('contenu', 'Contenu', 'required|trim');
@@ -49,6 +66,14 @@ class Msgclientcomm extends CI_Controller {
     
     //get list client who sent msg to comm
     function listmsgclientcomm() {
+        
+             //test sécurité de cnx
+       if (!getsessionhelper())
+        {
+            redirect ('inscription/login');
+        }
+        
+        //
         $data['msgs'] = $this->message_model->get_list_client();
         $data['shopping'] = $this->shopping;
         $this->twig->render('message/commercant/listSenderMsg_view', $data);
@@ -56,6 +81,15 @@ class Msgclientcomm extends CI_Controller {
     
     //get conversation between client and current commercant (msgclient, msgcommclient)
     function voirmsgclientcomm($idclient, $idp, $nom) {
+        if(empty($idclient) and empty($idp) and empty($nom))
+            redirect ('inscription/login');
+             //test sécurité de cnx
+       if (!getsessionhelper())
+        {
+            redirect ('inscription/login');
+        }
+        
+        //
         $conv = $this->message_model->get_conv_client_comm($idclient);
                 //mettre a zero le champ notifmsg de la table commercant
         $rmz = $this->notif_model->Rmz_Notif_Msg_Comm(getsessionhelper()['id']);
@@ -80,6 +114,15 @@ class Msgclientcomm extends CI_Controller {
     
     // the response of the comm to a client (be save on table msgclientcomm)
      function reponsecomm($idclient, $nom) {
+         if(empty($idclient) and empty($nom))
+            redirect ('inscription/login');
+             //test sécurité de cnx
+       if (!getsessionhelper())
+        {
+            redirect ('inscription/login');
+        }
+        
+        //
         $idcom = getsessionhelper()['id'];
         $this->form_validation->set_rules('sujet', 'Sujet', 'required|trim');
         $this->form_validation->set_rules('contenu', 'Contenu', 'required|trim');
@@ -110,7 +153,16 @@ class Msgclientcomm extends CI_Controller {
     }
     
     function msg_conv_comm_admin()
-    {//mettre a zero le champ notifmsg de la table commercant
+    {
+             //test sécurité de cnx
+       if (!getsessionhelper())
+        {
+            redirect ('inscription/login');
+        }
+        
+        //
+        
+        //mettre a zero le champ notifmsg de la table commercant
         $rmz = $this->notif_model->Rmz_Notif_Msg_comm(getsessionhelper()['id']);
         $conv = $this->message_model->get_conv_comm_admin();
      
@@ -132,6 +184,14 @@ class Msgclientcomm extends CI_Controller {
     
     function ReponseCommAdmin()
     {
+        
+             //test sécurité de cnx
+       if (!getsessionhelper())
+        {
+            redirect ('inscription/login');
+        }
+        
+        //
         $idcom = getsessionhelper()['id'];
         $this->form_validation->set_rules('sujet', 'Sujet', 'required|trim');
         $this->form_validation->set_rules('contenu', 'Contenu', 'required|trim');
@@ -161,6 +221,14 @@ class Msgclientcomm extends CI_Controller {
        
     //get list of comm who sent msg to client
     function listmsgcomm() {
+        
+             //test sécurité de cnx
+       if (!getsessionhelper())
+        {
+            redirect ('inscription/login');
+        }
+        
+        //
                $enscom = $this->produit_model->getcommercant();
         $data['comm'] = $enscom;
         $data['pathphoto'] = site_url() . 'uploads/';
@@ -177,6 +245,15 @@ class Msgclientcomm extends CI_Controller {
     
     //get conversation between comm and current client (msgclient, msgcommclient)
     function voirmsgcommclient($idcom, $idp, $nom) {
+        if(empty($idcom) and empty($idp) and empty($nom))
+            redirect ('inscription/login');
+             //test sécurité de cnx
+       if (!getsessionhelper())
+        {
+            redirect ('inscription/login');
+        }
+        
+        //
         $conv = $this->message_model->get_conv_for_client($idcom);
                //mettre a zero le champ notifmsg de la table commercant
         $rmz = $this->notif_model->Rmz_Notif_Msg_client(getsessionhelper()['id']);
@@ -201,6 +278,15 @@ class Msgclientcomm extends CI_Controller {
     
       // the response of the client to a com (be save on table msgclient)
      function reponseclient($idcom, $nom) {
+         if(empty($idcom) and empty($nom) )
+            redirect ('inscription/login');
+             //test sécurité de cnx
+       if (!getsessionhelper())
+        {
+            redirect ('inscription/login');
+        }
+        
+        //
         $idclt = getsessionhelper()['id'];
         $this->form_validation->set_rules('sujet', 'Sujet', 'required|trim');
         $this->form_validation->set_rules('contenu', 'Contenu', 'required|trim');

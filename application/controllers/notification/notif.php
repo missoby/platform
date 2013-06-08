@@ -24,6 +24,14 @@ class Notif extends CI_Controller {
     // get the notif for the commercant (table notifcomm)
         function Getnotif()
     {
+           
+             //test sécurité de cnx
+       if (!getsessionhelper())
+        {
+            redirect ('inscription/login');
+        }
+        
+        //
        $data['shopping'] = $this->shopping;
         $req = $this->notif_model->GetNotifComm();
 
@@ -33,17 +41,19 @@ class Notif extends CI_Controller {
            
        
     }
-//    // set the field of the notif as being seen
-//    function SetVue($idnotif)
-//    {
-//        $idcom = getsessionhelper()['id'];
-//        $this->notif_model->SetVue($idcom, $idnotif);
-//        redirect('notification/notif/Getnotif');
-//    } // deplacé ver le formulaire forum
+
     
      // get the notif for the client (table notifclient)
         function GetnotifClient()
     {
+           
+             //test sécurité de cnx
+       if (!getsessionhelper())
+        {
+            redirect ('inscription/login');
+        }
+        
+        //
             $data['shopping'] = $this->shopping;
         $req = $this->notif_model->GetNotifClient();
         $enscom = $this->produit_model->getcommercant();
@@ -58,15 +68,18 @@ class Notif extends CI_Controller {
    
     }
     
-//     // set the field of the notif as being seen
-//    function SetVueClient($idnotif)
-//    {
-//        $idclt = getsessionhelper()['id'];
-//        $this->notif_model->setVueClient($idclt, $idnotif);
-//        redirect('notification/notif/GetnotifClient');
-//    } // deplacé ver le formulaire forum
+
     
    function deleteclient($id) {
+        if(empty($id))
+            redirect ('inscription/login');
+             //test sécurité de cnx
+       if (!getsessionhelper())
+        {
+            redirect ('inscription/login');
+        }
+        
+        //
         // delete client
         $this->notif_model->deleteclient($id);
 
@@ -75,6 +88,15 @@ class Notif extends CI_Controller {
     } 
     
     function deletecomm($id) {
+         if(empty($id))
+            redirect ('inscription/login');
+             //test sécurité de cnx
+       if (!getsessionhelper())
+        {
+            redirect ('inscription/login');
+        }
+        
+        //
         // delete product
         $this->notif_model->deletecomm($id);
 

@@ -22,6 +22,13 @@ class Annonce extends CI_Controller {
     }
 
     function index($offset = 0) {
+        //test sécurité
+       if (!getsessionhelper())
+        {
+            redirect ('inscription/login');
+        }
+        
+        //
         //recuperer l'id du commercant 
         $idcomm = getsessionhelper()['id'];
 
@@ -61,6 +68,13 @@ class Annonce extends CI_Controller {
     }
 
     function add() {
+         //test sécurité
+       if (!getsessionhelper())
+        {
+            redirect ('inscription/login');
+        }
+        
+        //
         $data['shopping'] = $this->shopping;
         //paiement
         $commercant = $this->inscription_model->getchildcomm(getsessionhelper()['idpersonne'])->row();
@@ -70,6 +84,13 @@ class Annonce extends CI_Controller {
     }
 
     function addannonce() {
+            //test sécurité
+       if (!getsessionhelper())
+        {
+            redirect ('inscription/login');
+        }
+        
+        //
         //login comm  
         $id = getsessionhelper()['id'];
         //récupérer les données apartir du formulaire
@@ -130,6 +151,16 @@ class Annonce extends CI_Controller {
     }
 
     function view($id) {
+          //test sécurité paramètre
+          if(empty($id))
+            redirect ('inscription/login');
+            //test sécurité
+       if (!getsessionhelper())
+        {
+            redirect ('inscription/login');
+        }
+        
+        //
         $req = $this->annonce_model->get_by_id($id)->row();
         $data['annonce'] = $req;
         $data['finalpath'] = site_url() . 'uploads/' . $req->photo;
@@ -141,6 +172,16 @@ class Annonce extends CI_Controller {
     }
 
     function update($id) {
+             //test sécurité paramètre
+          if(empty($id))
+            redirect ('inscription/login');
+            //test sécurité
+       if (!getsessionhelper())
+        {
+            redirect ('inscription/login');
+        }
+        
+        //
         $annonce = $this->annonce_model->getannonce($id)->result();
         //paiement
         $commercant = $this->inscription_model->getchildcomm(getsessionhelper()['idpersonne'])->row();
@@ -176,6 +217,16 @@ class Annonce extends CI_Controller {
     }
 
     function updateannonce($active, $namephoto = NULL, $id = NULL) {
+             //test sécurité paramètre
+          if(empty($active))
+            redirect ('inscription/login');
+            //test sécurité
+       if (!getsessionhelper())
+        {
+            redirect ('inscription/login');
+        }
+        
+        //
         //login comm 
         $idcomm = getsessionhelper()['id'];
         //récupérer les données apartir du formulaire
@@ -244,6 +295,16 @@ class Annonce extends CI_Controller {
     }
 
     function delete($id) {
+             //test sécurité paramètre
+          if(empty($id))
+            redirect ('inscription/login');
+            //test sécurité
+       if (!getsessionhelper())
+        {
+            redirect ('inscription/login');
+        }
+        
+        //
         // delete annonce
         $this->annonce_model->delete($id);
 
@@ -252,6 +313,16 @@ class Annonce extends CI_Controller {
     }
 
     function activer($id) {
+             //test sécurité paramètre
+          if(empty($id))
+            redirect ('inscription/login');
+            //test sécurité
+       if (!getsessionhelper())
+        {
+            redirect ('inscription/login');
+        }
+        
+        //
         //paiement
         $commercant = $this->inscription_model->getchildcomm(getsessionhelper()['idpersonne'])->row();
         //activer produit
@@ -268,6 +339,16 @@ class Annonce extends CI_Controller {
     }
 
     function desactiver($id) {
+             //test sécurité paramètre
+          if(empty($id))
+            redirect ('inscription/login');
+            //test sécurité
+       if (!getsessionhelper())
+        {
+            redirect ('inscription/login');
+        }
+        
+        //
         //paiement
         $commercant = $this->inscription_model->getchildcomm(getsessionhelper()['idpersonne'])->row();
         //desactiver produit

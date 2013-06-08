@@ -24,6 +24,14 @@ class Produit extends CI_Controller {
     }
 
     function index($offset = 0) {
+        
+         //test sécurité de cnx
+       if (!getsessionhelper())
+        {
+            redirect ('inscription/login');
+        }
+        
+        //
         //recuperer l'id du commercant 
         $idcomm = getsessionhelper()['id'];
         // load data
@@ -59,7 +67,15 @@ class Produit extends CI_Controller {
         $this->twig->render('produit/produitList_view', $data);
     }
 
-    function add() {   ///////My solution /////////
+    function add() { 
+         
+         //test sécurité de cnx
+       if (!getsessionhelper())
+        {
+            redirect ('inscription/login');
+        }
+        
+        //
         $enscat = $this->produit_model->getcategorie();
         $enssouscat = $this->produit_model->getsouscategorie();
         $data['categorie'] = $enscat;
@@ -73,6 +89,14 @@ class Produit extends CI_Controller {
     }
 
     function addproduct() {
+         
+         //test sécurité de cnx
+       if (!getsessionhelper())
+        {
+            redirect ('inscription/login');
+        }
+        
+        //
         $name = '';
         //login comm 
         $id = getsessionhelper()['id'];
@@ -160,6 +184,16 @@ class Produit extends CI_Controller {
     }
 
     function view($id) {
+         //test sécurité
+        if(empty($id))
+            redirect ('inscription/login');
+         //test sécurité de cnx
+       if (!getsessionhelper())
+        {
+            redirect ('inscription/login');
+        }
+        
+        //
         $req = $this->produit_model->get_by_id($id)->row();
         $idcat = $req->souscategorie_categorie_idcategorie;
         $idscat = $req->souscategorie_idsouscategorie;
@@ -184,6 +218,16 @@ class Produit extends CI_Controller {
     }
 
     function update($id) {
+        //test sécurité
+        if(empty($id))
+            redirect ('inscription/login');
+         //test sécurité de cnx
+       if (!getsessionhelper())
+        {
+            redirect ('inscription/login');
+        }
+        
+        //
         $produit = $this->produit_model->getproduct($id)->result();
         //recuperer categorie et sous categorie
         foreach ($produit as $row) {
@@ -234,6 +278,15 @@ class Produit extends CI_Controller {
     }
 
     function updateproduct($active, $namephoto = NULL, $id = NULL, $idsouscat, $idsoussouscat, $idcat) {
+       
+        
+         //test sécurité de cnx
+       if (!getsessionhelper())
+        {
+            redirect ('inscription/login');
+        }
+        
+        //
         //login comm 
         $idcomm = getsessionhelper()['id'];
 
@@ -325,6 +378,16 @@ class Produit extends CI_Controller {
     }
 
     function delete($id) {
+        //test sécurité
+        if(empty($id))
+            redirect ('inscription/login');
+         //test sécurité de cnx
+       if (!getsessionhelper())
+        {
+            redirect ('inscription/login');
+        }
+        
+        //
         // delete product
         $this->produit_model->delete($id);
 
@@ -333,6 +396,16 @@ class Produit extends CI_Controller {
     }
 
     function activer($id) {
+        //test sécurité
+        if(empty($id))
+            redirect ('inscription/login');
+         //test sécurité de cnx
+       if (!getsessionhelper())
+        {
+            redirect ('inscription/login');
+        }
+        
+        //
         //paiement
         $commercant = $this->inscription_model->getchildcomm(getsessionhelper()['idpersonne'])->row();
         $data['commercant'] = $commercant;
@@ -351,6 +424,16 @@ class Produit extends CI_Controller {
     }
 
     function desactiver($id) {
+        //test sécurité
+        if(empty($id))
+            redirect ('inscription/login');
+         //test sécurité de cnx
+       if (!getsessionhelper())
+        {
+            redirect ('inscription/login');
+        }
+        
+        //
         //paiement
         $commercant = $this->inscription_model->getchildcomm(getsessionhelper()['idpersonne'])->row();
         $data['commercant'] = $commercant;
@@ -384,6 +467,14 @@ class Produit extends CI_Controller {
 
     public function slider() {
         
+         //test sécurité de cnx
+       if (!getsessionhelper())
+        {
+            redirect ('inscription/login');
+        }
+        
+        //
+        
         $id = getsessionhelper()['id'];
         $slider = $this->produit_model->Get_Slider($id);
         $i = $slider->num_rows();
@@ -401,6 +492,14 @@ class Produit extends CI_Controller {
     }
 
     public function addSlider() {
+        
+         //test sécurité de cnx
+       if (!getsessionhelper())
+        {
+            redirect ('inscription/login');
+        }
+        
+        //
         //paiement
         $commercant = $this->inscription_model->getchildcomm(getsessionhelper()['idpersonne'])->row();
         $data['commercant'] = $commercant;
@@ -409,6 +508,14 @@ class Produit extends CI_Controller {
     }
 
     public function Insertslider() {
+        
+         //test sécurité de cnx
+       if (!getsessionhelper())
+        {
+            redirect ('inscription/login');
+        }
+        
+        //
         $id = getsessionhelper()['id'];
 
         $config['upload_path'] = './uploads/';
@@ -451,6 +558,16 @@ class Produit extends CI_Controller {
     }
 
     function deleteSlider($id) {
+        //test sécurité
+        if(empty($id))
+            redirect ('inscription/login');
+         //test sécurité de cnx
+       if (!getsessionhelper())
+        {
+            redirect ('inscription/login');
+        }
+        
+        //
         // delete tof of slider
         $this->produit_model->deleteSlider($id);
 

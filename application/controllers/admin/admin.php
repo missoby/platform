@@ -52,6 +52,13 @@ class Admin extends CI_Controller {
     }
 // liste des commercant
     function afficheComm() {
+        //test de sécurité
+        if (!getsessionhelper())
+        {
+            redirect('admin/admin/login');
+        }
+        
+        //
         //generer une table pour passer les donnees au vue 
         $res = $this->admin_model->getcommparent()->result();
         if ($res) {
@@ -93,6 +100,14 @@ class Admin extends CI_Controller {
     }
 
     function delete($id) {
+        //test de sécurité
+        if(empty($id))
+            redirect ('admin/admin');
+         //test de sécurité de connexion
+        if (!getsessionhelper())
+        {
+            redirect('admin/admin/login');
+        }
         // delete commercant
         $this->admin_model->delete($id);
 
@@ -101,6 +116,14 @@ class Admin extends CI_Controller {
     }
     
      function deleteclient($id) {
+         //test de sécurité
+        if(empty($id))
+            redirect ('admin/admin');
+         //test de sécurité de connexion
+        if (!getsessionhelper())
+        {
+            redirect('admin/admin/login');
+        }
         // delete commercant
         $this->admin_model->delete($id);
 
@@ -109,6 +132,14 @@ class Admin extends CI_Controller {
     }
 
     function activer($id) {
+        //test de sécurité
+        if(empty($id))
+            redirect ('admin/admin');
+         //test de sécurité de connexion
+        if (!getsessionhelper())
+        {
+            redirect('admin/admin/login');
+        }
         //activer commercant
         if ($this->admin_model->activer($id) == true) {
 
@@ -121,6 +152,14 @@ class Admin extends CI_Controller {
     }
 
     function desactiver($id) {
+        //test de sécurité
+        if(empty($id))
+            redirect ('admin/admin');
+         //test de sécurité de connexion
+        if (!getsessionhelper())
+        {
+            redirect('admin/admin/login');
+        }
         //desactiver commercant
         if ($this->admin_model->desactiver($id) == true) {
 
@@ -133,6 +172,14 @@ class Admin extends CI_Controller {
     }
 
     function affichproduit($id) {
+        //test de sécurité de paramètre
+        if(empty($id))
+            redirect ('admin/admin');
+        //test de sécurité de connexion
+        if (!getsessionhelper())
+        {
+            redirect('admin/admin/login');
+        }
         // offset
         $uri_segment = 3;
         $offset = $this->uri->segment($uri_segment);
@@ -160,6 +207,14 @@ class Admin extends CI_Controller {
     }
 
     function deleteproduct($id) {
+         //test de sécurité de paramètre
+        if(empty($id))
+            redirect ('admin/admin');
+        //test de sécurité de connexion
+        if (!getsessionhelper())
+        {
+            redirect('admin/admin/login');
+        }
         // delete product
         $this->produit_model->delete($id);
 
@@ -169,6 +224,14 @@ class Admin extends CI_Controller {
 
    
     function viewproduct($id, $idnotifadmin = NULL) {
+         //test de sécurité de paramètre
+        if(empty($id))
+            redirect ('admin/admin');
+        //test de sécurité de connexion
+        if (!getsessionhelper())
+        {
+            redirect('admin/admin/login');
+        }
         if($idnotifadmin != NULL)
         {
             $update = $this->notif_model->updateVueSign($idnotifadmin);
@@ -193,6 +256,12 @@ class Admin extends CI_Controller {
     
    function afficheClient($logclient = NULL, $idnotif = NULL)
     {
+        
+        //test de sécurité de connexion
+        if (!getsessionhelper())
+        {
+            redirect('admin/admin/login');
+        }
          if($idnotif != NULL)
         {
             $update = $this->notif_model->updateVue($idnotif);
@@ -240,6 +309,14 @@ class Admin extends CI_Controller {
      
     function viewdetails($id, $idnotifadmin = NULL) 
     {
+         //test de sécurité de paramètre
+        if(empty($id))
+            redirect ('admin/admin');
+        //test de sécurité de connexion
+        if (!getsessionhelper())
+        {
+            redirect('admin/admin/login');
+        }
          
         if($idnotifadmin != NULL)
         {
@@ -264,6 +341,11 @@ class Admin extends CI_Controller {
         
       function slider()
       {
+        //test de sécurité de connexion
+        if (!getsessionhelper())
+        {
+            redirect('admin/admin/login');
+        }
        $id = getsessionhelper()['id'];
         $slider = $this->admin_model->Get_Slider($id);
         $i = $slider->num_rows();
@@ -281,11 +363,22 @@ class Admin extends CI_Controller {
        public function addSlider()
     {
         
+        //test de sécurité de connexion
+        if (!getsessionhelper())
+        {
+            redirect('admin/admin/login');
+        }
               $this->twig->render('admin/slider/addSlider_view');
     }
     
      public function Insertslider()
-    {        $id = getsessionhelper()['id'];
+    {   
+        //test de sécurité de connexion
+        if (!getsessionhelper())
+        {
+            redirect('admin/admin/login');
+        }
+         $id = getsessionhelper()['id'];
 
             $config['upload_path'] = './uploads/';
             $config['allowed_types'] = 'gif|jpg|png';
@@ -325,6 +418,14 @@ class Admin extends CI_Controller {
     
      function deleteSlider($id)
     {
+          //test de sécurité de paramètre
+        if(empty($id))
+            redirect ('admin/admin');
+        //test de sécurité de connexion
+        if (!getsessionhelper())
+        {
+            redirect('admin/admin/login');
+        }
            // delete tof of slider
         $this->admin_model->deleteSlider($id);
 
@@ -334,6 +435,12 @@ class Admin extends CI_Controller {
     
      function Getnotif()
     {
+         
+        //test de sécurité de connexion
+        if (!getsessionhelper())
+        {
+            redirect('admin/admin/login');
+        }
         $req = $this->notif_model->GetNotif();
 //        foreach ($req->result_array() as $row)
 //        {
@@ -372,6 +479,12 @@ class Admin extends CI_Controller {
     // va etre enlevé et fusionneé avec getnotif
       function GetSign()
     {
+        
+        //test de sécurité de connexion
+        if (!getsessionhelper())
+        {
+            redirect('admin/admin/login');
+        }
         $req = $this->signaler_model->GetSign();
 
        
@@ -384,6 +497,14 @@ class Admin extends CI_Controller {
     
      function getAvis($idavis, $idnotif = NULL)
     {
+          //test de sécurité de paramètre
+        if(empty($idavis))
+            redirect ('admin/admin');
+        //test de sécurité de connexion
+        if (!getsessionhelper())
+        {
+            redirect('admin/admin/login');
+        }
           if($idnotif != NULL)
         {
             $update = $this->notif_model->updateVueSign($idnotif);
@@ -399,6 +520,14 @@ class Admin extends CI_Controller {
     }
     
           function deleteAvis($id) {
+              //test de sécurité de paramètre
+        if(empty($id))
+            redirect ('admin/admin');
+        //test de sécurité de connexion
+        if (!getsessionhelper())
+        {
+            redirect('admin/admin/login');
+        }
         // delete avis
         $this->signaler_model->delete($id);
 
@@ -408,6 +537,14 @@ class Admin extends CI_Controller {
     //get comment forum
     function getMsgForum($idmsgf, $idnotif = NULL)
     {
+        //test de sécurité de paramètre
+        if(empty($idmsgf))
+            redirect ('admin/admin');
+        //test de sécurité de connexion
+        if (!getsessionhelper())
+        {
+            redirect('admin/admin/login');
+        }
           if($idnotif != NULL)
         {
             $update = $this->notif_model->updateVueSign($idnotif);
@@ -422,6 +559,14 @@ class Admin extends CI_Controller {
         
     }
      function deleteMsgForum($id) {
+         //test de sécurité de paramètre
+        if(empty($id))
+            redirect ('admin/admin');
+        //test de sécurité de connexion
+        if (!getsessionhelper())
+        {
+            redirect('admin/admin/login');
+        }
         // delete avis
         $this->signaler_model->deletemsgf($id);
 
@@ -430,6 +575,12 @@ class Admin extends CI_Controller {
     }
     function statistique()
     {
+        
+        //test de sécurité de connexion
+        if (!getsessionhelper())
+        {
+            redirect('admin/admin/login');
+        }
         if (!$this->session->userdata('login_in'))
             redirect('/');
         else 
@@ -445,6 +596,14 @@ class Admin extends CI_Controller {
     }
     
         function deleteNotif($id) {
+            //test de sécurité de paramètre
+        if(empty($id))
+            redirect ('admin/admin');
+        //test de sécurité de connexion
+        if (!getsessionhelper())
+        {
+            redirect('admin/admin/login');
+        }
         // delete notif
         $this->notif_model->delete($id);
 
@@ -453,12 +612,25 @@ class Admin extends CI_Controller {
     }
     //update pwd admin 
       function UpdatePwd() {
+        
+        //test de sécurité de connexion
+        if (!getsessionhelper())
+        {
+            redirect('admin/admin/login');
+        }
        
         // afficher la vue pour saisir le nouveau pwd
         $this->twig->render('admin/administration/updatepwd_view');
     }
     
     function SaveUpdatepwd() {//mettre a jour le pwd
+      
+        //test de sécurité de connexion
+        if (!getsessionhelper())
+        {
+            redirect('admin/admin/login');
+        }
+        
         $this->form_validation->set_rules('currentpwd', 'Mot de passe courant', 'trim|max_length[255]|callback_change_password');
         $this->form_validation->set_rules('newpwd', 'Nouveau Mot de passe', 'trim|max_length[255]|matches[confpwd]');
         $this->form_validation->set_rules('confpwd', 'Conformatin du nouveau Mot de passe', 'trim|max_length[255]');
