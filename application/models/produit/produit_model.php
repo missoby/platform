@@ -169,13 +169,14 @@ class produit_model extends CI_Model {
      
  }
  
- function get_paged_list_active($limit = 10, $offset = 0, $id)
+ function get_paged_list_active($id, $limit, $offset)
   {
      $this->db->order_by('idproduit','asc');
               $this->db->where('commercant_idcommercant', $id);
                $this->db->where('active', 1);
                 $this->db->where('stock >', 0);
-		return $this->db->get($this->tbl_produit, $limit, $offset);
+                $this->db->limit($limit, $offset);
+		return $this->db->get($this->tbl_produit);
      
      
   }

@@ -8,6 +8,17 @@
             <div class="row-fluid">
                 <ul class="nav nav-pills border">
                     <li class="pull-left"><h4>Resultat de votre recherche </h4></li>
+                    {% if not produit%}
+                    <li></li>
+                    {%else%}
+                    <li class="pull-right">
+                        <div class="pagination pagination-mini" style="margin: 6px 0">
+                        <ul>
+                          {{pagination}}
+                        </ul>
+                    </div>
+                        </li>
+                        {%endif%}
                 </ul>
             
                     {% if not produit%}
@@ -61,11 +72,15 @@
                    {% endfor %}
                 </ul>  
                      {% endif %}
-                     <div class="pagination">
-                        <ul>
+               <hr/>
+                        <div class="pagination" style="margin: 0">
+                            <ul class="pull-right">
                           {{pagination}}
                         </ul>
+                                
                     </div>
+                     
+               
            </div>
         </div>
          

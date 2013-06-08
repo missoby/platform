@@ -11,40 +11,36 @@
                     <li class="pull-left"><h4>Contactez nous</h4></li>
 
                 </ul>
-                <form action="/contact/contact/send" method="POST" class="well span10 offset1">
-                    <div class="row-fluid">
-                        <div class="span5">
-                            <div class="row-fluid">
-                                <label for="Nom">Nom <span class="required">*</span>
-                                <input type="text" class="input-xlarge"  name="nom"  placeholder="Votre Nom" >
-
+                     <form action="/contact/contact/send" method="POST" class="span5 well offset3" style="background-color: rgb(250, 250, 250)">
+                            
+                                <label for="nom">Nom <span class="required">*</span></label>
+                                <input type="text"  name="nom" class="input-xlarge" placeholder="Votre Nom" />
                                 <div class="error">
                                    {{ form_error('nom') }}         
                                 </div>
+                            
                                 <label for="email">Email <span class="required">*</span></label>
                                 <input type="email"  name="email" class="input-xlarge" placeholder="Votre Email" />
                                 <div class="error">
                                    {{ form_error('email') }}         
                                 </div>
+                           
+                           
                                 <label for="Sujet">Sujet <span class="required">*</span></label>
-                                <input type="text" name="sujet" class="input-xlarge" placeholder="Sujet" />
+                                <input type="text" name="sujet" class="input-xlarge" placeholder="Votre Sujet" />
                                 <div class="error">
                                    {{ form_error('sujet') }}         
                                 </div>
-                            </div>
-                        </div>
-                        <div class="span5">
-                            <div class="row-fluid">
+                          
+                        
                                 <label>Message</label>
-                                <textarea name="message" name="message" class="input-xlarge" rows="8"></textarea>
+                                <textarea name="message" name="message" class="input-xlarge" rows="8" placeholder="Votre Message"></textarea>
                                 <div class="error">
                                    {{ form_error('message') }}         
                                 </div>
-                                <button type="submit" class="btn btn-inverse pull-right">Envoyer</button>
-                            </div>
-                        </div>
-                    </div>  
-                </form>
+                                <button type="submit" class="btn btn-inverse">Envoyer</button>
+                           
+                    </form> 
                  </div>
            
             </div>

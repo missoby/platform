@@ -20,9 +20,10 @@ Class Admin_model extends CI_Model {
         }
     }
 
-    function getcommparent() {
+    function getcommparent($limit, $offset) {
         $this->db->order_by('idpersonne', 'asc');
         $this->db->where('type', 'commercant');
+         $this->db->limit($limit, $offset);
         return $this->db->get('personne');
     }
 
@@ -32,9 +33,10 @@ Class Admin_model extends CI_Model {
         return $this->db->get('commercant');
     }
 
-    function getclientparent() {
+    function getclientparent($limit, $offset) {
         $this->db->order_by('idpersonne', 'asc');
         $this->db->where('type', 'client');
+         $this->db->limit($limit, $offset);
         return $this->db->get('personne');
     }
 
@@ -65,6 +67,17 @@ Class Admin_model extends CI_Model {
 
     function count_all() {
         return $this->db->count_all('commercant');
+    }
+    function count_all_client() {
+        return $this->db->count_all('client');
+    }
+      function count_all_produit($id) {
+         $this->db->where('commercant_idcommercant', $id);
+               $this->db->where('active', 1);
+                $this->db->where('stock >', 0);
+               return $this->db->count_all_results('produit');
+            
+        
     }
 
     function getparent($id) {
