@@ -27,20 +27,24 @@ class Afficheproduit extends CI_Controller {
     }
 
     function index() {
-        $enscom = $this->produit_model->getcommercant();
-        $ensproduit = $this->produit_model->get_all_product();
-        $data['produit'] = $ensproduit;
-        $data['comm'] = $enscom;
-        $data['pathphoto'] = site_url() . 'uploads/';
-
-        // les annonces
-        $ensannonce = $this->annonce_model->get_all_annonce();
-        $data['annonce'] = $ensannonce;
-        $data['shopping'] = $this->shopping;
-        $this->twig->render('produit/afficheproduit/produithome_view', $data);
+//        $enscom = $this->produit_model->getcommercant();
+//        $ensproduit = $this->produit_model->get_all_product();
+//        $data['produit'] = $ensproduit;
+//        $data['comm'] = $enscom;
+//        $data['pathphoto'] = site_url() . 'uploads/';
+//
+//        // les annonces
+//        $ensannonce = $this->annonce_model->get_all_annonce();
+//        $data['annonce'] = $ensannonce;
+//        $data['shopping'] = $this->shopping;
+//        $this->twig->render('produit/afficheproduit/produithome_view', $data);
+        redirect('home_page');
+        
     }
 
     function details($id) {
+        if(empty($id))
+        redirect('home_page');
         $data['shopping'] = $this->shopping;
 
         $req = $this->produit_model->get_by_id($id)->row();
@@ -72,7 +76,9 @@ class Afficheproduit extends CI_Controller {
 
     function view_prod_comm($id) {
         
-      
+      //test sécurité
+        if(empty($id))
+        redirect('home_page');
         if(($this->input->post('tri') == 'aucun') OR $this->input->post('tri') == NULL)
         {
         
@@ -131,6 +137,9 @@ class Afficheproduit extends CI_Controller {
     
      function getProductByCat($id, $idcat) {
 
+          //test sécurité
+        if(empty($id) and empty($idcat))
+        redirect('home_page');
          $ensproduit = $this->produit_model->get_product_comm_by_cat($id, $idcat);
  
         $data['shopping'] = $this->shopping;
@@ -167,6 +176,10 @@ class Afficheproduit extends CI_Controller {
     }
     
        function getProductBySousCat($id, $idsouscat) {
+           
+            //test sécurité
+        if(empty($id) and empty($idsouscatcat))
+        redirect('home_page');
 
          $ensproduit = $this->produit_model->get_product_comm_by_Sous_cat($id, $idsouscat);
  
@@ -203,6 +216,9 @@ class Afficheproduit extends CI_Controller {
     }
 
     function detailsannonce($id) {
+         //test sécurité
+        if(empty($id))
+        redirect('home_page');
         $req = $this->annonce_model->get_by_id($id)->row();
         $data['annonce'] = $req;
         $data['link_back'] = anchor('produit/afficheproduit/index/', 'Retour a la page d\'accueil', array('class' => 'back'));
@@ -216,6 +232,16 @@ class Afficheproduit extends CI_Controller {
     
     function ajouterAvis($idp, $idclt)
     {
+         //test sécurité
+        if(empty($idp) and empty($idclt))
+        redirect('home_page');
+         //test sécurité de cnx
+       if (!getsessionhelper())
+        {
+            redirect ('inscription/login');
+        }
+        
+        //
         $this->form_validation->set_rules('contenu', 'Contenu', 'required|trim|xss_clean');
         
         if ($this->form_validation->run() == FALSE) {
@@ -282,6 +308,16 @@ public function publierfb($id)
        
     function supprimerAvis($idavis, $idp)
     {
+         //test sécurité
+        if(empty($idavis) and empty($idp))
+        redirect('home_page');
+         //test sécurité de cnx
+       if (!getsessionhelper())
+        {
+            redirect ('inscription/login');
+        }
+        
+        //
         // delete comment
         $this->avis_model->deleteAvis($idavis);
 

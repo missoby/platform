@@ -16,6 +16,14 @@ class Cart extends CI_Controller {
     }
 
     function index() {
+         
+            //test sécurité
+       if (!getsessionhelper())
+        {
+            redirect ('inscription/login');
+        }
+        
+        //
         $enscom = $this->produit_model->getcommercant();
         $ensproduit = $this->produit_model->get_all_product();
         $data['shopping'] = $this->shopping;
@@ -27,6 +35,9 @@ class Cart extends CI_Controller {
     }
 
     function add_cart_item() { // ds notre view on ajoute just l'appl a cette fonction <=> work done on view product 
+         
+      
+        
         if ($this->cart_model->validate_add_cart_item() == TRUE) {
 
             // Check if user has javascript enabled
@@ -39,15 +50,20 @@ class Cart extends CI_Controller {
     }
 
     function update_cart() {
+       
+       
         $this->cart_model->validate_update_cart();
         redirect('cart/cart');
     }
 
     function show_cart() {
+         
+       
         $this->load->view('cart/detailCart');
     }
 
     function empty_cart() {
+       
         $this->cart->destroy();
         redirect('cart/cart');
     }

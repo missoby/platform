@@ -14,6 +14,14 @@ class Msgcommadmin extends CI_Controller {
     }
 
     function send() {
+        
+             //test sécurité de cnx
+       if (!getsessionhelper())
+        {
+            redirect ('admin/admin');
+        }
+        
+        //
         // recupérer les comm
         $enscomm = $this->message_model->getcomm();
         $data['enscomm'] = $enscomm;
@@ -22,6 +30,14 @@ class Msgcommadmin extends CI_Controller {
     }
 
     function sendmsg() {
+       
+             //test sécurité de cnx
+       if (!getsessionhelper())
+        {
+            redirect ('admin/admin');
+        }
+        
+        //
         $idadmin = $this->admin_model->getidadminformsg()->row()->idadmin;
         // recupérer les comm
         $enscomm = $this->message_model->getcomm();
@@ -45,13 +61,29 @@ class Msgcommadmin extends CI_Controller {
       
      //get list comm who sent msg to admin
     function listmsgcomm() {
+       
+             //test sécurité de cnx
+       if (!getsessionhelper())
+        {
+            redirect ('admin/admin');
+        }
+        
+        //
         $data['msgs'] = $this->message_model->get_list_comm_admin();
         $this->twig->render('message/admin/listSenderMsg_view', $data);
     }
     // get conversation between admin and one comm
       function msg_conv_comm_admin($idcom, $nom)
     {
-          
+          if(empty($idcom) and empty($nom))
+            redirect ('admin/admin');
+             //test sécurité de cnx
+       if (!getsessionhelper())
+        {
+            redirect ('admin/admin');
+        }
+        
+        //
         //mettre a zero le champ notifmsg de la table admin
         $rmz = $this->notif_model->Rmz_Notif_Msg_Admin();
         
@@ -77,6 +109,15 @@ class Msgcommadmin extends CI_Controller {
     
       function VoirDetailMsgAdmin($idmsg, $table, $idcom)
     {
+          if(empty($idmsg) and empty($table) and empty($idcom))
+            redirect ('admin/admin');
+             //test sécurité de cnx
+       if (!getsessionhelper())
+        {
+            redirect ('admin/admin');
+        }
+        
+        //
          // display the continue of one message by his id ($idmsg)
         if($table == 'msgadmin')
         {
@@ -97,6 +138,15 @@ class Msgcommadmin extends CI_Controller {
     
       function ReponseAdmin($idcom, $nom)
     {
+          if(empty($idcom) and empty($nom))
+            redirect ('inscription/login');
+             //test sécurité de cnx
+       if (!getsessionhelper())
+        {
+            redirect ('inscription/login');
+        }
+        
+        //
         //$idcom = getsessionhelper()['id'];
         $this->form_validation->set_rules('sujet', 'Sujet', 'required|trim');
         $this->form_validation->set_rules('contenu', 'Contenu', 'required|trim');
@@ -126,265 +176,6 @@ class Msgcommadmin extends CI_Controller {
         
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-//
-//    // fonction to get msg sent by the admin
-//    function getmsgsentbyadmin() {
-//
-//        $idadmin = $this->admin_model->getidadminformsg()->row()->idadmin;
-//
-//        $offset = 0;
-//        $listcomm = $this->message_model->get_list_comm_sent($idadmin);
-//
-//        if ($listcomm != '') {
-//            $idpersonne_comm = $this->message_model->get_id_comm_pers($listcomm);
-//
-//            if ($idpersonne_comm != '') {
-//                $login_pers = $this->message_model->get_login_pers($idpersonne_comm);
-//
-//                $data['title'] = 'msg sent by admin to commercant ';
-//                if ($login_pers != False) {
-//                    $this->load->library('table');
-//                    $this->table->set_empty("&nbsp;");
-//                    $this->table->set_heading('Nom', 'Prénom', 'Action');
-//                    $i = 0 + $offset;
-//                    foreach ($login_pers as $pers) {
-//                        $this->table->add_row($pers['nom'], $pers['prenom'], anchor('message/msgcommadmin/view/' . $pers['idpersonne'] . '/' . $pers['nom'], '<i class="icon-eye-open"></i>', 'title="Voir Produit" class= "btn"')
-//                        );
-//                    }
-//                    $data['table'] = $this->table->generate();
-//                    $this->twig->render('message/msgclientcommrecu_view', $data);
-//                } else {
-//                    $data['table'] = 'vous n\'avez aucun message';
-//                    $this->twig->render('message/msgclientcommrecu_view', $data);
-//                }
-//            }
-//        } else {
-//            $data['table'] = 'vous n\'avez envoyé aucun message';
-//            $this->twig->render('message/msgclientcommrecu_view', $data);
-//        }
-//    }
-//
-//    function view($id, $nom) {
-//        $offset = 0;
-//        $idadmin = $this->admin_model->getidadminformsg()->row()->idadmin;
-//        // fct to get idclient
-//        $idcomm = $this->message_model->getidcom($id)->row()->idcommercant;
-//        //echo 'client = '. $idclient;
-//        // fct to get all msg send by client to customer
-//        $msgcom = $this->message_model->getmsgcomm($idcomm, $idadmin);
-//        $data['title'] = 'msg sent by comm';
-////         foreach ($msgclients->result_array() as $row)
-////         {
-////             echo $row['sujet'];
-////         }
-//
-//
-//        $this->load->library('table');
-//        $this->table->set_empty("&nbsp;");
-//        $this->table->set_heading('Nom', 'Sujet', 'Action');
-//        $i = 0 + $offset;
-//        foreach ($msgcom->result_array() as $msg) {
-//            $this->table->add_row($nom, $msg['sujet'], anchor('message/msgcommadmin/viewmsg_onecom/' . $msg['idMsgAdmin'] . '/' . $idcomm, '<i class="icon-eye-open"></i>', 'title="Voir Produit" class= "btn"')
-//            );
-//        }
-//        $data['table'] = $this->table->generate();
-//        $data['nom'] = $nom;
-//        $this->twig->render('message/allmsgclientcomm_view', $data);
-//    }
-//
-//    function viewmsg_onecom($idmsg, $idcomm) {
-//        // get one msg of list msg send by client
-//        $msg = $this->message_model->getmsgcombyid($idmsg)->row();
-//        $data['msg'] = $msg;
-//        $data['idcom'] = $idcomm;
-//        $data['idmsg'] = $idmsg;
-//        $data['title'] = 'msg sent by admin';
-//        $this->twig->render('message/admin/message_view', $data);
-//    }
-////
-////    function reponseadmin($idcom, $idmsg) {
-////        $idadmin = $this->admin_model->getidadminformsg()->row()->idadmin;
-////        $this->form_validation->set_rules('sujet', 'Sujet', 'required|trim');
-////        $this->form_validation->set_rules('contenu', 'Contenu', 'required|trim');
-////        if ($this->form_validation->run() == FALSE) {
-////            $msg = $this->message_model->getmsgcombyid($idmsg)->row();
-////            $data['msg'] = $msg;
-////            $data['idcom'] = $idcomm;
-////            $data['idmsg'] = $idmsg;
-////            $this->twig->render('message/admin/message_view', $data);
-////        } else {
-////            $this->message_model->reponseadmincomm($idcom, $idadmin);
-////            redirect('message/msgcommadmin/getmsgsentbyadmin');
-////        }
-////    }
-//
-//    function getmsgreceivedadmin() {// recupérer les msg recu from comm
-//        $idadmin = $this->admin_model->getidadminformsg()->row()->idadmin;
-//        $offset = 0;
-//        $listcomm = $this->message_model->get_list_comm_recu($idadmin);
-//
-//        if ($listcomm != '') {
-//            $idpersonne_comm = $this->message_model->get_id_comm_pers($listcomm);
-//
-//            if ($idpersonne_comm != '') {
-//                $login_pers = $this->message_model->get_login_pers($idpersonne_comm);
-//                $data['title'] = 'msg recu par l\'admin / envoyé par commercant';
-//                if ($login_pers != False) {
-//                    $this->load->library('table');
-//                    $this->table->set_empty("&nbsp;");
-//                    $this->table->set_heading('Nom', 'Prénom', 'Action');
-//                    $i = 0 + $offset;
-//                    foreach ($login_pers as $pers) {
-//                        $this->table->add_row($pers['nom'], $pers['prenom'], anchor('message/msgcommadmin/viewreceived/' . $pers['idpersonne'] . '/' . $pers['nom'], '<i class="icon-eye-open"></i>', 'title="Voir Produit" class= "btn"')
-//                        );
-//                    }
-//                    $data['table'] = $this->table->generate();
-//                    $this->twig->render('message/msgclientcommrecu_view', $data);
-//                } else {
-//                    $data['table'] = 'vous n\'avez aucun message';
-//                    $this->twig->render('message/msgclientcommrecu_view', $data);
-//                }
-//            }
-//        } else {
-//            $data['table'] = 'vous n\'avez envoyé aucun message';
-//            $this->twig->render('message/msgclientcommrecu_view', $data);
-//        }
-//    }
-//
-//    function viewreceived($idpers, $nom) {
-//        $offset = 0;
-//        $idadmin = $this->admin_model->getidadminformsg()->row()->idadmin;
-//        // fct to get idcomm
-//        $idcomm = $this->message_model->getidcom($idpers)->row()->idcommercant;
-//
-//        // fct to get all msg received by admin from customer
-//        $msgcom = $this->message_model->getmsgreceivedcom($idcomm, $idadmin);
-//        $data['title'] = 'msg received by admin / sent by comm';
-////         foreach ($msgclients->result_array() as $row)
-////         {
-////             echo $row['sujet'];
-////         }
-//
-//
-//        $this->load->library('table');
-//        $this->table->set_empty("&nbsp;");
-//        $this->table->set_heading('Nom', 'Sujet', 'Action');
-//        $i = 0 + $offset;
-//        foreach ($msgcom->result_array() as $msg) {
-//            $this->table->add_row($nom, $msg['sujet'], anchor('message/msgcommadmin/viewmsgreceived_onecomm/' . $msg['idMsgCommAdmin'] . '/' . $idcomm, '<i class="icon-eye-open"></i>', 'title="Voir Produit" class= "btn"')
-//            );
-//        }
-//        $data['table'] = $this->table->generate();
-//        $data['nom'] = $nom;
-//        $this->twig->render('message/allmsgclientcomm_view', $data);
-//    }
-//
-//    function viewmsgreceived_onecomm($idmsg, $idcomm) {
-//        // get one msg of list msg send by client
-//        $msg = $this->message_model->getmsgcomreceiv_byid($idmsg)->row();
-//        $data['msg'] = $msg;
-//        $data['idcom'] = $idcomm;
-//        $data['idmsg'] = $idmsg;
-//        $data['title'] = 'msg received by admin/ sent by com';
-//        $this->twig->render('message/admin/message_view', $data);
-//    }
-//
-//    function msgreceived_admin() {
-//        $offset = 0;
-//        $idcom = getsessionhelper()['id'];
-//        $msgadmin = $this->message_model->getmsgadmin($idcom);
-//        $data['title'] = 'msg received by comm from admin';
-////         foreach ($msgclients->result_array() as $row)
-////         {
-////             echo $row['sujet'];
-////         }
-//
-//
-//        $this->load->library('table');
-//        $this->table->set_empty("&nbsp;");
-//        $this->table->set_heading('Nom', 'Sujet', 'Action');
-//        $i = 0 + $offset;
-//        foreach ($msgadmin->result_array() as $msg) {
-//            $this->table->add_row('admin', $msg['sujet'], anchor('message/msgcommadmin/viewmsg_oneadmin/' . $msg['idMsgAdmin'] . '/' . $idcom, '<i class="icon-eye-open"></i>', 'title="Voir Produit" class= "btn"')
-//            );
-//        }
-//        $data['table'] = $this->table->generate();
-//        $data['nom'] = 'admin';
-//        $this->twig->render('message/allmsgclientcomm_view', $data);
-//    }
-//
-//    function viewmsg_oneadmin($idmsg, $idcom) {
-//        //getmsgcombyid
-//        // get one msg of list msg send by admin / received by comm
-//        $msg = $this->message_model->getmsgcombyid($idmsg)->row();
-//        $data['msg'] = $msg;
-//        $data['idcom'] = $idcom;
-//        $data['idmsg'] = $idmsg;
-//        $data['title'] = 'msg sent by admin/ received by comm';
-//        $this->twig->render('message/messagecomm_view', $data);
-//    }
-//
-//    function reponsecommadmin($idcom, $idmsg) {
-//        $idadmin = $this->admin_model->getidadminformsg()->row()->idadmin;
-//        $this->form_validation->set_rules('sujet', 'Sujet', 'required|trim');
-//        $this->form_validation->set_rules('contenu', 'Contenu', 'required|trim');
-//        if ($this->form_validation->run() == FALSE) {
-//            $msg = $this->message_model->getmsgcombyid($idmsg)->row();
-//            $data['msg'] = $msg;
-//            $data['idcom'] = $idcomm;
-//            $data['idmsg'] = $idmsg;
-//            $this->twig->render('message/messagecomm_view', $data);
-//        } else {
-//            $this->message_model->reponsecommadmin($idcom, $idadmin);
-//            redirect('message/msgcommadmin/msgreceived_admin');
-//        }
-//    }
-//
-//    function msgsent_admin() {//envoyé du com to admin
-//        $offset = 0;
-//        $idcom = getsessionhelper()['id'];
-//        $msgadmin = $this->message_model->getmsgadmin_sent($idcom);
-//        $data['title'] = 'msg sent by comm to admin';
-////         foreach ($msgclients->result_array() as $row)
-////         {
-////             echo $row['sujet'];
-////         }
-//
-//
-//        $this->load->library('table');
-//        $this->table->set_empty("&nbsp;");
-//        $this->table->set_heading('Nom', 'Sujet', 'Action');
-//        $i = 0 + $offset;
-//        foreach ($msgadmin->result_array() as $msg) {
-//            $this->table->add_row('admin', $msg['sujet'], anchor('message/msgcommadmin/viewmsgsent_oneadmin/' . $msg['idMsgCommAdmin'] . '/' . $idcom, '<i class="icon-eye-open"></i>', 'title="Voir Produit" class= "btn"')
-//            );
-//        }
-//        $data['table'] = $this->table->generate();
-//        $data['nom'] = 'admin';
-//        $this->twig->render('message/allmsgclientcomm_view', $data);
-//    }
-//
-//    function viewmsgsent_oneadmin($idmsg, $idcom) {
-//        // get one msg of list msg send to admin / sent by comm
-//        $msg = $this->message_model->getmsgcomreceiv_byid($idmsg)->row();
-//        $data['msg'] = $msg;
-//        $data['idcom'] = $idcom;
-//        $data['idmsg'] = $idmsg;
-//        $data['title'] = 'msg sent by comm/ received by admin';
-//        $this->twig->render('message/messagecomm_view', $data);
-//    }
 
 }
 

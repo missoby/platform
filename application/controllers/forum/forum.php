@@ -18,6 +18,13 @@ class forum extends CI_Controller {
     }
 
     function index() {
+         
+       if (!getsessionhelper())
+        {
+            redirect ('inscription/login');
+        }
+        
+        //
         $ddd['shopping'] = $this->shopping;
         $ddd['categorie'] = $this->produit_model->getcategorie();
         $this->twig->render('forum/espaceforum_view', $ddd);
@@ -25,7 +32,15 @@ class forum extends CI_Controller {
     
     public function afficherSujet($idcat) {
         if(empty($idcat))
-            redirect ('forum/forum');
+            redirect ('inscription/login');
+             //test sécurité de cnx
+       if (!getsessionhelper())
+        {
+            redirect ('inscription/login');
+        }
+        
+        //
+        
         $ddd['shopping'] = $this->shopping;
         $ddd['res'] = $this->forum_model->getAllSujets($idcat);
         $ddd['idcat'] = $idcat;
@@ -35,7 +50,15 @@ class forum extends CI_Controller {
     
    public function afficherDetail($id, $idnotif = NULL) {
         if(empty($id))
-            redirect ('forum/forum');
+            redirect ('inscription/login');
+
+             //test sécurité de cnx
+       if (!getsessionhelper())
+        {
+            redirect ('inscription/login');
+        }
+        
+        //
         
         if($idnotif != NULL)
         {
@@ -95,6 +118,16 @@ class forum extends CI_Controller {
     }
     
        public function ajouterMsg($ids, $table= NULL, $id = NULL) {
+             if(empty($ids))
+            redirect ('inscription/login');
+             //test sécurité de cnx
+       if (!getsessionhelper())
+        {
+            redirect ('inscription/login');
+        }
+        
+        //
+           
         $this->form_validation->set_rules('contenu', 'Contenu', 'required|trim|xss_clean');
         
         //$this->form_validation->set_error_delimiters('<span class="error" name="errortotal">', '</span>');
@@ -125,6 +158,16 @@ class forum extends CI_Controller {
     }
     
     public function ajouterSujet($idcat) {
+        if(empty($idcat))
+            redirect ('inscription/login');
+             //test sécurité de cnx
+       if (!getsessionhelper())
+        {
+            redirect ('inscription/login');
+        }
+        
+        //
+        
         $data = array();
         $data['idcat'] = $idcat;
         
@@ -152,6 +195,15 @@ class forum extends CI_Controller {
     }
     public function deletemsg($idmsg, $idsujet)
     {
+        if(empty($idmsg) and empty($idsujet))
+            redirect ('inscription/login');
+             //test sécurité de cnx
+       if (!getsessionhelper())
+        {
+            redirect ('inscription/login');
+        }
+        
+        //
         // delete forum msg
         $this->forum_model->deletemsg($idmsg);
 
@@ -161,7 +213,16 @@ class forum extends CI_Controller {
     
     function resoudre($idsj)
     {
-          //Résoudre 
+        if(empty($idsj))
+            redirect ('inscription/login');
+             //test sécurité de cnx
+       if (!getsessionhelper())
+        {
+            redirect ('inscription/login');
+        }
+        
+        //  
+        //Résoudre 
         if ($this->forum_model->resoudre($idsj) == true) {
         redirect('forum/forum/afficherDetail/'.$idsj, 'refresh');
         } else {
@@ -171,6 +232,15 @@ class forum extends CI_Controller {
 }
 
    function ModifierSujet($idsj) {
+       if(empty($idsj))
+            redirect ('inscription/login');
+             //test sécurité de cnx
+       if (!getsessionhelper())
+        {
+            redirect ('inscription/login');
+        }
+        
+        //
         $sujet = $this->forum_model->getSujet($idsj);
       
 
@@ -190,6 +260,15 @@ class forum extends CI_Controller {
     
     function insertModif($idsj)
     {
+        if(empty($idsj))
+            redirect ('inscription/login');
+             //test sécurité de cnx
+       if (!getsessionhelper())
+        {
+            redirect ('inscription/login');
+        }
+        
+        //
          //récupérer les données apartir du formulaire
         $this->form_validation->set_rules('titre', 'titre', 'required|trim|xss_clean|max_length[45]|min_length[8]');
         $this->form_validation->set_rules('contenu', 'contenu', 'required|trim|xss_clean|max_length[200]|min_length[30]');

@@ -17,11 +17,24 @@ class Statistique extends CI_Controller {
         $this->shopping['nbr'] = $this->cart->total_items();
 
     }
+    
+    function index(){
+                    redirect ('inscription/login');
+
+    }
 
 
     
     function statcomm()
     {
+        
+         //test sécurité de cnx
+       if (!getsessionhelper())
+        {
+            redirect ('inscription/login');
+        }
+        
+        //
         if (!$this->session->userdata('login_in'))
             redirect('/');
         else 
