@@ -57,6 +57,7 @@ class Login extends CI_Controller {
             if(!$res)
             {
                 $d = array();
+                $d['shopping'] = $this->shopping;
                 $d['msg'] = 'Utilisateur non reconnu. Utilisateur non inscri ou mail inscription est différent du mail facebook';
                 $this->twig->render('Echec_view', $d);
                 $this->fb->destroySession();
@@ -77,7 +78,8 @@ class Login extends CI_Controller {
                     if ($enable == 0)
                     {
                         $data = array();
-                        $data['msg'] = 'Commercant non enable';
+                        $data['shopping'] = $this->shopping;
+                        $data['msg'] = 'Commercant non encore accepté';
                         $this->twig->render('Echec_view', $data);
                         $this->fb->destroySession();
                     }

@@ -17,13 +17,13 @@ class Cart extends CI_Controller {
 
     function index() {
          
-            //test sécurité
-       if (!getsessionhelper())
-        {
-            redirect ('inscription/login');
-        }
-        
-        //
+//            //test sécurité
+//       if (!getsessionhelper())
+//        {
+//            redirect ('inscription/login');
+//        }
+//        
+//        //
         $enscom = $this->produit_model->getcommercant();
         $ensproduit = $this->produit_model->get_all_product();
         $data['shopping'] = $this->shopping;
