@@ -50,5 +50,20 @@ class Home_page extends CI_Controller {
 
         $this->twig->render('home_page', $data);
     }
+     function mobile() {
+          $slider = $this->admin_model->GetSlider();
+        $i = $slider->num_rows();
+        $data['nbPhoto'] = $i;
+
+
+        if ($i != 0) {
+            $data['finalpath'] = site_url() . 'uploads/';
+        }
+        $data['slider'] = $slider;
+                 $data['shopping'] = $this->shopping;
+
+         $this->twig->render('mobile_view', $data);
+         
+     }
 
 }

@@ -523,7 +523,7 @@ class Admin extends CI_Controller {
         $this->signaler_model->deletemsgf($id);
 
 
-        redirect('admin/admin/GetSign/', 'refresh');
+        redirect('admin/admin/Getnotif/', 'refresh');
     }
 
     function statistique() {

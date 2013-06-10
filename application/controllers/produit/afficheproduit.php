@@ -3,6 +3,7 @@
 class Afficheproduit extends CI_Controller {
 
     private $fb;
+     private $limit = 8;
     function __construct() {
         parent::__construct();
         //Facebook Connect
@@ -74,15 +75,24 @@ class Afficheproduit extends CI_Controller {
         $this->twig->render('produit/afficheproduit/produit_view', $data);
     }
 
-    function view_prod_comm($id) {
+    function view_prod_comm($id, $offset = 0) {
         
       //test sécurité
         if(empty($id))
         redirect('home_page');
+        // generate pagination
+        $this->load->library('pagination');
+        $config['base_url'] = site_url('produit/afficheproduit/view_prod_comm/'.$id.'/');
+        $config['total_rows'] = $this->produit_model->count_all_prod($id);
+        $config['per_page'] = $this->limit;
+        $config['uri_segment'] = 100;
+        $this->pagination->initialize($config);
+        $data['pagination'] = $this->pagination->create_links();
+        
         if(($this->input->post('tri') == 'aucun') OR $this->input->post('tri') == NULL)
         {
         
-         $ensproduit = $this->produit_model->get_product_comm($id);
+         $ensproduit = $this->produit_model->get_product_comm($id, $this->limit, $offset);
         }
         elseif($this->input->post('tri') == 'prix')
         {
@@ -92,7 +102,7 @@ class Afficheproduit extends CI_Controller {
         elseif($this->input->post('tri') == 'libelle')
         {
           
-   $ensproduit = $this->produit_model->get_product_comm_Tri_Libelle($id);
+            $ensproduit = $this->produit_model->get_product_comm_Tri_Libelle($id);
             
         }
       
@@ -171,6 +181,15 @@ class Afficheproduit extends CI_Controller {
         $data['finalpath'] = site_url() . 'uploads/';
         }
          $data['slider'] = $slider;
+         
+         // récupérer info commercant in a pop up
+         $commercant = $this->inscription_model->getInfoComm($id)->row();
+         $idpers = $commercant->personne_idpersonne; 
+         $inforperscomm = $this->inscription_model->getInfoPersComm($idpers)->row();
+         $data['infoperscom'] = $inforperscomm;
+         $data['infocom'] = $commercant;
+         
+         ////
 
         $this->twig->render('produit/afficheproduit/produitCommByCat_view', $data);
     }
@@ -211,6 +230,15 @@ class Afficheproduit extends CI_Controller {
         $data['finalpath'] = site_url() . 'uploads/';
         }
          $data['slider'] = $slider;
+         
+          // récupérer info commercant in a pop up
+         $commercant = $this->inscription_model->getInfoComm($id)->row();
+         $idpers = $commercant->personne_idpersonne; 
+         $inforperscomm = $this->inscription_model->getInfoPersComm($idpers)->row();
+         $data['infoperscom'] = $inforperscomm;
+         $data['infocom'] = $commercant;
+         
+         ////
 
         $this->twig->render('produit/afficheproduit/produitCommByCat_view', $data);
     }

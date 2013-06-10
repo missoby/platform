@@ -37,7 +37,8 @@
                                 <li><a href="/inscription/login">Forum</a></li>
                                 {%endif%}
                                 <li><a href="/contact/contact">Contact</a></li>                  
-                                 <li><a href="/contact/contact/planSite">Plan du site</a></li>                  
+                                 <li><a href="/contact/contact/planSite">Plan du site</a></li>  
+                                <li><a href="/home_page/mobile">Solution Mobile</a></li>                  
                                 </ul>
                             {% block login%}
                             {#---Navigator right---#}
@@ -131,7 +132,7 @@
                             <div class="btn-group input-prepend  pull-right">
                                 <span class="add-on">{{shopping.nbr}} Articles</span>
                                 <a class="btn" href="#" data-toggle="dropdown">
-                                    <i class="icon-shopping-cart"></i> Pannier <span class="caret"></span>
+                                    <i class="icon-shopping-cart"></i> Panier <span class="caret"></span>
                                 </a>
 
                                 <ul class="dropdown-menu" style="padding: 26px">
@@ -742,12 +743,12 @@
                                         </div>
                                         <h5><i class="icon-map-marker icon-white"></i> Addresse:</h5>
                                         <blockquote>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+                                            <p>Rue Mohamed Manachou, Gouvernorat de Tunis, Tunisie C33, Appartment c31, Tunis 1008</p>
                                         </blockquote>
 
                                         <h5><i class="icon-globe icon-white"></i> Email:</h5>
                                         <blockquote>
-                                            <a href="">email@hotmail.com</a>
+                                            <a href="">tunisieshopping@hotmail.fr</a>
                                         </blockquote>
                                     </div>
 
@@ -758,7 +759,7 @@
                                         <h5>Abonnez-vous à Notre Newsletter:</h5>
                                         <p>
                                             Devenir le premier à connaître chaque nouveau produit nous libérer tous les jours. 
-                                            Inscription à la newsletter pour obtenir des réductions , ...
+                                            Inscription au newsletter pour obtenir des réductions, ...
                                         </p>
                                         <div class="input-append input-prepend">
                                             <form action="/inscription/inscription/NewsLetter" method="post">
@@ -823,7 +824,7 @@
           $(document).ready(function(){
               $(window).scroll(function(){
                   var scrollTop = 90;
-                  if($(window).scrollTop() >= scrollTop){
+                 // if($(window).scrollTop() >= scrollTop){
                       $('#navigation').css({ 
                           position : 'fixed', 
                           top : '37px', 

@@ -10,17 +10,20 @@
                     <li class="pull-left"><h3>Espace Administrateur</h3></li>
                 </ul>
                     <ul class="nav nav-pills" style="border-bottom: 1px solid #cccccc">
-                        <li class="pull-left"><h4>Commentaires signalés</h4></li>
+                        <li class="pull-left"><h4>Commentaires Froum Signalés</h4></li>
                    </ul>
                     <div>
                     {%for var in req%}
-                       <p>
-                            <li>{{var.contenu}} </li>
+                             <div class="alert alert-success">
+                           <p class="">
+                                    <span>{{var.contenu}}  </span>
+                                
+                                 
+                         <a href="/admin/admin/deleteMsgForum/{{var.idMsgforum}}"  class="pull-right" data-dismiss="alert">Supprimer</a>  
 
-                            <a href="/admin/admin/deleteMsgForum/{{var.idMsgforum}}">Supprimer</a>
-                    
-                    </p>     
-                            
+                           </p>     
+                            </div> 
+                       
                             
                             {%endfor%}
                     

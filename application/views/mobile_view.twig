@@ -1,0 +1,44 @@
+{% extends "/layout/layout.twig" %}
+{% block title %} {{parent()}} - Home{% endblock title %}
+
+{% block content %}
+      
+        <div class="row-fluid">
+         <div class="span12"> 
+            <div class="row-fluid">
+                {#---Slider---#}
+                <section class="slider">
+                    <div class="slider-shadow">
+                    <div class="flexslider carousel">
+                         <ul class="slides">
+                            {%for var in slider.result() %}
+                                <li> <img src="{{ finalpath }}{{var.photo}}"> </li>
+                            {%endfor%}
+                        </ul>
+                    </div>
+                        </div>
+                </section>
+                     <div class="span12 well">
+            <div class="row-fluid">
+                <p>
+                Vous partez déjà ? Ne ratez plus rien !
+Accédez à notre plateforme sur votre téléphone mobile.
+                </p>
+                <p> En utilisant notre solution mobile vous pouvez :  </p>
+                    <p>Accéder à notre Forum</p>
+                    <p>Consulter nos produits</p>
+                    <p>Remplir votre panier</p> 
+                    <p>Suivre vos achats </p>
+              
+                
+            </div>
+        </div>
+          
+            </div>
+        </div>
+    </div>
+    {% block partenaires %} {{parent()}} {% endblock partenaires %}
+{% endblock content %}
+
+
+

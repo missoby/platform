@@ -22,7 +22,7 @@
                     {%elseif commercant.paiement == 0 %}
                     <li class="pull-right"><a href="" class="text-error">Demande d'activation en cour de traitement</a></li> 
                     {%else %}    
-                    <li class="pull-right"><a href="#">Gestion Paiement</a></li> 
+                    <li class="pull-right"><a href="/paiement/paiement/ListeVenteComm">Suivi Vente</a></li> 
                     {%endif%}  
                     </ul>
                     <form action="/produit/produit/addproduct" method="POST" class="form-horizontal offset2" enctype="multipart/form-data">

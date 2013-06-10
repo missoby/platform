@@ -15,6 +15,12 @@ class produit_model extends CI_Model {
 	function count_all(){
 		return $this->db->count_all($this->tbl_produit);
 	}
+        function count_all_prod($id){
+                $this->db->where('active', 1);
+                $this->db->where('stock >', 0);
+                $this->db->where('commercant_idcommercant', $id);
+		return $this->db->count_all($this->tbl_produit);
+	}
 	
 	function get_paged_list($idcomm, $limit, $offset){
 		$this->db->order_by('idproduit','asc');
@@ -180,11 +186,12 @@ class produit_model extends CI_Model {
      
      
   }
-  function get_product_comm($id)
+  function get_product_comm($id, $limit, $offset)
   {
                 $this->db->where('active', 1);
                 $this->db->where('stock >', 0);
                 $this->db->where('commercant_idcommercant', $id);
+                $this->db->limit($limit, $offset);
 		return $this->db->get($this->tbl_produit);
   }
   
