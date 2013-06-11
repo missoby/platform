@@ -273,16 +273,20 @@ class Paiement extends CI_Controller {
     { 
             if ( empty($_GET['Reference']) || empty($_GET['Action']) )
                // redirect to home if reference and action are empty
-               $this->twig->render('home_page');
+                           redirect('home_page');
+                //$this->twig->render('home_page');
 
 	$ref = $_GET['Reference'];
         $act = $_GET['Action'];
+        
+       
 	 
-	 //get the field ref from table commande where ref = $ref if the result is empty redirect to home
+	 //get the field ref from table commande where ref(in table) = $ref(from tunisie monétik to vérif) if the result is empty redirect to home
        
         $cmdRef = $this->paiement_model->getRef($ref);
         if (empty($cmdRef))
-             $this->twig->render('home_page');
+                         redirect('home_page');
+             //$this->twig->render('home_page');
 
 
     switch ($act) 
@@ -293,12 +297,13 @@ class Paiement extends CI_Controller {
  //on récupère le montant total de la commande
          $montant = $this->paiement_model->getMontant($ref);
          if ($montant->num_rows() == 0) {
-                    $this->twig->render('home_page'); // redirect to home page if empty
+             redirect('home_page');
+                    //$this->twig->render('home_page'); // redirect to home page if empty
                 }
                 
 //            if ( empty($montant) )
 //              $this->twig->render('home_page'); // redirect to home page if empty
-
+$montant = $montant->row()->prixtotal;
         echo "Reference=$ref&Action=$act&Reponse=$montant";
         break;
 
