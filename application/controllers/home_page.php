@@ -63,7 +63,19 @@ class Home_page extends CI_Controller {
                  $data['shopping'] = $this->shopping;
 
          $this->twig->render('mobile_view', $data);
-         
+        
+        
      }
-
+function download($sys)
+        {
+            $this->load->helper('download');
+            if($sys === 'android')
+            {
+                $data = file_get_contents("downloads/tunisieshopping.apk"); // Read the file's contents
+                $name = 'tunisieshopping.apk';
+                force_download($name, $data);
+            }
+            else
+             redirect('/');
+        }
 }
