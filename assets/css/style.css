@@ -294,7 +294,7 @@ ul.sb_dropdown li.sb_filter {
     height: auto;
     padding: 0 0 0 18px;
     background: url(../img/menu-arrow.png) no-repeat -8px 7px;
-    margin: 0 10px;
+    margin: 0 5px;
     display: block;
     text-decoration: none;
     color: #757575;
@@ -391,8 +391,8 @@ ul.sb_dropdown li.sb_filter {
 .navbar .nav > li > .center2.dropdown-menu:before{left: 66%}
 .navbar .nav > li > .center2.dropdown-menu:after{left: 66.1%}
 
-.navbar .nav > li > .right.dropdown-menu:before{left: 96.4%}
-.navbar .nav > li > .right.dropdown-menu:after{left: 96.5%}
+.navbar .nav > li > .right.dropdown-menu:before{left: 90.4%}
+.navbar .nav > li > .right.dropdown-menu:after{left: 90.5%}
 
 .navbar .nav > li > .right2.dropdown-menu:before{left: 95.4%}
 .navbar .nav > li > .right2.dropdown-menu:after{left: 95.5%}
