@@ -279,6 +279,8 @@ class Gestionprofil extends CI_Controller {
         $this->form_validation->set_error_delimiters('<br /><span class="error">', '</span>');
 
         if ($this->form_validation->run() == FALSE) { // validation hasn't been passed
+		    $enscom = $this->produit_model->getcommercant();
+        $ensproduitdate = $this->produit_model->get_product_by_date();
             $data = array('nom' => $this->input->post('nom'),
                 'prenom' => $this->input->post('prenom'),
                 'login' => $this->input->post('login'),
@@ -287,7 +289,10 @@ class Gestionprofil extends CI_Controller {
                 'ville' => $this->input->post('ville'),
                 'tel' => $this->input->post('tel'),
                 'email' => $this->input->post('email'),
-                'shopping' => $this->shopping
+                'shopping' => $this->shopping,
+				   'produitdate' => $ensproduitdate,
+                    'comm' => $enscom,
+                    'pathphoto' => site_url() . 'uploads/'
             );
             $this->twig->render('client/editprofileclient_view', $data);
         } else {
