@@ -8,6 +8,9 @@
             <div class="row-fluid">
                 <ul class="nav nav-pills border">
                     <li class="pull-left"><h4>Produit commandés par téléphone </h4></li>
+                     <li class="pull-right"><a href="/paiement/paiement/GetAchat/{{getsessionhelper()['id']}}">Suivi Achat</a></li>
+                    <li class="pull-right"><a href="/paiement/paiement/GetCmdMobile/{{getsessionhelper()['id']}}">Commandes en attente</a></li>
+                
                 </ul>
             
                     {% if not produit%}
