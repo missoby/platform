@@ -172,9 +172,15 @@ class Inscription extends CI_Controller {
 
     public function confirmation($link) {
         $resultats = $this->inscription_model->get_all_desabled();
+       // print_r($resultats);
+//        echo sha1('lovelymarwa@live.fr'.'XkI85BtF');
+//        echo 'link = '.$link;
+//        return;
         $data['shopping'] = $this->shopping;
         foreach ($resultats as $res) {
+            //echo sha1($res->email.'XkI85BtF');echo'deux';return;
             if (sha1($res->email . 'XkI85BtF') == $link) {
+                 echo 'link = '.$link;
                 $this->inscription_model->update_activer($res->idpersonne);
                  if($res->type == 'commercant')
                 {
@@ -184,9 +190,10 @@ class Inscription extends CI_Controller {
                     $this->notif_model->notifadmin(1, $comm->idcommercant, $msg);
                 }
             }
-                $this->twig->render('successConfirm_view', $data);
-                break;
+                
             }
+            $this->twig->render('successConfirm_view', $data);
+                break;
         }
     
 
